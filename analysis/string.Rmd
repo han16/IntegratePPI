@@ -1,0 +1,166 @@
+---
+title: "string"
+output: html_document
+date: "2024-05-01"
+---
+
+```{r, echo=F, warning=F, message=F}
+rm(list=ls())
+set.seed(123)
+knitr::opts_chunk$set(autodep = TRUE)
+library(knitr)
+library(RSQLite)
+#install.packages("vctrs")
+library(vctrs)
+library(dplyr)
+library(knitr)
+knitr::opts_chunk$set(cache = TRUE, warning = FALSE, 
+                      message = FALSE, cache.lazy = FALSE) # avoid error of long vectors https://stackoverflow.com/questions/39417003/long-vectors-not-supported-yet-error-in-rmd-but-not-in-r-script 
+library(kableExtra)
+library(RColorBrewer)
+library(gplots)
+library(tidyverse)
+library(gridExtra)
+library(ggpubr)
+#library(DT)
+
+#if (!require("BiocManager", quietly = TRUE))
+#    install.packages("BiocManager")
+# BiocManager::install("GO.db")
+library(GO.db)
+
+#install.packages('BiocManager')
+library(BiocManager)
+
+#install.packages(c("matrixStats", "Hmisc", "splines", "foreach", "doParallel", "fastcluster", "dynamicTreeCut", "survival"))
+
+#install.packages("htmltools")
+#remotes::install_github("rstudio/htmltools")
+library(htmltools)
+
+#install package impute 
+#if (!require("BiocManager", quietly = TRUE))
+#    install.packages("BiocManager")
+
+#BiocManager::install("impute")
+library(impute)
+
+# install package preprocessCore
+#if (!require("BiocManager", quietly = TRUE))
+#    install.packages("BiocManager")
+
+#BiocManager::install("preprocessCore")
+library(preprocessCore)
+
+library(WGCNA)
+
+
+#install_github("jdstorey/qvalue")   # install qvalue package 
+#library(qvalue)
+
+#library("devtools")
+#install.packages("Rtools")
+#install_github('xinhe-lab/mirage')
+#library(mirage)
+library(igraph)
+
+
+# install STRINGdb
+#if (!require("BiocManager", quietly = TRUE))
+#    install.packages("BiocManager")
+
+#BiocManager::install("STRINGdb")
+library(STRINGdb)
+
+```
+
+
+```{r, echo=F, message=F, warning=F}
+protein_links=read.table("C:\\han\\Dataset\\20240430_STRING\\9606.protein.links.v12.0.txt.gz")
+protein_info=read.table("C:\\han\\Dataset\\20240430_STRING\\9606.protein.info.v12.0.txt.gz", fill = T, header = F)
+
+```
+
+
+```{r, echo=F, message=F, warning=F, eval=F}
+load("C:\\han\\Dataset\\20240509_PMID_35671298\\1814_network.RData") # 1814x1814 binary network. how this network was formed? 
+```
+
+```{r, echo=FALSE, message=F, warning=F, eval=F}
+   # an example:  https://www.datacamp.com/datalab/preview?_tag=rdocs&rdocsPath=packages%2FSTRINGdb%2Fversions%2F1.8.1%2Ftopics%2FSTRINGdb&utm_source=r-docs&utm_medium=docs&utm_term=STRINGdb&utm_content=run_example_in_datalab
+
+data(diff_exp_example1)
+
+# create a new STRING_db object
+string_db <- STRINGdb$new()
+
+# map to STRING
+example1_mapped = string_db$map(diff_exp_example1, "gene", removeUnmappedRows = TRUE )
+
+# get the best 200 hits
+hits = example1_mapped$STRING_id[1:200]  
+
+# plot the STRING network png 
+string_db$plot_network( hits )
+
+# plot a protein-protein enrichment graph of the best 1000 hits in order to see how the ppi signal is distributed along the sorted list
+string_db$plot_ppi_enrichment( example1_mapped$STRING_id[1:1000] )
+
+
+######## use the "halo" mechanism in STRING to distinguish between down and up-regulated genes  ########
+
+# filter by p-value and add a color column (i.e. green down-regulated gened and red for up-regulated genes)
+example1_mapped_pval05 = string_db$add_diff_exp_color( subset(example1_mapped, pvalue<0.05), logFcColStr="logFC" )    
+
+# post payload information to the STRING server
+payload_id = string_db$post_payload( example1_mapped_pval05$STRING_id, colors=example1_mapped_pval05$color )
+
+# display a STRING network png with the "halo"
+string_db$plot_network( hits, payload_id=payload_id )
+
+
+######## compute enrichment in GO annotations  ########
+enrichmentGO = string_db$get_enrichment( hits, category = "Process", methodMT = "fdr", iea = TRUE )
+enrichmentKEGG = string_db$get_enrichment( hits, category = "KEGG", methodMT = "fdr", iea = TRUE )
+head(enrichmentGO, n=7)
+head(enrichmentKEGG, n=7)
+
+
+
+########  Use STRING in order to get homologous proteins in other species ########
+
+# get the reciprocal best hits of the following protein in all the STRING species
+string_db$get_homologs_besthits(c("9606.ENSP00000365757"), symbets = TRUE)
+
+# get the homologs of the following two proteins in the mouse (i.e. species_id=10090)
+string_db$get_homologs(c("9606.ENSP00000365757", "9606.ENSP00000352336"), target_species_id=10090, bitscore_threshold=60)
+
+
+
+########  Retrieve protein-protein interactions ########
+
+# get the neighbors (in the ppi graph) of a given protein(s)
+string_db$get_neighbors(c("9606.ENSP00000365757", "9606.ENSP00000352336"))
+
+# get the interactions in between the input proteins
+string_db$get_interactions(c("9606.ENSP00000365757", "9606.ENSP00000352336"))
+
+
+
+######## Find clusters of interactions ########
+
+# get clusters
+clustersList = string_db$get_clusters(example1_mapped$STRING_id[1:600])
+
+# plot first 4 clusters
+par(mfrow=c(2,2))
+for(i in seq(1:4)){
+  string_db$plot_network(clustersList[[i]])
+}
+
+
+
+
+```
+ *  [reference 1](https://www.bioconductor.org/packages/devel/bioc/vignettes/STRINGdb/inst/doc/STRINGdb.pdf)
+ *  [reference 2](https://rpubs.com/HWH/913747)
