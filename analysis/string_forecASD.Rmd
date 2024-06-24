@@ -79,7 +79,7 @@ M = as.matrix(m[,-1])
 ## try to map missing entrez gene IDs via gene symbols
 eg.map = read.table("C:\\han\\Dataset\\20240610_PMID_33244169\\entrezgene2symbol.csv",
                     sep=",", header = T, stringsAsFactors = F)
-eg.map = structure(eg.map$symbol, names = eg.map$entrez)
+eg.map = structure(eg.map$symbol, names = eg.map$entrez)  ####?????? what is this? 
 ann[is.na(ann$entrez_id),"entrez_id"] = names(eg.map)[match(ann[is.na(ann$entrez_id),]$gene_symbol,eg.map)]
 
 rownames(M) = ann$entrez
