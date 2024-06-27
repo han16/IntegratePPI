@@ -99,7 +99,7 @@ age.wk = sapply(age.tmp,function(x) {
 
 
 
-```{r, message=F, warning=F, eval=F}
+```{r, message=F, warning=F, eval=T}
 
 ## keep only structures found in most samples
 str = fac$structure_acronym
@@ -134,6 +134,13 @@ for(i in 1:length(these.str)){
 ## transpose expression matricies so genes are rows
 expr = lapply(expr,t)
 
+```
+
+
+
+
+```{r, message=F, warning=F, eval=T}
+
 ## rbind rows of the same gene together, so that there is one
 ## matix per gene where rows are regions and columns are timepoints
 expr = parLapply(cl, 1:nrow(expr[[1]]), function(i, y){
@@ -157,10 +164,17 @@ sc = function(x){
   }
 
 expr.sc = lapply(expr,sc)
+```
 
 
+
+
+
+
+
+```{r, message=F, warning=F, eval=T}
 ## entrezID to ensembl protein ID mapping
-e2e = read.table("./ext_data/entrez_gene_id.vs.string.v10.28042015.tsv",sep="\t",stringsAsFactors=F)
+e2e = read.table("C:\\han\\Dataset\\20240610_PMID_33244169\\entrez_gene_id.vs.string.v10.28042015.tsv",sep="\t",stringsAsFactors=F)
 ## fix protein names
 e2e[,2] = gsub("9606.","",e2e[,2],fixed=T)
 e2e = structure(e2e[,2],names=as.character(e2e[,1]))
@@ -172,7 +186,7 @@ bs = t(bs)
 bs = bs[!is.na(rownames(bs)),]
 
 ## some IDs are missing from brainspan data, try to map them
-missing = read.table("./ext_data/brainspan_missing_ids.txt",sep="\t",header=T,stringsAsFactors=F)
+missing = read.table("C:\\han\\Dataset\\20240610_PMID_33244169\\brainspan_missing_ids.txt",sep="\t",header=T,stringsAsFactors=F)
 missing = missing[missing$Protein.stable.ID%in%rownames(string.path),]
 missing = missing[!duplicated(missing$NCBI.gene.ID),]
 missing = structure(missing$Protein.stable.ID,names=as.character(missing$NCBI.gene.ID))
@@ -182,7 +196,7 @@ colnames(bs) = 1:800
 
 ## replace NAs with median
 bs = na.roughfix(bs)
-save(bs, file="01_BrainSpan_matrix.Rdata")
+#save(bs, file="01_BrainSpan_matrix.Rdata")
 
 ###### Training Labels ####
 
@@ -206,4 +220,4 @@ save(bs, file="01_BrainSpan_matrix.Rdata")
 
 #save(pos,neg,file="01_training_labels.Rdata")
 
-save(eg.map, missing, e2e, file = "01_id_conversion.Rdata")
+#save(eg.map, missing, e2e, file = "01_id_conversion.Rdata")
