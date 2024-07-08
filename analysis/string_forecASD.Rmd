@@ -44,11 +44,17 @@ string.dat[,2] = gsub("9606.", "", string.dat[,2], fixed=T)
 
 ## keep interactions with scores over 400
 string.keep = string.dat[string.dat[,3]>400,]
-string.graph = ftM2graphNEL(as.matrix(string.keep[,1:2]))
+string.graph = ftM2graphNEL(as.matrix(string.keep[,1:2])) # details about function  ftM2graphNEL https://web.math.ku.dk/~richard/courses/bioconductor2007/CDrom/Graphs/graphBasics.pdf
 string.path = johnson.all.pairs.sp(string.graph)
 
 #save(string.graph, string.path, file="tmp01_STRING_graph.Rdata")
 
+```
+
+
+```{r, message=F, warning=F}
+incidence_matrix=ftM2adjM(as.matrix(string.keep[,1:2]))  # create  incidence matrix 
+undirected_graph=ugraph(string.graph)
 ```
 
 
@@ -197,6 +203,12 @@ colnames(bs) = 1:800
 ## replace NAs with median
 bs = na.roughfix(bs)
 #save(bs, file="01_BrainSpan_matrix.Rdata")
+```
+
+
+
+
+```{r, message=F, warning=F}
 
 ###### Training Labels ####
 
