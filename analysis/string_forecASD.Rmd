@@ -28,7 +28,7 @@ library(randomForest)
 ```
 
 
-```{r, message=F, warning=F, eval=T}
+```{r, message=F, warning=F, eval=F}
 #### STRING NETWORK (shortest paths matrix) ####
 ## "9606.protein.links.v10.txt.gz" is already in repo
 # download.file(url = "http://version10.string-db.org/download/protein.links.v10/9606.protein.links.v10.txt.gz", 
@@ -47,12 +47,13 @@ string.keep = string.dat[string.dat[,3]>400,]
 string.graph = ftM2graphNEL(as.matrix(string.keep[,1:2])) # details about function  ftM2graphNEL https://web.math.ku.dk/~richard/courses/bioconductor2007/CDrom/Graphs/graphBasics.pdf
 string.path = johnson.all.pairs.sp(string.graph)
 
-#save(string.graph, string.path, file="tmp01_STRING_graph.Rdata")
+#save(string.keep, string.graph, string.path, file="C:\\han\\Projects\\IntegratePPI\\tmp01_STRING_graph.Rdata")
 
 ```
 
 
 ```{r, message=F, warning=F}
+load("C:\\han\\Projects\\IntegratePPI\\tmp01_STRING_graph.Rdata")
 incidence_matrix=ftM2adjM(as.matrix(string.keep[,1:2]))  # create  incidence matrix 
 undirected_graph=ugraph(string.graph)
 ```
@@ -60,7 +61,7 @@ undirected_graph=ugraph(string.graph)
 
 
 
-```{r, message=F, warning=F, eval=T}
+```{r, message=F, warning=F, eval=F}
 ### BRAINSPAN ####
 ## "genes_matrix_csv.zip" already in repo
 ## download.file(url = "http://www.brainspan.org/api/v2/well_known_file_download/267666529",
@@ -80,7 +81,7 @@ M = as.matrix(m[,-1])
 
 
 
-```{r, message=F, warning=F, eval=T}
+```{r, message=F, warning=F, eval=F}
 
 ## try to map missing entrez gene IDs via gene symbols
 eg.map = read.table("C:\\han\\Dataset\\20240610_PMID_33244169\\entrezgene2symbol.csv",
@@ -105,7 +106,7 @@ age.wk = sapply(age.tmp,function(x) {
 
 
 
-```{r, message=F, warning=F, eval=T}
+```{r, message=F, warning=F, eval=F}
 
 ## keep only structures found in most samples
 str = fac$structure_acronym
@@ -145,7 +146,7 @@ expr = lapply(expr,t)
 
 
 
-```{r, message=F, warning=F, eval=T}
+```{r, message=F, warning=F, eval=F}
 
 ## rbind rows of the same gene together, so that there is one
 ## matix per gene where rows are regions and columns are timepoints
@@ -178,7 +179,7 @@ expr.sc = lapply(expr,sc)
 
 
 
-```{r, message=F, warning=F, eval=T}
+```{r, message=F, warning=F, eval=F}
 ## entrezID to ensembl protein ID mapping
 e2e = read.table("C:\\han\\Dataset\\20240610_PMID_33244169\\entrez_gene_id.vs.string.v10.28042015.tsv",sep="\t",stringsAsFactors=F)
 ## fix protein names
@@ -208,7 +209,7 @@ bs = na.roughfix(bs)
 
 
 
-```{r, message=F, warning=F}
+```{r, message=F, warning=F, eval=F}
 
 ###### Training Labels ####
 
