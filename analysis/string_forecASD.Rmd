@@ -61,7 +61,7 @@ undirected_graph=ugraph(string.graph)
 
 
 
-```{r, message=F, warning=F, eval=F}
+```{r, message=F, warning=F, eval=T}
 ### BRAINSPAN ####
 ## "genes_matrix_csv.zip" already in repo
 ## download.file(url = "http://www.brainspan.org/api/v2/well_known_file_download/267666529",
@@ -81,7 +81,7 @@ M = as.matrix(m[,-1])
 
 
 
-```{r, message=F, warning=F, eval=F}
+```{r, message=F, warning=F, eval=T}
 
 ## try to map missing entrez gene IDs via gene symbols
 eg.map = read.table("C:\\han\\Dataset\\20240610_PMID_33244169\\entrezgene2symbol.csv",
@@ -106,7 +106,7 @@ age.wk = sapply(age.tmp,function(x) {
 
 
 
-```{r, message=F, warning=F, eval=F}
+```{r, message=F, warning=F, eval=T}
 
 ## keep only structures found in most samples
 str = fac$structure_acronym
@@ -146,7 +146,7 @@ expr = lapply(expr,t)
 
 
 
-```{r, message=F, warning=F, eval=F}
+```{r, message=F, warning=F, eval=T}
 
 ## rbind rows of the same gene together, so that there is one
 ## matix per gene where rows are regions and columns are timepoints
@@ -179,7 +179,7 @@ expr.sc = lapply(expr,sc)
 
 
 
-```{r, message=F, warning=F, eval=F}
+```{r, message=F, warning=F, eval=T}
 ## entrezID to ensembl protein ID mapping
 e2e = read.table("C:\\han\\Dataset\\20240610_PMID_33244169\\entrez_gene_id.vs.string.v10.28042015.tsv",sep="\t",stringsAsFactors=F)
 ## fix protein names

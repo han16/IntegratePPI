@@ -534,15 +534,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16IntegratePPItree9a2517e194db319af3313eae0bca35ccccacf2c4targetblank9a2517ea">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16IntegratePPItree53f33ff34ec0c37b9a230cf63c7e9e944946adaetargetblank53f33ffa">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/IntegratePPI/tree/9a2517e194db319af3313eae0bca35ccccacf2c4" target="_blank">9a2517e</a>
+<a href="https://github.com/han16/IntegratePPI/tree/53f33ff34ec0c37b9a230cf63c7e9e944946adae" target="_blank">53f33ff</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16IntegratePPItree9a2517e194db319af3313eae0bca35ccccacf2c4targetblank9a2517ea"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16IntegratePPItree53f33ff34ec0c37b9a230cf63c7e9e944946adaetargetblank53f33ffa"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -552,7 +552,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/IntegratePPI/tree/9a2517e194db319af3313eae0bca35ccccacf2c4" target="_blank">9a2517e</a>.
+<a href="https://github.com/han16/IntegratePPI/tree/53f33ff34ec0c37b9a230cf63c7e9e944946adae" target="_blank">53f33ff</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -613,6 +613,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/IntegratePPI/blob/53f33ff34ec0c37b9a230cf63c7e9e944946adae/analysis/string_forecASD.Rmd" target="_blank">53f33ff</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-08-08
+</td>
+<td>
+8/8/2024
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/IntegratePPI/53f33ff34ec0c37b9a230cf63c7e9e944946adae/docs/string_forecASD.html" target="_blank">53f33ff</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-08-08
+</td>
+<td>
+8/8/2024
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -821,9 +855,24 @@ for(i in 1:length(these.str)){
   expr[[i]] = parApply(cl,X,1,lw.smooth,x_age)
   names(expr)[i] = these.str[i]
   print(i)
-}
-
-## transpose expression matricies so genes are rows
+}</code></pre>
+<pre><code>[1] 1
+[1] 2
+[1] 3
+[1] 4
+[1] 5
+[1] 6
+[1] 7
+[1] 8
+[1] 9
+[1] 10
+[1] 11
+[1] 12
+[1] 13
+[1] 14
+[1] 15
+[1] 16</code></pre>
+<pre class="r"><code>## transpose expression matricies so genes are rows
 expr = lapply(expr,t)</code></pre>
 <pre class="r"><code>## rbind rows of the same gene together, so that there is one
 ## matix per gene where rows are regions and columns are timepoints
