@@ -9,6 +9,7 @@ output:
 
 ```{r, message=F, warning=F}
 # code is from https://raw.githubusercontent.com/LeoBman/forecASD/master/01_load_data.R
+# https://github.com/LeoBman/forecASD
 #### load packages ####
 #require(Matrix)
 #require(RBGL)
@@ -215,7 +216,7 @@ bs = na.roughfix(bs)
 
 ## read in SFARI genes and gene IDs
 #sfari = read.table("./ext_data/SFARI-Gene_genes_export01-11-2017.csv",sep=",",header=T,stringsAsFactors=F)
-#sfari.id = read.table("./ext_data/sfari_gene_ids.txt",sep="\t",stringsAsFactors=F,header=T)
+#sfari.id = read.table("./ext_data/sfari_gene_ids.txt",sep="\t",stringsAsFactors=F,header=T)  # this file has both Gene symbol and protein stable ID !!!!!!!!!!!!
 
 ## top are SFARI 1 and 2 genes
 #top = sfari$gene.symbol[sfari$gene.score %in% c("1","2")]
