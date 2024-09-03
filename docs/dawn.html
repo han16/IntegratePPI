@@ -400,7 +400,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2024-06-27
+<strong>Last updated:</strong> 2024-09-03
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -438,10 +438,10 @@ changes </a>
 <div id="strongRMarkdownfilestronguncommittedchanges"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown is untracked by Git. To know which version of the R
-Markdown file created these results, you’ll want to first commit it to
-the Git repo. If you’re still working on the analysis, you can ignore
-this warning. When you’re finished, you can run
+<p>The R Markdown file has unstaged changes. To know which version of
+the R Markdown file created these results, you’ll want to first commit
+it to the Git repo. If you’re still working on the analysis, you can
+ignore this warning. When you’re finished, you can run
 <code>wflow_publish</code> to commit the R Markdown file and build the
 HTML.</p>
 </div>
@@ -534,15 +534,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16IntegratePPItree9206673c36b5a371ecd69e3c2cafb0718d4db1c5targetblank9206673a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16IntegratePPItree7116fe1186433e9a0ee8b22b16c2388707425015targetblank7116fe1a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/IntegratePPI/tree/9206673c36b5a371ecd69e3c2cafb0718d4db1c5" target="_blank">9206673</a>
+<a href="https://github.com/han16/IntegratePPI/tree/7116fe1186433e9a0ee8b22b16c2388707425015" target="_blank">7116fe1</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16IntegratePPItree9206673c36b5a371ecd69e3c2cafb0718d4db1c5targetblank9206673a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16IntegratePPItree7116fe1186433e9a0ee8b22b16c2388707425015targetblank7116fe1a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -552,7 +552,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/IntegratePPI/tree/9206673c36b5a371ecd69e3c2cafb0718d4db1c5" target="_blank">9206673</a>.
+<a href="https://github.com/han16/IntegratePPI/tree/7116fe1186433e9a0ee8b22b16c2388707425015" target="_blank">7116fe1</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -566,15 +566,12 @@ depends on. Below is the status of the Git repository when the results
 were generated:
 </p>
 <pre><code>
-Ignored files:
-    Ignored:    analysis/string_cache/
-
 Untracked files:
-    Untracked:  analysis/dawn.Rmd
+    Untracked:  analysis/screening.Rmd
 
 Unstaged changes:
+    Modified:   analysis/dawn.Rmd
     Modified:   analysis/index.Rmd
-    Modified:   analysis/string_forecASD.Rmd
 
 </code></pre>
 <p>
@@ -589,16 +586,151 @@ have uncommitted changes.
 <hr>
 </div>
 <div id="versions" class="tab-pane fade">
+
 <p>
-There are no past versions. Publish this analysis with
-<code>wflow_publish()</code> to start tracking its development.
+These are the previous versions of the repository in which changes were
+made to the R Markdown (<code>analysis/dawn.Rmd</code>) and HTML
+(<code>docs/dawn.html</code>) files. If you’ve configured a remote Git
+repository (see <code>?wflow_git_remote</code>), click on the hyperlinks
+in the table below to view the files as they were in that past version.
 </p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/IntegratePPI/blob/3400f00e6c83a06990983597181757b20e057dbb/analysis/dawn.Rmd" target="_blank">3400f00</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-06-27
+</td>
+<td>
+6/27/2024
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/IntegratePPI/3400f00e6c83a06990983597181757b20e057dbb/docs/dawn.html" target="_blank">3400f00</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-06-27
+</td>
+<td>
+6/27/2024
+</td>
+</tr>
+</tbody>
+</table>
+</div>
 <hr>
 </div>
 </div>
 </div>
-<pre class="r"><code>library(&quot;devtools&quot;)  # https://github.com/linnykos/covarianceSelection
+<pre class="r"><code>#library(&quot;devtools&quot;)  # https://github.com/linnykos/covarianceSelection
 #devtools::install_github(&quot;linnylin92/covarianceSelection&quot;, subdir = &quot;covarianceSelection&quot;)</code></pre>
+<pre class="r"><code># step0_loading.R
+#if(verbose) print(&quot;Start of step 0: Loading&quot;)
+
+#format the brainspan dataset
+load(&quot;C:/han/Dataset/20231006_PMID_33731968/NIHMS1598069-supplement-Supp_1/newGenexp.RData&quot;)
+rownames(genexp) &lt;- genexp[,1]
+genexp &lt;- genexp[,-1]
+genexp &lt;- t(genexp)
+genexp &lt;- as.data.frame(genexp) # 1340 x 16947
+dim(genexp)</code></pre>
+<pre class="r"><code>#determine brain-expressed genes
+#brain_expression &lt;- covarianceSelection::brain_expression
+load(&quot;C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\brain_expression.rda&quot;)
+brain_genes &lt;- brain_expression$Gene[brain_expression$Brain_expressed != &#39;No&#39;]
+idx &lt;- which(colnames(genexp) %in% brain_genes)
+genexp &lt;- genexp[,idx] # 1340 x 14370
+dim(genexp)</code></pre>
+<pre class="r"><code>#translate into synonyms
+#vec &lt;- covarianceSelection::symbol_synonyms(colnames(genexp), verbose = T)
+source(&quot;C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\cleaning.R&quot;) # function symbol_synonyms is in cleaning.R
+vec &lt;- symbol_synonyms(colnames(genexp), verbose = T)
+unknown_genes_idx &lt;- which(is.na(vec))
+vec &lt;- vec[-unknown_genes_idx]
+genexp &lt;- genexp[-unknown_genes_idx] # 1340 x 14290
+dim(genexp)
+colnames(genexp) &lt;- vec</code></pre>
+<pre class="r"><code>#average non-unique genes
+#genexp &lt;- covarianceSelection:::average_same_columns(genexp) # 1340 x 14246
+genexp &lt;- average_same_columns(genexp) # 1340 x 14237  # average_same_columns is in cleaning.R 
+dim(genexp)
+
+#remove samples from subregions that we don&#39;t have a region for
+#region_subregion &lt;- covarianceSelection::region_subregion
+load(&quot;C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\region_subregion.rda&quot;)
+vec &lt;- rownames(genexp)
+subregion &lt;- unlist(strsplit(vec,&quot;\\.&quot;))[seq(2, length(vec)*4, 4)]
+idx &lt;- which(subregion %in% region_subregion$subregion)
+genexp &lt;- genexp[idx,] # 1294 x 14237
+dim(genexp)</code></pre>
+<pre class="r"><code>####
+
+#load tada dataset
+#tada &lt;- covarianceSelection::tada
+load(&quot;C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\tada.rda&quot;)
+tada=tada
+#match the order in both datasets
+idx &lt;- which(colnames(genexp) %in% tada$Gene)
+genexp &lt;- genexp[,idx] # 1294 x 13964
+dim(genexp)
+idx &lt;- which(tada$Gene %in% colnames(genexp))
+tada &lt;- tada[idx,] # 13964 genes
+#idx &lt;- covarianceSelection::matching(tada$Gene, colnames(genexp))
+source(&quot;C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\misc.R&quot;)
+idx &lt;- matching(tada$Gene, colnames(genexp))  # matching is in misc.R
+genexp &lt;- genexp[,idx]
+
+#dat_list &lt;- covarianceSelection::extractor(genexp) # 212 partitions
+dat_list &lt;- extractor(genexp) # 212 partitions  # extractor is in cleaning.R 
+dat_list &lt;- lapply(dat_list, as.matrix, drop = F)
+
+# remove partitions too small
+idx &lt;- which(sapply(dat_list, function(x){ifelse(nrow(x) &gt;= 5, T, F)}))
+dat_list &lt;- dat_list[idx] # 125 partitions
+dat_list &lt;- lapply(dat_list, scale, scale = F)
+
+#if(verbose) print(paste0(&quot;Dimension of genexp is: &quot;, paste0(dim(genexp), collapse = &quot;, &quot;)))
+
+#cleanup
+#rm(list = c(&quot;brain_expression&quot;, &quot;brain_genes&quot;, &quot;idx&quot;, &quot;vec&quot;, &quot;region_subregion&quot;,
+#            &quot;subregion&quot;, &quot;genexp&quot;, &quot;unknown_genes_idx&quot;))
+
+#saveRDS(dat_list, file =&quot;C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\dat_list.rds&quot;)</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -628,23 +760,17 @@ tzcode source: internal
 attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
-other attached packages:
-[1] devtools_2.4.5 usethis_2.2.3 
-
 loaded via a namespace (and not attached):
- [1] miniUI_0.1.1.1    jsonlite_1.8.8    compiler_4.4.0    promises_1.3.0   
- [5] Rcpp_1.0.12       stringr_1.5.1     git2r_0.33.0      later_1.3.2      
- [9] jquerylib_0.1.4   yaml_2.3.8        fastmap_1.1.1     mime_0.12        
-[13] R6_2.5.1          workflowr_1.7.1   knitr_1.46        htmlwidgets_1.6.4
-[17] tibble_3.2.1      profvis_0.3.8     rprojroot_2.0.4   shiny_1.8.1.1    
-[21] bslib_0.7.0       pillar_1.9.0      rlang_1.1.3       utf8_1.2.4       
-[25] cachem_1.0.8      stringi_1.8.4     httpuv_1.6.15     xfun_0.43        
-[29] fs_1.6.4          sass_0.4.9        pkgload_1.3.4     memoise_2.0.1    
-[33] cli_3.6.2         magrittr_2.0.3    digest_0.6.35     xtable_1.8-4     
-[37] rstudioapi_0.16.0 remotes_2.5.0     lifecycle_1.0.4   vctrs_0.6.5      
-[41] evaluate_0.23     glue_1.7.0        urlchecker_1.0.1  sessioninfo_1.2.2
-[45] pkgbuild_1.4.4    fansi_1.0.6       rmarkdown_2.26    purrr_1.0.2      
-[49] tools_4.4.0       pkgconfig_2.0.3   ellipsis_0.3.2    htmltools_0.5.8.1</code></pre>
+ [1] vctrs_0.6.5       cli_3.6.2         knitr_1.46        rlang_1.1.3      
+ [5] xfun_0.43         stringi_1.8.4     promises_1.3.0    jsonlite_1.8.8   
+ [9] workflowr_1.7.1   glue_1.7.0        rprojroot_2.0.4   git2r_0.33.0     
+[13] htmltools_0.5.8.1 httpuv_1.6.15     sass_0.4.9        fansi_1.0.6      
+[17] rmarkdown_2.26    jquerylib_0.1.4   evaluate_0.23     tibble_3.2.1     
+[21] fastmap_1.1.1     yaml_2.3.8        lifecycle_1.0.4   whisker_0.4.1    
+[25] stringr_1.5.1     compiler_4.4.0    fs_1.6.4          Rcpp_1.0.12      
+[29] pkgconfig_2.0.3   rstudioapi_0.16.0 later_1.3.2       digest_0.6.35    
+[33] R6_2.5.1          utf8_1.2.4        pillar_1.9.0      magrittr_2.0.3   
+[37] bslib_0.7.0       tools_4.4.0       cachem_1.0.8     </code></pre>
 </div>
 
 
