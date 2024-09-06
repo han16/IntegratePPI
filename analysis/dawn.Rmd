@@ -22,7 +22,8 @@ output:
 ```{r, message=F, warning=F, eval=F}
 # step0_loading.R
 #if(verbose) print("Start of step 0: Loading")
-
+rm(list=ls())
+set.seed(123)
 #format the brainspan dataset
 load("C:/han/Dataset/20231006_PMID_33731968/NIHMS1598069-supplement-Supp_1/newGenexp.RData")
 rownames(genexp) <- genexp[,1]
@@ -114,5 +115,5 @@ dat_list <- lapply(dat_list, scale, scale = F)
 #rm(list = c("brain_expression", "brain_genes", "idx", "vec", "region_subregion",
 #            "subregion", "genexp", "unknown_genes_idx"))
 
-#saveRDS(dat_list, file ="C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\dat_list.rds")
+#save(tada, dat_list, file ="C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\data_preparation.RData")
 ```

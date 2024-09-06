@@ -400,7 +400,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2024-09-03
+<strong>Last updated:</strong> 2024-09-06
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -534,15 +534,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16IntegratePPItree7116fe1186433e9a0ee8b22b16c2388707425015targetblank7116fe1a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16IntegratePPItree021f110afa2bee45164555bf8dc76d1cbc53d202targetblank021f110a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/IntegratePPI/tree/7116fe1186433e9a0ee8b22b16c2388707425015" target="_blank">7116fe1</a>
+<a href="https://github.com/han16/IntegratePPI/tree/021f110afa2bee45164555bf8dc76d1cbc53d202" target="_blank">021f110</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16IntegratePPItree7116fe1186433e9a0ee8b22b16c2388707425015targetblank7116fe1a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16IntegratePPItree021f110afa2bee45164555bf8dc76d1cbc53d202targetblank021f110a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -552,7 +552,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/IntegratePPI/tree/7116fe1186433e9a0ee8b22b16c2388707425015" target="_blank">7116fe1</a>.
+<a href="https://github.com/han16/IntegratePPI/tree/021f110afa2bee45164555bf8dc76d1cbc53d202" target="_blank">021f110</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -566,12 +566,16 @@ depends on. Below is the status of the Git repository when the results
 were generated:
 </p>
 <pre><code>
+Ignored files:
+    Ignored:    analysis/.Rhistory
+
 Untracked files:
-    Untracked:  analysis/screening.Rmd
+    Untracked:  analysis/dawn_algorithm.Rmd
 
 Unstaged changes:
     Modified:   analysis/dawn.Rmd
     Modified:   analysis/index.Rmd
+    Modified:   analysis/screening.Rmd
 
 </code></pre>
 <p>
@@ -621,6 +625,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/han16/IntegratePPI/blob/021f110afa2bee45164555bf8dc76d1cbc53d202/analysis/dawn.Rmd" target="_blank">021f110</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-09-03
+</td>
+<td>
+9/3/2024
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/IntegratePPI/021f110afa2bee45164555bf8dc76d1cbc53d202/docs/dawn.html" target="_blank">021f110</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-09-03
+</td>
+<td>
+9/3/2024
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/han16/IntegratePPI/blob/3400f00e6c83a06990983597181757b20e057dbb/analysis/dawn.Rmd" target="_blank">3400f00</a>
 </td>
 <td>
@@ -661,7 +699,8 @@ han
 #devtools::install_github(&quot;linnylin92/covarianceSelection&quot;, subdir = &quot;covarianceSelection&quot;)</code></pre>
 <pre class="r"><code># step0_loading.R
 #if(verbose) print(&quot;Start of step 0: Loading&quot;)
-
+rm(list=ls())
+set.seed(123)
 #format the brainspan dataset
 load(&quot;C:/han/Dataset/20231006_PMID_33731968/NIHMS1598069-supplement-Supp_1/newGenexp.RData&quot;)
 rownames(genexp) &lt;- genexp[,1]
@@ -730,7 +769,7 @@ dat_list &lt;- lapply(dat_list, scale, scale = F)
 #rm(list = c(&quot;brain_expression&quot;, &quot;brain_genes&quot;, &quot;idx&quot;, &quot;vec&quot;, &quot;region_subregion&quot;,
 #            &quot;subregion&quot;, &quot;genexp&quot;, &quot;unknown_genes_idx&quot;))
 
-#saveRDS(dat_list, file =&quot;C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\dat_list.rds&quot;)</code></pre>
+#save(tada, dat_list, file =&quot;C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\data_preparation.RData&quot;)</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
