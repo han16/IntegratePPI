@@ -400,7 +400,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2024-09-06
+<strong>Last updated:</strong> 2024-09-10
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -438,10 +438,10 @@ changes </a>
 <div id="strongRMarkdownfilestronguncommittedchanges"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown file has unstaged changes. To know which version of
-the R Markdown file created these results, you’ll want to first commit
-it to the Git repo. If you’re still working on the analysis, you can
-ignore this warning. When you’re finished, you can run
+<p>The R Markdown file has staged changes. To know which version of the
+R Markdown file created these results, you’ll want to first commit it to
+the Git repo. If you’re still working on the analysis, you can ignore
+this warning. When you’re finished, you can run
 <code>wflow_publish</code> to commit the R Markdown file and build the
 HTML.</p>
 </div>
@@ -534,15 +534,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16IntegratePPItree021f110afa2bee45164555bf8dc76d1cbc53d202targetblank021f110a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16IntegratePPItree9857a1eb7f5bba4c1a35c78d2ac99c7ee07968fftargetblank9857a1ea">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/IntegratePPI/tree/021f110afa2bee45164555bf8dc76d1cbc53d202" target="_blank">021f110</a>
+<a href="https://github.com/han16/IntegratePPI/tree/9857a1eb7f5bba4c1a35c78d2ac99c7ee07968ff" target="_blank">9857a1e</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16IntegratePPItree021f110afa2bee45164555bf8dc76d1cbc53d202targetblank021f110a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16IntegratePPItree9857a1eb7f5bba4c1a35c78d2ac99c7ee07968fftargetblank9857a1ea"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -552,7 +552,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/IntegratePPI/tree/021f110afa2bee45164555bf8dc76d1cbc53d202" target="_blank">021f110</a>.
+<a href="https://github.com/han16/IntegratePPI/tree/9857a1eb7f5bba4c1a35c78d2ac99c7ee07968ff" target="_blank">9857a1e</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -569,12 +569,10 @@ were generated:
 Ignored files:
     Ignored:    analysis/.Rhistory
 
-Untracked files:
-    Untracked:  analysis/dawn_algorithm.Rmd
-
 Unstaged changes:
-    Modified:   analysis/dawn.Rmd
-    Modified:   analysis/index.Rmd
+    Modified:   analysis/screening.Rmd
+
+Staged changes:
     Modified:   analysis/screening.Rmd
 
 </code></pre>
@@ -626,6 +624,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/han16/IntegratePPI/blob/ae3aec683a08ff88ab46058a869c30483880c3ef/analysis/screening.Rmd" target="_blank">ae3aec6</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-09-06
+</td>
+<td>
+9/6/2024
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/IntegratePPI/ae3aec683a08ff88ab46058a869c30483880c3ef/docs/screening.html" target="_blank">ae3aec6</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-09-06
+</td>
+<td>
+9/6/2024
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/han16/IntegratePPI/blob/021f110afa2bee45164555bf8dc76d1cbc53d202/analysis/screening.Rmd" target="_blank">021f110</a>
 </td>
 <td>
@@ -671,7 +703,6 @@ num_genes &lt;- 3500
 
 ###
 load(&quot;C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\data_preparation.RData&quot;)
-#if(verbose) print(paste0(Sys.time(), &quot;Start of step 1: Screening&quot;))
 
 selected_idx &lt;- grep(&quot;PFC\\.[3-5]&quot;, names(dat_list))
 dat_pfc35 &lt;- do.call(rbind, dat_list[selected_idx]) # 107 x 13964
@@ -684,9 +715,10 @@ screening_res &lt;- screen(dat_pfc35, pv = tada$pval.TADA, p_thres = p_thres_scr
 
 # 265 primary, 3235 secondary, total of 3500
 
+
 # reorder which genes are primary and which are secondary
 all_idx &lt;- sort(unique(c(screening_res$primary, screening_res$secondary)))
-screening_res$primary &lt;- all_idx[which(tada$pval.TADA[all_idx] &lt; p_primary)]
+screening_res$primary &lt;- all_idx[which(tada$pval.TADA[all_idx] &lt; p_thres_screening)]
 screening_res$secondary &lt;- setdiff(all_idx, screening_res$primary)
 
 # apply the new gene list
@@ -696,11 +728,11 @@ for(i in 1:length(dat_list)){
 tada &lt;- tada[c(screening_res$primary, screening_res$secondary),]
 dim(tada)</code></pre>
 <pre><code>[1] 3500    4</code></pre>
-<pre class="r"><code>#if(verbose) print(paste0(&quot;Dimension of dat_list is: &quot;, unique(sapply(dat_list, ncol)), collapse = &quot;, &quot;))
-
-#rm(list = c(&quot;selected_idx&quot;, &quot;dat_pfc35&quot;, &quot;i&quot;))
-
-#save.image(file = paste0(save_filepath, &quot;/step1_screening&quot;, filepath_suffix, &quot;.RData&quot;))</code></pre>
+<pre class="r"><code>length(screening_res$primary)  </code></pre>
+<pre><code>[1] 261</code></pre>
+<pre class="r"><code>length(screening_res$secondary) </code></pre>
+<pre><code>[1] 3239</code></pre>
+<pre class="r"><code>#save(screening_res, file =&quot;C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\screen_res.RData&quot;)</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
