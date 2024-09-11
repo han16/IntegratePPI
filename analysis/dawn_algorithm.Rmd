@@ -46,6 +46,12 @@ dim(dat_pfc35)
 
 
 
+```{r, message=F, warning=F, eval=F}
+# curate the adj_pfc35 by incorporating PPI information 
+
+```
+
+
 
 
 

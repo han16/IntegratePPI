@@ -400,7 +400,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2024-09-06
+<strong>Last updated:</strong> 2024-09-11
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -534,15 +534,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16IntegratePPItreeae3aec683a08ff88ab46058a869c30483880c3eftargetblankae3aec6a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16IntegratePPItree1fa0c8508fa34343e9356bf4718dde64cfb6080dtargetblank1fa0c85a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/IntegratePPI/tree/ae3aec683a08ff88ab46058a869c30483880c3ef" target="_blank">ae3aec6</a>
+<a href="https://github.com/han16/IntegratePPI/tree/1fa0c8508fa34343e9356bf4718dde64cfb6080d" target="_blank">1fa0c85</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16IntegratePPItreeae3aec683a08ff88ab46058a869c30483880c3eftargetblankae3aec6a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16IntegratePPItree1fa0c8508fa34343e9356bf4718dde64cfb6080dtargetblank1fa0c85a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -552,7 +552,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/IntegratePPI/tree/ae3aec683a08ff88ab46058a869c30483880c3ef" target="_blank">ae3aec6</a>.
+<a href="https://github.com/han16/IntegratePPI/tree/1fa0c8508fa34343e9356bf4718dde64cfb6080d" target="_blank">1fa0c85</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -621,6 +621,57 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/han16/IntegratePPI/blob/1fa0c8508fa34343e9356bf4718dde64cfb6080d/analysis/dawn_algorithm.Rmd" target="_blank">1fa0c85</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-09-11
+</td>
+<td>
+9/11/2024
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/IntegratePPI/blob/add13f476e1209bd23d55679c81beed3271b49be/analysis/dawn_algorithm.Rmd" target="_blank">add13f4</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-09-06
+</td>
+<td>
+9/6/2024
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/IntegratePPI/add13f476e1209bd23d55679c81beed3271b49be/docs/dawn_algorithm.html" target="_blank">add13f4</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-09-06
+</td>
+<td>
+9/6/2024
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/han16/IntegratePPI/blob/ae3aec683a08ff88ab46058a869c30483880c3ef/analysis/dawn_algorithm.Rmd" target="_blank">ae3aec6</a>
 </td>
 <td>
@@ -647,44 +698,45 @@ fdr_cutoff &lt;- 0.01
 pthres &lt;- 0.05
 
 #####
-#if(verbose) print(paste0(Sys.time(), &quot;Start of step 3: Naive analysis&quot;))
-load(&quot;C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\data_preparation.RData&quot;)
+load(&quot;C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\screen_res.RData&quot;)  # dat_list needs to be in screen_res.RData not in data_preparation.RData
+source(&quot;C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\graphicalModel.r&quot;)
+source(&quot;C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\graph_functions.r&quot;)
 selected_idx &lt;- grep(&quot;PFC\\.[3-5]&quot;, names(dat_list))
 dat_pfc35 &lt;- do.call(rbind, dat_list[selected_idx]) # 107 x 3065
+dim(dat_pfc35)
 dat_pfc35 &lt;- scale(dat_pfc35, scale = F)
-
-# estimate graphical model on PFC35 using cross-validated lasso for neighborhood selection
+dim(dat_pfc35)</code></pre>
+<pre class="r"><code># estimate graphical model on PFC35 using cross-validated lasso for neighborhood selection
  res &lt;- graphicalModel_range(dat_pfc35, 1:length(screening_res$primary), 
                                                   lambda_min = 0.01, lambda_max = 0.35, 
                                                   lambda_length = 30, verbose = T) 
-# save.image(file = paste0(save_filepath, &quot;/step3_pfc35_analysis&quot;, filepath_suffix, &quot;.RData&quot;))
-# 
+#
 # scale_vec_pfc35 &lt;- sapply(res, function(x){covarianceSelection::compute_scale_free(as.matrix(x$adj_mat))})
-# edges_vec_pfc35 &lt;- sapply(res, function(x){sum(as.matrix(x$adj_mat))/2})
-# # idx &lt;- which.max(scale_vec_pfc35)
-# idx &lt;- 27
-# adj_pfc35 &lt;- as.matrix(res[[idx]]$adj_mat)
+ scale_vec_pfc35 &lt;- sapply(res, function(x){compute_scale_free(as.matrix(x$adj_mat))}) # compute_scale_free is in graph_functions.r 
+ edges_vec_pfc35 &lt;- sapply(res, function(x){sum(as.matrix(x$adj_mat))/2})
+ idx &lt;- which.max(scale_vec_pfc35)
 
-#res &lt;- covarianceSelection::graphicalModel(dat_pfc35, primary_idx = 1:length(screening_res$primary), lambda = seq(0.05, 0.1, length.out = 15)[1])
-#adj_pfc35 &lt;- as.matrix(res$adj_mat)
-#stopifnot(all(dim(adj_pfc35) == nrow(tada)))
-
-# run the HMRF
-set.seed(10)
+ adj_pfc35 &lt;- as.matrix(res[[idx]]$adj_mat)
+ stopifnot(all(dim(adj_pfc35) == nrow(tada)))
+ #save(adj_pfc35, file =&quot;C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\adj_pfc35.RData&quot;)</code></pre>
+<pre class="r"><code># curate the adj_pfc35 by incorporating PPI information </code></pre>
+<pre class="r"><code># run the HMRF
+fdr_cutoff &lt;- 0.01
+source(&quot;C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\hmrf.r&quot;)
+source(&quot;C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\misc.r&quot;)
+load(&quot;C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\adj_pfc35.RData&quot;)
 seedindex &lt;- rep(0, ncol(adj_pfc35))
 seedindex[which(tada$dn.LoF &gt;= 3)] &lt;- 1
 
-if(verbose) print(paste0(Sys.time(), &quot;: HMRF&quot;))
-set.seed(10)
-hmrf_pfc35 &lt;- covarianceSelection::hmrf(tada$pval.TADA, adj_pfc35, seedindex, pthres = pthres)
-report_pfc35 &lt;- covarianceSelection::report_results(tada$Gene, 1-hmrf_pfc35$post, tada$pval.TADA, hmrf_pfc35$Iupdate)
+#hmrf_pfc35 &lt;- covarianceSelection::hmrf(tada$pval.TADA, adj_pfc35, seedindex, pthres = pthres)
+hmrf_pfc35 &lt;- hmrf(tada$pval.TADA, adj_pfc35, seedindex, pthres = pthres)
+#report_pfc35 &lt;- covarianceSelection::report_results(tada$Gene, 1-hmrf_pfc35$post, tada$pval.TADA, hmrf_pfc35$Iupdate)
+report_pfc35 &lt;- report_results(tada$Gene, 1-hmrf_pfc35$post, tada$pval.TADA, hmrf_pfc35$Iupdate)
 genes_pfc35 &lt;- sort(as.character(report_pfc35$Gene[which(report_pfc35$FDR &lt;= fdr_cutoff)]))
 
 adj_pfc35 &lt;- Matrix::Matrix(adj_pfc35, sparse = T)
 
-rm(list = c(&quot;dat_pfc35&quot;, &quot;seedindex&quot;, &quot;idx&quot;, &quot;res&quot;, &quot;selected_idx&quot;))
 
-#save.image(file = paste0(save_filepath, &quot;/step3_pfc35_analysis&quot;, filepath_suffix, &quot;.RData&quot;))
 
 ########################
 
