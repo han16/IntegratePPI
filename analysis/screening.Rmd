@@ -44,5 +44,5 @@ dim(tada)
 length(screening_res$primary)  
 length(screening_res$secondary) 
                 
-#save(screening_res, file ="C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\screen_res.RData")
+save(tada, screening_res, dat_list,  file ="C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\screen_res.RData") # this dat_list is not the same in data_preparation.RData
 ```

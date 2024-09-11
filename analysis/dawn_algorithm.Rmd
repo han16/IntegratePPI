@@ -15,44 +15,59 @@ fdr_cutoff <- 0.01
 pthres <- 0.05
 
 #####
-#if(verbose) print(paste0(Sys.time(), "Start of step 3: Naive analysis"))
-load("C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\data_preparation.RData")
+load("C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\screen_res.RData")  # dat_list needs to be in screen_res.RData not in data_preparation.RData
+source("C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\graphicalModel.r")
+source("C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\graph_functions.r")
 selected_idx <- grep("PFC\\.[3-5]", names(dat_list))
 dat_pfc35 <- do.call(rbind, dat_list[selected_idx]) # 107 x 3065
+dim(dat_pfc35)
 dat_pfc35 <- scale(dat_pfc35, scale = F)
+dim(dat_pfc35)
+```
+
+
+```{r, message=F, warning=F, eval=F}
 
 # estimate graphical model on PFC35 using cross-validated lasso for neighborhood selection
  res <- graphicalModel_range(dat_pfc35, 1:length(screening_res$primary), 
                                                   lambda_min = 0.01, lambda_max = 0.35, 
                                                   lambda_length = 30, verbose = T) 
-# save.image(file = paste0(save_filepath, "/step3_pfc35_analysis", filepath_suffix, ".RData"))
-# 
+#
 # scale_vec_pfc35 <- sapply(res, function(x){covarianceSelection::compute_scale_free(as.matrix(x$adj_mat))})
-# edges_vec_pfc35 <- sapply(res, function(x){sum(as.matrix(x$adj_mat))/2})
-# # idx <- which.max(scale_vec_pfc35)
-# idx <- 27
-# adj_pfc35 <- as.matrix(res[[idx]]$adj_mat)
+ scale_vec_pfc35 <- sapply(res, function(x){compute_scale_free(as.matrix(x$adj_mat))}) # compute_scale_free is in graph_functions.r 
+ edges_vec_pfc35 <- sapply(res, function(x){sum(as.matrix(x$adj_mat))/2})
+ idx <- which.max(scale_vec_pfc35)
 
-#res <- covarianceSelection::graphicalModel(dat_pfc35, primary_idx = 1:length(screening_res$primary), lambda = seq(0.05, 0.1, length.out = 15)[1])
-#adj_pfc35 <- as.matrix(res$adj_mat)
-#stopifnot(all(dim(adj_pfc35) == nrow(tada)))
+ adj_pfc35 <- as.matrix(res[[idx]]$adj_mat)
+ stopifnot(all(dim(adj_pfc35) == nrow(tada)))
+ #save(adj_pfc35, file ="C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\adj_pfc35.RData")
+ 
+```
 
+
+
+
+
+
+
+```{r, message=F, warning=F, eval=F}
 # run the HMRF
-set.seed(10)
+fdr_cutoff <- 0.01
+source("C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\hmrf.r")
+source("C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\misc.r")
+load("C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\adj_pfc35.RData")
 seedindex <- rep(0, ncol(adj_pfc35))
 seedindex[which(tada$dn.LoF >= 3)] <- 1
 
-if(verbose) print(paste0(Sys.time(), ": HMRF"))
-set.seed(10)
-hmrf_pfc35 <- covarianceSelection::hmrf(tada$pval.TADA, adj_pfc35, seedindex, pthres = pthres)
-report_pfc35 <- covarianceSelection::report_results(tada$Gene, 1-hmrf_pfc35$post, tada$pval.TADA, hmrf_pfc35$Iupdate)
+#hmrf_pfc35 <- covarianceSelection::hmrf(tada$pval.TADA, adj_pfc35, seedindex, pthres = pthres)
+hmrf_pfc35 <- hmrf(tada$pval.TADA, adj_pfc35, seedindex, pthres = pthres)
+#report_pfc35 <- covarianceSelection::report_results(tada$Gene, 1-hmrf_pfc35$post, tada$pval.TADA, hmrf_pfc35$Iupdate)
+report_pfc35 <- report_results(tada$Gene, 1-hmrf_pfc35$post, tada$pval.TADA, hmrf_pfc35$Iupdate)
 genes_pfc35 <- sort(as.character(report_pfc35$Gene[which(report_pfc35$FDR <= fdr_cutoff)]))
 
 adj_pfc35 <- Matrix::Matrix(adj_pfc35, sparse = T)
 
-rm(list = c("dat_pfc35", "seedindex", "idx", "res", "selected_idx"))
 
-#save.image(file = paste0(save_filepath, "/step3_pfc35_analysis", filepath_suffix, ".RData"))
 
 ########################
 
@@ -60,104 +75,6 @@ rm(list = c("dat_pfc35", "seedindex", "idx", "res", "selected_idx"))
 ```
 
 
-
-
-```{r, echo=F, message=F, warning=F, eval=F}
-#' Graphical model estimate
-#'
-#' Estimated using neighbhorhood selection, cross validation to select lambda
-#'
-#' @param dat the matrix with \code{n} rows and \code{d} columns
-#' @param primary_idx index vector that is a subset of \code{1:ncol(dat)}
-#' @param lambda either a character vector (\code{"lambda.1se"} or \code{"lambda.min"}) or a numeric positive scalar
-#' @param verbose boolean
-#' @param tol numeric
-#'
-#' @return a list that contains an \code{d} by \code{d} \code{sparseMatrix} encoding the
-#' estimated adjacency matrix and a numeric vector \code{lambda_vec}
-#' @export
-graphicalModel <- function(dat, primary_idx, lambda = "lambda.1se", verbose = F, tol = 1e-6){
-  n <- nrow(dat); d <- ncol(dat)
-
-  if(verbose) print("Starting to estimate coefficients")
-  coef_list <- .compute_reg_coefficients_cv(dat, primary_idx, lambda = lambda, verbose = verbose)
-  coef_mat <- sapply(coef_list, function(x){ x$vec })
-  lambda_vec <- sapply(coef_list, function(x){ x$lambda })
-  if(abs(diff(range(lambda_vec))) <= tol) lambda_vec <- min(lambda_vec)
-  stopifnot(nrow(coef_mat) == ncol(dat), ncol(coef_mat) == length(primary_idx))
-  
-  adj_mat <- cbind(coef_mat, matrix(0, nrow = nrow(coef_mat), ncol = nrow(coef_mat) - ncol(coef_mat)))
-  adj_mat <- .symmetrize(adj_mat)
-  adj_mat[which(abs(adj_mat) >= tol)] <- 1
-  adj_mat[which(abs(adj_mat) <= tol)] <- 0
-  adj_mat <- Matrix::Matrix(adj_mat, sparse = T)
-  
-  list(adj_mat = adj_mat, lambda_vec = lambda_vec)
-}
-
-#' Graphical model estimate for a range of lambda values
-#'
-#' @param dat the matrix with \code{n} rows and \code{d} columns
-#' @param primary_idx index vector that is a subset of \code{1:ncol(dat)}
-#' @param lambda_min minimum value of \code{lambda} when using \code{graphicalModel}
-#' @param lambda_max maximum value of \code{lambda} when using \code{graphicalModel}
-#' @param lambda_length number of \code{lambda} values to try (exponential growth)
-#' @param verbose boolean
-#' @param tol numeric
-#'
-#' @return a list, each being an output for \code{graphicalModel} for a different value of \code{lambda}
-#' @export
-graphicalModel_range <- function(dat,  primary_idx, lambda_min, lambda_max, lambda_length = 15, verbose = F, tol = 1e-6){
-  lambda_seq <- seq(lambda_min, lambda_max, length.out = lambda_length)
-  
-  lapply(lambda_seq, function(x){
-    if(verbose) print(x)
-    graphicalModel(dat,  primary_idx, lambda = x, verbose = verbose, tol = tol)
-  })
-}
-
-##################
-
-.compute_reg_coefficients_cv <- function(dat, primary_idx = 1:ncol(dat), lambda = "lambda.1se", verbose = F){
-  d <- ncol(dat)
-  stopifnot(all(primary_idx %in% 1:d))
-
-  func <- function(i){
-    if(verbose & i %% floor(length(primary_idx)/10) == 0) cat('*')
-  
-    vec <- rep(0, d)
-    y_vec <- dat[,i]
-    
-    if(i %in% primary_idx){
-      x_mat <- dat[,-i]; idx_vec <- c(1:d)[-i]
-    } else{
-      x_mat <- dat[,primary_idx]; idx_vec <- primary_idx
-    }
-    
-    if(is.numeric(lambda)){
-      res <- glmnet::glmnet(x = x_mat, y = y_vec, intercept = F, lambda = lambda)
-      vec[idx_vec] <- as.numeric(res$beta)
-    } else {
-      res <- glmnet::cv.glmnet(x = x_mat, y = y_vec, intercept = F)
-      vec[idx_vec] <- as.numeric(stats::coef(res, s = lambda))[-1]
-    }
-    
-    list(vec = vec, lambda = ifelse(is.numeric(lambda), lambda, res[[which(names(res) == lambda)]]))
-  }
-  
-  i <- 0 #debugging purposes only
-  foreach::"%dopar%"(foreach::foreach(i = primary_idx), func(i))
-}
-
-.l2norm <- function(vec){
-  sqrt(sum((vec)^2))
-}
-
-.symmetrize <- function(mat){
-  stopifnot(ncol(mat) == nrow(mat))
-  (mat + t(mat))/2
-}
-```
 
 
 
@@ -320,7 +237,6 @@ check_c <- function(adj, i_vec, b, c, thres_c = 0.1) {
   ## Check if b1*I'GI is significant comparing to b0*I
   as.numeric(abs(c*i_vec%*%adj%*%i_vec / (b*sum(i_vec)))) > thres_c
 }
-
 
 
 ```
