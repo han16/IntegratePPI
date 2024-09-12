@@ -8,6 +8,8 @@ output:
 ---
 
 ```{r, message=F, warning=F}
+rm(list=ls())
+set.seed(123)
 # code is from https://raw.githubusercontent.com/LeoBman/forecASD/master/01_load_data.R
 # https://github.com/LeoBman/forecASD
 #### load packages ####
@@ -51,6 +53,7 @@ string.path = johnson.all.pairs.sp(string.graph)
 #save(string.keep, string.graph, string.path, file="C:\\han\\Projects\\IntegratePPI\\tmp01_STRING_graph.Rdata")
 
 ```
+
 
 
 ```{r, message=F, warning=F}

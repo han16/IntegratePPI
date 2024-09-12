@@ -14,6 +14,8 @@ editor_options:
 
 * [TSRING data from forecASD](string_forecASD.html)
 
+* [curating incidence matrix of PPI](string_incidence.html)
+
 ## DAWN 
 
 1.  [data cleaning and preparation](dawn.html)

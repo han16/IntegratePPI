@@ -1,0 +1,18 @@
+---
+title: "incidence matrix"
+output:
+  workflowr::wflow_html:
+    code_folding: hide
+    toc: true
+date: "2024-09-12"
+---
+
+```{r, message=F, warning=F, eval=F}
+load("C:\\han\\Projects\\IntegratePPI\\tmp01_STRING_graph.Rdata") # load string data
+incidence_matrix=ftM2adjM(as.matrix(string.keep[,1:2]))  # create  incidence matrix
+# map to genes 
+sfari.id = read.table("C:\\han\\Dataset\\20240610_PMID_33244169\\sfari_gene_ids.txt",sep="\t",stringsAsFactors=F,header=T)  # this file has both Gene symbol and protein stable ID !!!!!!!!!!!!
+
+## build gene level incidence matrix 
+
+```
