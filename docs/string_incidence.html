@@ -400,7 +400,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2024-09-12
+<strong>Last updated:</strong> 2024-09-17
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -438,10 +438,10 @@ changes </a>
 <div id="strongRMarkdownfilestronguncommittedchanges"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown is untracked by Git. To know which version of the R
-Markdown file created these results, you’ll want to first commit it to
-the Git repo. If you’re still working on the analysis, you can ignore
-this warning. When you’re finished, you can run
+<p>The R Markdown file has unstaged changes. To know which version of
+the R Markdown file created these results, you’ll want to first commit
+it to the Git repo. If you’re still working on the analysis, you can
+ignore this warning. When you’re finished, you can run
 <code>wflow_publish</code> to commit the R Markdown file and build the
 HTML.</p>
 </div>
@@ -534,15 +534,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16IntegratePPItreeda1c72773daeedc3fea27f4e70e75af1cdfe15e5targetblankda1c727a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16IntegratePPItree905a055398b039816a8dc1ec491ebf0b4c57198dtargetblank905a055a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/IntegratePPI/tree/da1c72773daeedc3fea27f4e70e75af1cdfe15e5" target="_blank">da1c727</a>
+<a href="https://github.com/han16/IntegratePPI/tree/905a055398b039816a8dc1ec491ebf0b4c57198d" target="_blank">905a055</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16IntegratePPItreeda1c72773daeedc3fea27f4e70e75af1cdfe15e5targetblankda1c727a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16IntegratePPItree905a055398b039816a8dc1ec491ebf0b4c57198dtargetblank905a055a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -552,7 +552,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/IntegratePPI/tree/da1c72773daeedc3fea27f4e70e75af1cdfe15e5" target="_blank">da1c727</a>.
+<a href="https://github.com/han16/IntegratePPI/tree/905a055398b039816a8dc1ec491ebf0b4c57198d" target="_blank">905a055</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -570,13 +570,8 @@ Ignored files:
     Ignored:    analysis/.Rhistory
     Ignored:    analysis/string_cache/
 
-Untracked files:
-    Untracked:  analysis/string_incidence.Rmd
-
 Unstaged changes:
-    Modified:   analysis/index.Rmd
-    Modified:   analysis/string.Rmd
-    Modified:   analysis/string_forecASD.Rmd
+    Modified:   analysis/string_incidence.Rmd
 
 </code></pre>
 <p>
@@ -591,10 +586,91 @@ have uncommitted changes.
 <hr>
 </div>
 <div id="versions" class="tab-pane fade">
+
 <p>
-There are no past versions. Publish this analysis with
-<code>wflow_publish()</code> to start tracking its development.
+These are the previous versions of the repository in which changes were
+made to the R Markdown (<code>analysis/string_incidence.Rmd</code>) and
+HTML (<code>docs/string_incidence.html</code>) files. If you’ve
+configured a remote Git repository (see <code>?wflow_git_remote</code>),
+click on the hyperlinks in the table below to view the files as they
+were in that past version.
 </p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/IntegratePPI/blob/905a055398b039816a8dc1ec491ebf0b4c57198d/analysis/string_incidence.Rmd" target="_blank">905a055</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-09-17
+</td>
+<td>
+9/17/2024
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/IntegratePPI/blob/d57aa5852a3a2b03be8e7135566c026119b03173/analysis/string_incidence.Rmd" target="_blank">d57aa58</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-09-12
+</td>
+<td>
+9/12/2024
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/IntegratePPI/d57aa5852a3a2b03be8e7135566c026119b03173/docs/string_incidence.html" target="_blank">d57aa58</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-09-12
+</td>
+<td>
+9/12/2024
+</td>
+</tr>
+</tbody>
+</table>
+</div>
 <hr>
 </div>
 </div>
@@ -604,7 +680,23 @@ incidence_matrix=ftM2adjM(as.matrix(string.keep[,1:2]))  # create  incidence mat
 # map to genes 
 sfari.id = read.table(&quot;C:\\han\\Dataset\\20240610_PMID_33244169\\sfari_gene_ids.txt&quot;,sep=&quot;\t&quot;,stringsAsFactors=F,header=T)  # this file has both Gene symbol and protein stable ID !!!!!!!!!!!!
 
-## build gene level incidence matrix </code></pre>
+## build gene level incidence matrix 
+#protein1_gene=sfari.id$Gene.name[which(string.keep$protein1 %in% sfari.id$Protein.stable.ID)]
+find_gene=function(x)
+{
+  if (length(which(sfari.id$Protein.stable.ID==x))&gt;0)
+    return(sfari.id$Gene.name[which(sfari.id$Protein.stable.ID==x)[1]]) # use the first one if multiple returns
+ if (length(which(sfari.id$Protein.stable.ID==x))==0)
+   return(&quot;NA&quot;)
+  
+}
+
+protein1_gene=unlist(sapply(string.keep$protein1, find_gene)) # length(protein1_gene)==nrow(string.keep)
+protein2_gene=unlist(sapply(string.keep$protein2, find_gene))
+
+string.keep_gene_level=data.frame(string.keep) %&gt;%  mutate (protein1_gene=as.character(protein1_gene), protein2_gene=as.character(protein2_gene))
+
+#save(string.keep_gene_level, file=&quot;C:\\han\\Projects\\IntegratePPI\\string.keep_gene_level.RData&quot;)</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -634,17 +726,21 @@ tzcode source: internal
 attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
+other attached packages:
+[1] dplyr_1.1.4
+
 loaded via a namespace (and not attached):
  [1] vctrs_0.6.5       cli_3.6.2         knitr_1.46        rlang_1.1.3      
- [5] xfun_0.43         stringi_1.8.4     promises_1.3.0    jsonlite_1.8.8   
- [9] workflowr_1.7.1   glue_1.7.0        rprojroot_2.0.4   git2r_0.33.0     
-[13] htmltools_0.5.8.1 httpuv_1.6.15     sass_0.4.9        fansi_1.0.6      
-[17] rmarkdown_2.26    jquerylib_0.1.4   evaluate_0.23     tibble_3.2.1     
-[21] fastmap_1.1.1     yaml_2.3.8        lifecycle_1.0.4   stringr_1.5.1    
-[25] compiler_4.4.0    fs_1.6.4          Rcpp_1.0.12       pkgconfig_2.0.3  
-[29] rstudioapi_0.16.0 later_1.3.2       digest_0.6.35     R6_2.5.1         
-[33] utf8_1.2.4        pillar_1.9.0      magrittr_2.0.3    bslib_0.7.0      
-[37] tools_4.4.0       cachem_1.0.8     </code></pre>
+ [5] xfun_0.43         stringi_1.8.4     generics_0.1.3    promises_1.3.0   
+ [9] jsonlite_1.8.8    workflowr_1.7.1   glue_1.7.0        rprojroot_2.0.4  
+[13] git2r_0.33.0      htmltools_0.5.8.1 httpuv_1.6.15     sass_0.4.9       
+[17] fansi_1.0.6       rmarkdown_2.26    jquerylib_0.1.4   evaluate_0.23    
+[21] tibble_3.2.1      fastmap_1.1.1     yaml_2.3.8        lifecycle_1.0.4  
+[25] whisker_0.4.1     stringr_1.5.1     compiler_4.4.0    fs_1.6.4         
+[29] Rcpp_1.0.12       pkgconfig_2.0.3   rstudioapi_0.16.0 later_1.3.2      
+[33] digest_0.6.35     R6_2.5.1          tidyselect_1.2.1  utf8_1.2.4       
+[37] pillar_1.9.0      magrittr_2.0.3    bslib_0.7.0       tools_4.4.0      
+[41] cachem_1.0.8     </code></pre>
 </div>
 
 

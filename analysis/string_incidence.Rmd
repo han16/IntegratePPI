@@ -25,13 +25,16 @@ sfari.id = read.table("C:\\han\\Dataset\\20240610_PMID_33244169\\sfari_gene_ids.
 find_gene=function(x)
 {
   if (length(which(sfari.id$Protein.stable.ID==x))>0)
-    return(sfari.id$Gene.name[which(sfari.id$Protein.stable.ID==x)])
+    return(sfari.id$Gene.name[which(sfari.id$Protein.stable.ID==x)[1]]) # use the first one if multiple returns
  if (length(which(sfari.id$Protein.stable.ID==x))==0)
    return("NA")
   
 }
-protein1_gene=unlist(sapply(string.keep$protein1, find_gene))
-                     
-protein2_gene=unlist(sapply(string.keep$protein2, function(x) sfari.id$Gene.name[which(sfari.id$Protein.stable.ID==x)]))
+
+protein1_gene=unlist(sapply(string.keep$protein1, find_gene)) # length(protein1_gene)==nrow(string.keep)
+protein2_gene=unlist(sapply(string.keep$protein2, find_gene))
+
 string.keep_gene_level=data.frame(string.keep) %>%  mutate (protein1_gene=as.character(protein1_gene), protein2_gene=as.character(protein2_gene))
+
+#save(string.keep_gene_level, file="C:\\han\\Projects\\IntegratePPI\\string.keep_gene_level.RData")
 ```
