@@ -400,7 +400,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2024-09-17
+<strong>Last updated:</strong> 2024-09-18
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -534,15 +534,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16IntegratePPItree905a055398b039816a8dc1ec491ebf0b4c57198dtargetblank905a055a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16IntegratePPItreedef0effc9034e8b1c89587b21b5ef414bf100ca9targetblankdef0effa">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/IntegratePPI/tree/905a055398b039816a8dc1ec491ebf0b4c57198d" target="_blank">905a055</a>
+<a href="https://github.com/han16/IntegratePPI/tree/def0effc9034e8b1c89587b21b5ef414bf100ca9" target="_blank">def0eff</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16IntegratePPItree905a055398b039816a8dc1ec491ebf0b4c57198dtargetblank905a055a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16IntegratePPItreedef0effc9034e8b1c89587b21b5ef414bf100ca9targetblankdef0effa"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -552,7 +552,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/IntegratePPI/tree/905a055398b039816a8dc1ec491ebf0b4c57198d" target="_blank">905a055</a>.
+<a href="https://github.com/han16/IntegratePPI/tree/def0effc9034e8b1c89587b21b5ef414bf100ca9" target="_blank">def0eff</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -617,6 +617,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/IntegratePPI/blob/def0effc9034e8b1c89587b21b5ef414bf100ca9/analysis/string_incidence.Rmd" target="_blank">def0eff</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-09-17
+</td>
+<td>
+9/17/2024
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/IntegratePPI/def0effc9034e8b1c89587b21b5ef414bf100ca9/docs/string_incidence.html" target="_blank">def0eff</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-09-17
+</td>
+<td>
+9/17/2024
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -687,7 +721,7 @@ find_gene=function(x)
   if (length(which(sfari.id$Protein.stable.ID==x))&gt;0)
     return(sfari.id$Gene.name[which(sfari.id$Protein.stable.ID==x)[1]]) # use the first one if multiple returns
  if (length(which(sfari.id$Protein.stable.ID==x))==0)
-   return(&quot;NA&quot;)
+   return(&quot; &quot;)
   
 }
 
@@ -695,8 +729,13 @@ protein1_gene=unlist(sapply(string.keep$protein1, find_gene)) # length(protein1_
 protein2_gene=unlist(sapply(string.keep$protein2, find_gene))
 
 string.keep_gene_level=data.frame(string.keep) %&gt;%  mutate (protein1_gene=as.character(protein1_gene), protein2_gene=as.character(protein2_gene))
+protein1_gene_index=which(string.keep_gene_level$protein1_gene!=&quot; &quot;)  # keep rows with valid gene names 
+protein2_gene_index=which(string.keep_gene_level$protein2_gene!=&quot; &quot;)
 
-#save(string.keep_gene_level, file=&quot;C:\\han\\Projects\\IntegratePPI\\string.keep_gene_level.RData&quot;)</code></pre>
+string.keep_gene_level_new=string.keep_gene_level[intersect(protein1_gene_index, protein2_gene_index),]
+
+#save(string.keep_gene_level_new, file=&quot;C:\\han\\Projects\\IntegratePPI\\string.keep_gene_level.RData&quot;)</code></pre>
+<pre class="r"><code>load(&quot;C:\\han\\Projects\\IntegratePPI\\string.keep_gene_level.RData&quot;)</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -727,20 +766,20 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
-[1] dplyr_1.1.4
+[1] tidyr_1.3.1 dplyr_1.1.4
 
 loaded via a namespace (and not attached):
- [1] vctrs_0.6.5       cli_3.6.2         knitr_1.46        rlang_1.1.3      
- [5] xfun_0.43         stringi_1.8.4     generics_0.1.3    promises_1.3.0   
- [9] jsonlite_1.8.8    workflowr_1.7.1   glue_1.7.0        rprojroot_2.0.4  
-[13] git2r_0.33.0      htmltools_0.5.8.1 httpuv_1.6.15     sass_0.4.9       
-[17] fansi_1.0.6       rmarkdown_2.26    jquerylib_0.1.4   evaluate_0.23    
-[21] tibble_3.2.1      fastmap_1.1.1     yaml_2.3.8        lifecycle_1.0.4  
-[25] whisker_0.4.1     stringr_1.5.1     compiler_4.4.0    fs_1.6.4         
-[29] Rcpp_1.0.12       pkgconfig_2.0.3   rstudioapi_0.16.0 later_1.3.2      
-[33] digest_0.6.35     R6_2.5.1          tidyselect_1.2.1  utf8_1.2.4       
-[37] pillar_1.9.0      magrittr_2.0.3    bslib_0.7.0       tools_4.4.0      
-[41] cachem_1.0.8     </code></pre>
+ [1] jsonlite_1.8.8    compiler_4.4.0    promises_1.3.0    tidyselect_1.2.1 
+ [5] Rcpp_1.0.12       stringr_1.5.1     git2r_0.33.0      later_1.3.2      
+ [9] jquerylib_0.1.4   yaml_2.3.8        fastmap_1.1.1     R6_2.5.1         
+[13] generics_0.1.3    workflowr_1.7.1   knitr_1.46        tibble_3.2.1     
+[17] rprojroot_2.0.4   bslib_0.7.0       pillar_1.9.0      rlang_1.1.3      
+[21] utf8_1.2.4        cachem_1.0.8      stringi_1.8.4     httpuv_1.6.15    
+[25] xfun_0.43         fs_1.6.4          sass_0.4.9        cli_3.6.2        
+[29] magrittr_2.0.3    digest_0.6.35     rstudioapi_0.16.0 lifecycle_1.0.4  
+[33] vctrs_0.6.5       evaluate_0.23     glue_1.7.0        whisker_0.4.1    
+[37] fansi_1.0.6       purrr_1.0.2       rmarkdown_2.26    tools_4.4.0      
+[41] pkgconfig_2.0.3   htmltools_0.5.8.1</code></pre>
 </div>
 
 

@@ -11,6 +11,7 @@ date: "2024-09-12"
 rm(list=ls())
 set.seed(123)
 library(dplyr)
+library(tidyr)
 ```
 
 
@@ -27,7 +28,7 @@ find_gene=function(x)
   if (length(which(sfari.id$Protein.stable.ID==x))>0)
     return(sfari.id$Gene.name[which(sfari.id$Protein.stable.ID==x)[1]]) # use the first one if multiple returns
  if (length(which(sfari.id$Protein.stable.ID==x))==0)
-   return("NA")
+   return(" ")
   
 }
 
@@ -35,6 +36,16 @@ protein1_gene=unlist(sapply(string.keep$protein1, find_gene)) # length(protein1_
 protein2_gene=unlist(sapply(string.keep$protein2, find_gene))
 
 string.keep_gene_level=data.frame(string.keep) %>%  mutate (protein1_gene=as.character(protein1_gene), protein2_gene=as.character(protein2_gene))
+protein1_gene_index=which(string.keep_gene_level$protein1_gene!=" ")  # keep rows with valid gene names 
+protein2_gene_index=which(string.keep_gene_level$protein2_gene!=" ")
 
-#save(string.keep_gene_level, file="C:\\han\\Projects\\IntegratePPI\\string.keep_gene_level.RData")
+string.keep_gene_level_new=string.keep_gene_level[intersect(protein1_gene_index, protein2_gene_index),]
+
+#save(string.keep_gene_level_new, file="C:\\han\\Projects\\IntegratePPI\\string.keep_gene_level.RData")
+```
+
+
+```{r, message=F, warning=F}
+load("C:\\han\\Projects\\IntegratePPI\\string.keep_gene_level.RData")
+
 ```
