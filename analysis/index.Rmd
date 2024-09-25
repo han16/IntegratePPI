@@ -16,8 +16,14 @@ editor_options:
 
 * [curating incidence matrix of PPI](string_incidence.html)
 
-## DAWN 
+## DAWN for autism data in 2020 
 
 1.  [data cleaning and preparation](dawn.html)
 2.  [screening](screening.html)
 3. [dawn analysis](dawn_algorithm.html)
+
+
+## DAWN for autism data in 2022
+
+1. 
+
