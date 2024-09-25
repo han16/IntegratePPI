@@ -48,4 +48,5 @@ string.keep_gene_level_new=string.keep_gene_level[intersect(protein1_gene_index,
 ```{r, message=F, warning=F}
 load("C:\\han\\Projects\\IntegratePPI\\string.keep_gene_level.RData")
 
+
 ```
