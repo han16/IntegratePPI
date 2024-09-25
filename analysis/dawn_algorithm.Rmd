@@ -48,7 +48,32 @@ dim(dat_pfc35)
 
 ```{r, message=F, warning=F, eval=F}
 # curate the adj_pfc35 by incorporating PPI information 
+load("C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\adj_pfc35.RData")  # load incidence matrix 
+load("C:\\han\\Projects\\IntegratePPI\\string.keep_gene_level.RData")  # load pairwise protein interaction information  
 
+### build incidence matrix, (i,j)=1 if there is a link between genes, i & j, and 0 otherwise
+#string_incidence=matrix(0, nrow=nrow(adj_pfc35), ncol=nrow(adj_pfc35))
+#for (i in 1:(nrow(adj_pfc35)-1))
+#  for (j in (i+1):nrow(adj_pfc35))
+#    if (string.keep_gene_level_new %>% filter(protein1_gene==colnames(dat_pfc35)[i], protein2_gene==colnames(dat_pfc35)[j]) %>% nrow()>0)
+      { 
+#      cat(i, "th gene is running", "\n")
+#      string_incidence[i,j]=1
+#      string_incidence[j,i]=1
+#     }
+  
+#save(string_incidence, file ="C:\\han\\Projects\\IntegratePPI\\string_incidence.RData")  
+load("C:\\han\\Projects\\IntegratePPI\\string_incidence.RData")
+        
+###### combine estimated incidence matrix and string PPI information, a link between two genes exists if it appears in estimated incidence matrix or string PPI  
+adj_string_combine_incidence=adj_pfc35+string_incidence
+for (i in 1:(nrow(adj_string_combine_incidence)-1))
+  for (j in (i+1):ncol(adj_string_combine_incidence))
+    if (adj_string_combine_incidence[i,j]>1)
+    {
+      adj_string_combine_incidence[i,j]=1
+      adj_string_combine_incidence[j,i]=1
+    }
 ```
 
 
@@ -67,6 +92,7 @@ seedindex[which(tada$dn.LoF >= 3)] <- 1
 
 #hmrf_pfc35 <- covarianceSelection::hmrf(tada$pval.TADA, adj_pfc35, seedindex, pthres = pthres)
 hmrf_pfc35 <- hmrf(tada$pval.TADA, adj_pfc35, seedindex, pthres = pthres)
+#hmrf_pfc35 <- hmrf(tada$pval.TADA, adj_string_combine_incidence, seedindex, pthres = pthres)
 #report_pfc35 <- covarianceSelection::report_results(tada$Gene, 1-hmrf_pfc35$post, tada$pval.TADA, hmrf_pfc35$Iupdate)
 report_pfc35 <- report_results(tada$Gene, 1-hmrf_pfc35$post, tada$pval.TADA, hmrf_pfc35$Iupdate)
 genes_pfc35 <- sort(as.character(report_pfc35$Gene[which(report_pfc35$FDR <= fdr_cutoff)]))
