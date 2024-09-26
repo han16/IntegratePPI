@@ -7,13 +7,13 @@ output:
 date: "2024-09-06"
 ---
 
-```{r, message=F, warning=F, eval=F}
+```{r, message=F, warning=F, eval=T}
 ## https://github.com/linnykos/covarianceSelection/blob/master/main/step3_pfc35_analysis.R
 rm(list=ls())
 set.seed(10)
 fdr_cutoff <- 0.01
 pthres <- 0.05
-
+library(statnet)  # use network function 
 #####
 load("C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\screen_res.RData")  # dat_list needs to be in screen_res.RData not in data_preparation.RData
 source("C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\graphicalModel.r")
@@ -46,7 +46,7 @@ dim(dat_pfc35)
 
 
 
-```{r, message=F, warning=F, eval=F}
+```{r, message=F, warning=F, eval=T}
 # curate the adj_pfc35 by incorporating PPI information 
 load("C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\adj_pfc35.RData")  # load incidence matrix 
 load("C:\\han\\Projects\\IntegratePPI\\string.keep_gene_level.RData")  # load pairwise protein interaction information  
@@ -56,7 +56,7 @@ load("C:\\han\\Projects\\IntegratePPI\\string.keep_gene_level.RData")  # load pa
 #for (i in 1:(nrow(adj_pfc35)-1))
 #  for (j in (i+1):nrow(adj_pfc35))
 #    if (string.keep_gene_level_new %>% filter(protein1_gene==colnames(dat_pfc35)[i], protein2_gene==colnames(dat_pfc35)[j]) %>% nrow()>0)
-      { 
+#      { 
 #      cat(i, "th gene is running", "\n")
 #      string_incidence[i,j]=1
 #      string_incidence[j,i]=1
@@ -74,9 +74,70 @@ for (i in 1:(nrow(adj_string_combine_incidence)-1))
       adj_string_combine_incidence[i,j]=1
       adj_string_combine_incidence[j,i]=1
     }
+
+
+net=network(as.matrix(adj_string_combine_incidence), directed=FALSE) # https://web.stanford.edu/class/bios221/labs/networks/lab_7_networks.html
+set.seed(1)          # make the plot look the same as mine
+par(mar=rep(0,4))
+
+plot(net, vertex.cex=0.15) # vextex.cex control the vertex size
+
+#dev.off()
+
+
 ```
 
+* adj_pfc35+string_incidence with 3756 links 
 
+
+```{r, message=F, warning=F}
+net=network(as.matrix(adj_pfc35), directed=FALSE) # https://web.stanford.edu/class/bios221/labs/networks/lab_7_networks.html
+#nodeColors<-ifelse(rownames(adjacency_network) %in% Gene_selected,"red","black")
+
+#png("C:\\Users\\hans\\OneDrive - Marquette University\\SCZ-DAWN\\Figures\\Constraint_genes_network.png")
+
+set.seed(1)          # make the plot look the same as mine
+par(mar=rep(0,4))
+#para_size=0.1
+#vertex.size=ifelse(rownames(adjacency_network) %in% Gene_selected,10,para_size)
+#label.size=ifelse(rownames(adjacency_network) %in% Gene_selected,0.5,para_size)
+#vertex.cex=ifelse(rownames(adjacency_network) %in% Gene_selected,1,para_size)
+#labels=ifelse(rownames(adjacency_network) %in% Gene_selected, Gene_selected,"")
+
+
+#plot(net, label=labels, vertex.col=nodeColors, label.col="blue", vertex.size=vertex.size, label.cex=label.size, #vertex.cex=vertex.cex) # vextex.cex control the vertex size
+
+plot(net, vertex.cex=0.15) # vextex.cex control the vertex size
+
+#dev.off()
+```
+* adj_pfc35 with 1886 links 
+
+
+```{r, message=F, warning=F}
+library(statnet)
+net=network(as.matrix(string_incidence), directed=FALSE) # https://web.stanford.edu/class/bios221/labs/networks/lab_7_networks.html
+#nodeColors<-ifelse(rownames(adjacency_network) %in% Gene_selected,"red","black")
+
+#png("C:\\Users\\hans\\OneDrive - Marquette University\\SCZ-DAWN\\Figures\\Constraint_genes_network.png")
+
+set.seed(1)          # make the plot look the same as mine
+par(mar=rep(0,4))
+#para_size=0.1
+#vertex.size=ifelse(rownames(adjacency_network) %in% Gene_selected,10,para_size)
+#label.size=ifelse(rownames(adjacency_network) %in% Gene_selected,0.5,para_size)
+#vertex.cex=ifelse(rownames(adjacency_network) %in% Gene_selected,1,para_size)
+#labels=ifelse(rownames(adjacency_network) %in% Gene_selected, Gene_selected,"")
+
+
+#plot(net, label=labels, vertex.col=nodeColors, label.col="blue", vertex.size=vertex.size, label.cex=label.size, #vertex.cex=vertex.cex) # vextex.cex control the vertex size
+
+plot(net, vertex.cex=0.15) # vextex.cex control the vertex size
+
+#dev.off()
+```
+
+* string_incidence with 1872 links 
 
 
 
