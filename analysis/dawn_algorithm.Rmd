@@ -80,7 +80,7 @@ net=network(as.matrix(adj_string_combine_incidence), directed=FALSE) # https://w
 set.seed(1)          # make the plot look the same as mine
 par(mar=rep(0,4))
 
-plot(net, vertex.cex=0.15) # vextex.cex control the vertex size
+plot(net, vertex.cex=0.15, rescale=F) # vextex.cex control the vertex size
 
 #dev.off()
 
@@ -107,7 +107,7 @@ par(mar=rep(0,4))
 
 #plot(net, label=labels, vertex.col=nodeColors, label.col="blue", vertex.size=vertex.size, label.cex=label.size, #vertex.cex=vertex.cex) # vextex.cex control the vertex size
 
-plot(net, vertex.cex=0.15) # vextex.cex control the vertex size
+plot(net, vertex.cex=0.15, rescale=F) # vextex.cex control the vertex size
 
 #dev.off()
 ```
@@ -132,7 +132,7 @@ par(mar=rep(0,4))
 
 #plot(net, label=labels, vertex.col=nodeColors, label.col="blue", vertex.size=vertex.size, label.cex=label.size, #vertex.cex=vertex.cex) # vextex.cex control the vertex size
 
-plot(net, vertex.cex=0.15) # vextex.cex control the vertex size
+plot(net, vertex.cex=0.15, rescale=F) # vextex.cex control the vertex size
 
 #dev.off()
 ```
@@ -165,6 +165,13 @@ adj_pfc35 <- Matrix::Matrix(adj_pfc35, sparse = T)
 ########################
 
 # plot(exp(seq(log(0.01), log(0.35), length.out = length(scale_vec_pfc35))), scale_vec_pfc35)
+```
+
+
+
+```{r, echo=F,  message=F, warning=F, eval=F}
+# plot graphs with same postions https://stackoverflow.com/questions/46139709/plot-two-igraph-networks-using-the-same-coordinates-and-same-placement-in-the-pl
+
 ```
 
 
