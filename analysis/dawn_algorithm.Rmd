@@ -168,9 +168,87 @@ adj_pfc35 <- Matrix::Matrix(adj_pfc35, sparse = T)
 ```
 
 
+```{r, message=F, warning=F}
+# plot two networks with same coordinates
+library(igraph)
+library(dplyr)
+string_incidence_igraph=graph_from_incidence_matrix(string_incidence)  # convert to igraph https://igraph.org/r/doc/graph_from_incidence_matrix.html
+V(string_incidence_igraph)$name <- paste0("Node", 1:7000)
+Coords <- layout_with_fr(string_incidence_igraph) %>% 
+  as_tibble %>%
+    bind_cols(data_frame(names = names(V(string_incidence_igraph))))
+
+
+adj_pfc35_igraph=graph_from_incidence_matrix(adj_pfc35)  # convert to igraph https://igraph.org/r/doc/graph_from_incidence_matrix.html
+
+V(adj_pfc35_igraph)$name <- paste0("Node", 1:7000)
+
+new_Coords=data_frame(names = names(V(adj_pfc35_igraph))) %>%  ### this is the key step, get the same coordinates from the first graph 
+    left_join(Coords, by= "names")
+
+
+min_value=min(Coords[,1:2], new_Coords[,2:3])
+max_value=max(Coords[,1:2], new_Coords[,2:3])
+
+
+
+string_incidence_igraph%>% 
+  plot(.,vertex.size=.8, edge.arrow.size=.4, vertex.label = NA, layout = as.matrix(Coords[,1:2]),rescale=F, xlim=c(min_value,max_value),ylim=c(min_value,max_value), main="string")
+
+adj_pfc35_igraph%>% 
+  plot(.,vertex.size=.8, edge.arrow.size=.4, vertex.label = NA, layout = as.matrix(new_Coords[,2:3]),rescale=F, xlim=c(min_value-10,max_value+10),ylim=c(min_value,max_value), main="adj_pfc35")
+
+
+```
+
+
+
+
+
 
 ```{r, echo=F,  message=F, warning=F, eval=F}
-# plot graphs with same postions https://stackoverflow.com/questions/46139709/plot-two-igraph-networks-using-the-same-coordinates-and-same-placement-in-the-pl
+# plot graphs with same positions https://stackoverflow.com/questions/46139709/plot-two-igraph-networks-using-the-same-coordinates-and-same-placement-in-the-pl
+
+
+library(igraph); library(dplyr)
+
+#generate random graph
+set.seed(500)
+RandomGraph <- sample_gnm(1000, 2500)
+
+#name nodes
+V(RandomGraph)$name <- paste0("Node", 1:1000)
+
+#Get the coordinates of the Nodes
+Coords <- layout_with_fr(RandomGraph) %>% 
+  as_tibble %>%
+    bind_cols(data_frame(names = names(V(RandomGraph))))
+
+#Delete random vertices
+deletevertex <-sample( V(RandomGraph)$name, 400)
+
+RandomGraph2 <-delete.vertices(RandomGraph, deletevertex)
+
+#get the coordinates of the remaining Nodes
+  NetCoords <- data_frame(names = names(V(RandomGraph2))) %>%
+    left_join(Coords, by= "names")
+
+#plot both graphs
+
+#RandomGraph%>% 
+#  plot(.,vertex.size=.8, edge.arrow.size=.4, vertex.label = NA, layout = as.matrix(Coords[,1:2]))
+
+#RandomGraph2%>% 
+#  plot(.,vertex.size=.8, edge.arrow.size=.4, vertex.label = NA, layout = as.matrix(NetCoords[,2:3]))
+
+#They nodes have the same relationship to each other but are not laid out in the same position in the frame
+
+
+RandomGraph%>% 
+  plot(.,vertex.size=.8, edge.arrow.size=.4, vertex.label = NA, layout = as.matrix(Coords[,1:2]),rescale=F,xlim=c(-25,30),ylim=c(-20,35))
+
+RandomGraph2%>% 
+  plot(.,vertex.size=.8, edge.arrow.size=.4, vertex.label = NA, layout = as.matrix(NetCoords[,2:3]),rescale=F,xlim=c(-25,30),ylim=c(-20,35))
 
 ```
 
