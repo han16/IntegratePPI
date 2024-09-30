@@ -400,7 +400,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2024-09-27
+<strong>Last updated:</strong> 2024-09-30
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -534,15 +534,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16IntegratePPItreea55f668a8dc42c2312cc575ca89d956d6e003f7etargetblanka55f668a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16IntegratePPItree58c6abd9f8fab70e659430bb3fa971e2c0bc859ctargetblank58c6abda">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/IntegratePPI/tree/a55f668a8dc42c2312cc575ca89d956d6e003f7e" target="_blank">a55f668</a>
+<a href="https://github.com/han16/IntegratePPI/tree/58c6abd9f8fab70e659430bb3fa971e2c0bc859c" target="_blank">58c6abd</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16IntegratePPItreea55f668a8dc42c2312cc575ca89d956d6e003f7etargetblanka55f668a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16IntegratePPItree58c6abd9f8fab70e659430bb3fa971e2c0bc859ctargetblank58c6abda"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -552,7 +552,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/IntegratePPI/tree/a55f668a8dc42c2312cc575ca89d956d6e003f7e" target="_blank">a55f668</a>.
+<a href="https://github.com/han16/IntegratePPI/tree/58c6abd9f8fab70e659430bb3fa971e2c0bc859c" target="_blank">58c6abd</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -617,6 +617,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/IntegratePPI/blob/58c6abd9f8fab70e659430bb3fa971e2c0bc859c/analysis/dawn_algorithm.Rmd" target="_blank">58c6abd</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-09-27
+</td>
+<td>
+9/27/2024
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/IntegratePPI/58c6abd9f8fab70e659430bb3fa971e2c0bc859c/docs/dawn_algorithm.html" target="_blank">58c6abd</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-09-27
+</td>
+<td>
+9/27/2024
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1113,6 +1147,7 @@ adj_pfc35 &lt;- Matrix::Matrix(adj_pfc35, sparse = T)
 <pre class="r"><code># plot two networks with same coordinates
 library(igraph)
 library(dplyr)
+set.seed(123)
 string_incidence_igraph=graph_from_incidence_matrix(string_incidence)  # convert to igraph https://igraph.org/r/doc/graph_from_incidence_matrix.html
 V(string_incidence_igraph)$name &lt;- paste0(&quot;Node&quot;, 1:7000)
 Coords &lt;- layout_with_fr(string_incidence_igraph) %&gt;% 
@@ -1133,8 +1168,11 @@ max_value=max(Coords[,1:2], new_Coords[,2:3])
 
 
 
-g3=string_incidence_igraph%&gt;% 
-  plot(.,vertex.size=.8, edge.arrow.size=.4, vertex.label = NA, layout = as.matrix(Coords[,1:2]), rescale=F, xlim=c(min_value,max_value),ylim=c(min_value,max_value), main=&quot;string&quot;)  </code></pre>
+#g3=string_incidence_igraph%&gt;% 
+#  plot(.,vertex.size=2, edge.arrow.size=.4, vertex.label = NA, layout = as.matrix(Coords[,1:2]), #rescale=F, main=&quot;string&quot;, vertex.color=&quot;black&quot;, edge.color=&quot;red&quot;, xlim=c(min_value, max_value), #ylim=c(min_value, max_value))  
+
+g1=string_incidence_igraph%&gt;% 
+  plot(.,vertex.size=3, edge.arrow.size=.1, vertex.label = NA, layout = layout.circle, rescale=F, main=&quot;string&quot;, vertex.color=&quot;black&quot;, edge.color=&quot;red&quot;)</code></pre>
 <p><img src="figure/dawn_algorithm.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-1">
@@ -1173,8 +1211,11 @@ han
 </table>
 </div>
 </div>
-<pre class="r"><code>g1=string_incidence_igraph%&gt;% 
-  plot(.,vertex.size=.8, edge.arrow.size=.4, vertex.label = NA, layout = layout.circle, rescale=F, main=&quot;string&quot;)</code></pre>
+<pre class="r"><code>#g4=adj_pfc35_igraph%&gt;% 
+#  plot(.,vertex.size=2, edge.arrow.size=.4, vertex.label = NA, layout = #as.matrix(new_Coords[,2:3]),rescale=F, main=&quot;adj_pfc35&quot;, vertex.color=&quot;black&quot;, edge.color=&quot;red&quot;, #xlim=c(min_value, max_value), ylim=c(min_value, max_value))
+
+g2=adj_pfc35_igraph%&gt;% 
+  plot(.,vertex.size=3, edge.arrow.size=.1, vertex.label = NA, layout = layout.circle, rescale=F,  main=&quot;adj_pfc35&quot;, vertex.color=&quot;black&quot;, edge.color=&quot;red&quot;)</code></pre>
 <p><img src="figure/dawn_algorithm.Rmd/unnamed-chunk-7-2.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-2">
@@ -1200,6 +1241,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/han16/IntegratePPI/blob/58c6abd9f8fab70e659430bb3fa971e2c0bc859c/docs/figure/dawn_algorithm.Rmd/unnamed-chunk-7-2.png" target="_blank">58c6abd</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-09-27
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/han16/IntegratePPI/blob/a55f668a8dc42c2312cc575ca89d956d6e003f7e/docs/figure/dawn_algorithm.Rmd/unnamed-chunk-7-2.png" target="_blank">a55f668</a>
 </td>
 <td>
@@ -1213,13 +1265,7 @@ han
 </table>
 </div>
 </div>
-<pre class="r"><code>g4=adj_pfc35_igraph%&gt;% 
-  plot(.,vertex.size=.8, edge.arrow.size=.4, vertex.label = NA, layout = as.matrix(new_Coords[,2:3]),rescale=F, xlim=c(min_value-10,max_value+10),ylim=c(min_value,max_value), main=&quot;adj_pfc35&quot;)</code></pre>
-<p><img src="figure/dawn_algorithm.Rmd/unnamed-chunk-7-3.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>g2=adj_pfc35_igraph%&gt;% 
-  plot(.,vertex.size=.8, edge.arrow.size=.4, vertex.label = NA, layout = layout.circle, rescale=F,  main=&quot;adj_pfc35&quot;)</code></pre>
-<p><img src="figure/dawn_algorithm.Rmd/unnamed-chunk-7-4.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>combine_plot1=ggarrange(g1, g2,nrow=1)</code></pre>
+<pre class="r"><code>#combine_plot1=ggarrange(g1, g2,nrow=1)</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1272,16 +1318,16 @@ loaded via a namespace (and not attached):
 [37] cachem_1.0.8             abind_1.4-5              trust_0.1-8             
 [40] nlme_3.1-164             robustbase_0.99-2        tidyselect_1.2.1        
 [43] digest_0.6.35            stringi_1.8.4            purrr_1.0.2             
-[46] cowplot_1.1.3            rprojroot_2.0.4          fastmap_1.1.1           
-[49] grid_4.4.0               colorspace_2.1-0         cli_3.6.2               
-[52] magrittr_2.0.3           utf8_1.2.4               broom_1.0.5             
-[55] withr_3.0.0              backports_1.4.1          scales_1.3.0            
-[58] promises_1.3.0           rmarkdown_2.26           ggsignif_0.6.4          
-[61] workflowr_1.7.1          coda_0.19-4.1            memoise_2.0.1           
-[64] lpSolveAPI_5.5.2.0-17.11 evaluate_0.23            knitr_1.46              
-[67] rbibutils_2.2.16         rlang_1.1.3              Rcpp_1.0.12             
-[70] glue_1.7.0               rstudioapi_0.16.0        jsonlite_1.8.8          
-[73] R6_2.5.1                 fs_1.6.4                </code></pre>
+[46] rprojroot_2.0.4          fastmap_1.1.1            grid_4.4.0              
+[49] colorspace_2.1-0         cli_3.6.2                magrittr_2.0.3          
+[52] utf8_1.2.4               broom_1.0.5              withr_3.0.0             
+[55] backports_1.4.1          scales_1.3.0             promises_1.3.0          
+[58] rmarkdown_2.26           ggsignif_0.6.4           workflowr_1.7.1         
+[61] coda_0.19-4.1            memoise_2.0.1            lpSolveAPI_5.5.2.0-17.11
+[64] evaluate_0.23            knitr_1.46               rbibutils_2.2.16        
+[67] rlang_1.1.3              Rcpp_1.0.12              glue_1.7.0              
+[70] rstudioapi_0.16.0        jsonlite_1.8.8           R6_2.5.1                
+[73] fs_1.6.4                </code></pre>
 </div>
 
 
