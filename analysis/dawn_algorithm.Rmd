@@ -143,7 +143,7 @@ plot(net, vertex.cex=0.15, rescale=F) # vextex.cex control the vertex size
 
 
 
-```{r, message=F, warning=F, eval=F}
+```{r, message=F, warning=F, eval=T}
 # run the HMRF
 fdr_cutoff <- 0.01
 source("C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\hmrf.r")
@@ -161,13 +161,37 @@ genes_pfc35 <- sort(as.character(report_pfc35$Gene[which(report_pfc35$FDR <= fdr
 
 adj_pfc35 <- Matrix::Matrix(adj_pfc35, sparse = T)
 
-
+genes_pfc35
 
 ########################
 
 # plot(exp(seq(log(0.01), log(0.35), length.out = length(scale_vec_pfc35))), scale_vec_pfc35)
 ```
 
+
+
+```{r, message=F, warning=F, eval=T}
+# run the HMRF
+fdr_cutoff <- 0.01
+source("C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\hmrf.r")
+source("C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\misc.r")
+load("C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\adj_pfc35.RData")
+seedindex <- rep(0, ncol(adj_pfc35))
+seedindex[which(tada$dn.LoF >= 3)] <- 1
+
+#hmrf_pfc35 <- covarianceSelection::hmrf(tada$pval.TADA, adj_pfc35, seedindex, pthres = pthres)
+#hmrf_pfc35 <- hmrf(tada$pval.TADA, adj_pfc35, seedindex, pthres = pthres)
+hmrf_pfc35_string <- hmrf(tada$pval.TADA, string_incidence, seedindex, pthres = pthres)
+#report_pfc35 <- covarianceSelection::report_results(tada$Gene, 1-hmrf_pfc35$post, tada$pval.TADA, hmrf_pfc35$Iupdate)
+report_pfc35_string <- report_results(tada$Gene, 1-hmrf_pfc35_string$post, tada$pval.TADA, hmrf_pfc35_string$Iupdate)
+genes_pfc35_string <- sort(as.character(report_pfc35_string$Gene[which(report_pfc35_string$FDR <= fdr_cutoff)]))
+
+genes_pfc35_string
+
+########################
+
+# plot(exp(seq(log(0.01), log(0.35), length.out = length(scale_vec_pfc35))), scale_vec_pfc35)
+```
 
 
 
