@@ -25,5 +25,5 @@ editor_options:
 
 ## DAWN for autism data in 2022
 
-1. 
+1. [gene screening](part1_genes_creening.html)
 

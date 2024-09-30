@@ -1,0 +1,85 @@
+---
+title: "gene screening"
+output:
+  workflowr::wflow_html:
+    toc: false
+editor_options:
+  chunk_output_type: console
+date: "2024-09-30"
+---
+
+```{r, echo=F, message=F, warning=F}
+multiplesheets <- function(fname) {
+   
+  # getting info about all excel sheets
+  sheets <- readxl::excel_sheets(fname)
+  tibble <- lapply(sheets, function(x) readxl::read_excel(fname, sheet = x))
+  data_frame <- lapply(tibble, as.data.frame)
+    
+  # assigning names to data frames
+  names(data_frame) <- sheets
+    
+  # print data frame
+  print(data_frame)
+}
+
+```
+
+```{r, message=F, warning=F}
+rm(list=ls())
+set.seed(123)
+# screen https://github.com/linnykos/covarianceSelection/blob/master/main/step1_screening.R
+p_thres_screening <- 0.01 
+p_primary <- 0.1
+num_genes <- 3500
+
+###
+load("C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\data_preparation.RData")
+
+Jack_fu_data=read.csv("C:\\han\\Dataset\\20231221_PMID_35982160\\Fu 2022 Suppl-41588_2022_1104_MOESM3_ESM.csv")
+
+## update tada as the folowing format from Jack_fu_data
+#> head(tada)
+#     Gene dn.LoF   qvalue pval.TADA
+#1   SCN2A      4 9.81e-09  2.67e-07
+#2 SYNGAP1      6 6.63e-08  2.67e-07
+#3    CHD8      3 1.08e-05  2.67e-07
+#4  ARID1B      4 3.22e-05  2.67e-07
+#5    ANK2      3 6.32e-05  2.67e-07
+#6   KMT5B      3 8.51e-05  2.67e-07
+
+
+```
+
+
+
+
+```{r, message=F, warning=F, eval=F}
+selected_idx <- grep("PFC\\.[3-5]", names(dat_list))
+dat_pfc35 <- do.call(rbind, dat_list[selected_idx]) # 107 x 13964
+
+source("C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\screen.r")
+#screening_res <- covarianceSelection::screen(dat_pfc35, pv = tada$pval.TADA, p_thres = p_thres_screening, 
+#                                             num_genes = num_genes)
+screening_res <- screen(dat_pfc35, pv = tada$pval.TADA, p_thres = p_thres_screening, 
+                                             num_genes = num_genes)
+
+# 265 primary, 3235 secondary, total of 3500
+
+
+# reorder which genes are primary and which are secondary
+all_idx <- sort(unique(c(screening_res$primary, screening_res$secondary)))
+screening_res$primary <- all_idx[which(tada$pval.TADA[all_idx] < p_thres_screening)]
+screening_res$secondary <- setdiff(all_idx, screening_res$primary)
+
+# apply the new gene list
+for(i in 1:length(dat_list)){
+  dat_list[[i]] <- dat_list[[i]][,c(screening_res$primary, screening_res$secondary)]
+}
+tada <- tada[c(screening_res$primary, screening_res$secondary),]
+dim(tada)
+length(screening_res$primary)  
+length(screening_res$secondary) 
+                
+save(tada, screening_res, dat_list,  file ="C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\screen_res.RData") # this dat_list is not the same in data_preparation.RData
+```
