@@ -26,4 +26,6 @@ editor_options:
 ## DAWN for autism data in 2022
 
 1. [gene screening](part1_genes_creening.html)
+2. [partial neighborhood selection-PNS](part2_pns.html)
+3. [hidden markov random field model](part3_hmrfm.html)
 

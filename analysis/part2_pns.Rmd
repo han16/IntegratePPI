@@ -1,0 +1,47 @@
+---
+title: "partial neighborhood selection"
+output:
+  workflowr::wflow_html:
+    code_folding: hide
+    toc: true
+date: "2024-10-02"
+---
+
+
+```{r, message=F, warning=F, eval=T}
+## https://github.com/linnykos/covarianceSelection/blob/master/main/step3_pfc35_analysis.R
+rm(list=ls())
+set.seed(10)
+fdr_cutoff <- 0.01
+pthres <- 0.05
+library(statnet)  # use network function 
+library(ggpubr)  # combine two graphs 
+#####
+load("C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\screen_res_for_tada2022.RData")  # dat_list needs to be in screen_res.RData not in data_preparation.RData
+source("C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\graphicalModel.r")
+source("C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\graph_functions.r")
+selected_idx <- grep("PFC\\.[3-5]", names(dat_list))
+dat_pfc35 <- do.call(rbind, dat_list[selected_idx]) 
+dim(dat_pfc35)
+dat_pfc35 <- scale(dat_pfc35, scale = F)
+dim(dat_pfc35)
+```
+
+
+```{r, message=F, warning=F, eval=F}
+
+# estimate graphical model on PFC35 using cross-validated lasso for neighborhood selection
+ res <- graphicalModel_range(dat_pfc35, 1:length(screening_res$primary), 
+                                                  lambda_min = 0.01, lambda_max = 0.35, 
+                                                  lambda_length = 30, verbose = T) 
+#
+# scale_vec_pfc35 <- sapply(res, function(x){covarianceSelection::compute_scale_free(as.matrix(x$adj_mat))})
+ scale_vec_pfc35 <- sapply(res, function(x){compute_scale_free(as.matrix(x$adj_mat))}) # compute_scale_free is in graph_functions.r 
+ edges_vec_pfc35 <- sapply(res, function(x){sum(as.matrix(x$adj_mat))/2})
+ idx <- which.max(scale_vec_pfc35)
+
+ adj_pfc35 <- as.matrix(res[[idx]]$adj_mat)
+ stopifnot(all(dim(adj_pfc35) == nrow(tada_2022)))
+ #save(adj_pfc35, file ="C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\adj_pfc35_for_tada2022.RData")
+ 
+```
