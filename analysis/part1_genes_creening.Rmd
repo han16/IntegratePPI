@@ -2,9 +2,8 @@
 title: "gene screening"
 output:
   workflowr::wflow_html:
-    toc: false
-editor_options:
-  chunk_output_type: console
+    code_folding: hide
+    toc: true
 date: "2024-09-30"
 ---
 
@@ -28,6 +27,14 @@ multiplesheets <- function(fname) {
 ```{r, message=F, warning=F}
 rm(list=ls())
 set.seed(123)
+
+# install package qvalue
+#if (!require("BiocManager", quietly = TRUE))
+#    install.packages("BiocManager")
+#
+#BiocManager::install("qvalue")
+
+library(qvalue)
 # screen https://github.com/linnykos/covarianceSelection/blob/master/main/step1_screening.R
 p_thres_screening <- 0.01 
 p_primary <- 0.1
@@ -37,7 +44,9 @@ num_genes <- 3500
 load("C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\data_preparation.RData")
 
 Jack_fu_data=read.csv("C:\\han\\Dataset\\20231221_PMID_35982160\\Fu 2022 Suppl-41588_2022_1104_MOESM3_ESM.csv")
+qvalue=qvalue(Jack_fu_data$p_TADA_ASD)$qvalue
 
+tada_2022=data.frame(Gene=Jack_fu_data$gene, qvalue=qvalue, pval.TADA=Jack_fu_data$p_TADA_ASD)
 ## update tada as the folowing format from Jack_fu_data
 #> head(tada)
 #     Gene dn.LoF   qvalue pval.TADA
@@ -54,32 +63,50 @@ Jack_fu_data=read.csv("C:\\han\\Dataset\\20231221_PMID_35982160\\Fu 2022 Suppl-4
 
 
 
-```{r, message=F, warning=F, eval=F}
+```{r, message=F, warning=F, eval=T}
 selected_idx <- grep("PFC\\.[3-5]", names(dat_list))
-dat_pfc35 <- do.call(rbind, dat_list[selected_idx]) # 107 x 13964
+dat_pfc35 <- do.call(rbind, dat_list[selected_idx]) 
 
+#match the order in both datasets
+idx <- which(colnames(dat_pfc35) %in% tada_2022$Gene)
+dat_pfc35 <- dat_pfc35[,idx] # 1294 x 13964
+dim(dat_pfc35)
+idx <- which(tada_2022$Gene %in% colnames(dat_pfc35))
+tada_2022 <- tada_2022[idx,] # 13964 genes
+#idx <- covarianceSelection::matching(tada$Gene, colnames(genexp))
+source("C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\misc.R")
+idx <- matching(tada_2022$Gene, colnames(dat_pfc35))  # matching is in misc.R
+dat_pfc35 <- dat_pfc35[,idx]
+
+
+```
+
+
+
+
+
+
+```{r, message=F, warning=F, eval=T}
 source("C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\screen.r")
 #screening_res <- covarianceSelection::screen(dat_pfc35, pv = tada$pval.TADA, p_thres = p_thres_screening, 
 #                                             num_genes = num_genes)
-screening_res <- screen(dat_pfc35, pv = tada$pval.TADA, p_thres = p_thres_screening, 
+screening_res <- screen(dat_pfc35, pv = tada_2022$pval.TADA, p_thres = p_thres_screening, 
                                              num_genes = num_genes)
-
-# 265 primary, 3235 secondary, total of 3500
 
 
 # reorder which genes are primary and which are secondary
 all_idx <- sort(unique(c(screening_res$primary, screening_res$secondary)))
-screening_res$primary <- all_idx[which(tada$pval.TADA[all_idx] < p_thres_screening)]
+screening_res$primary <- all_idx[which(tada_2022$pval.TADA[all_idx] < p_thres_screening)]
 screening_res$secondary <- setdiff(all_idx, screening_res$primary)
 
 # apply the new gene list
 for(i in 1:length(dat_list)){
   dat_list[[i]] <- dat_list[[i]][,c(screening_res$primary, screening_res$secondary)]
 }
-tada <- tada[c(screening_res$primary, screening_res$secondary),]
-dim(tada)
+tada_2022 <- tada_2022[c(screening_res$primary, screening_res$secondary),]
+dim(tada_2022)
 length(screening_res$primary)  
 length(screening_res$secondary) 
                 
-save(tada, screening_res, dat_list,  file ="C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\screen_res.RData") # this dat_list is not the same in data_preparation.RData
+#save(tada_2022, screening_res, dat_list,  file ="C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\screen_res_for_tada2022.RData") # this dat_list is not the same in data_preparation.RData
 ```

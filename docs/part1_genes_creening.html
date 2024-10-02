@@ -30,7 +30,11 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 <link href="site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
@@ -229,7 +233,73 @@ $(document).ready(function () {
 </style>
 
 <!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
 
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
 
 
 
@@ -239,6 +309,16 @@ $(document).ready(function () {
 
 
 <div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -280,6 +360,14 @@ $(document).ready(function () {
 
 <div id="header">
 
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
 
 
 <h1 class="title toc-ignore">gene screening</h1>
@@ -312,11 +400,11 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2024-09-30
+<strong>Last updated:</strong> 2024-10-02
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 1
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
 aria-hidden="true"></span> 1
 </p>
@@ -350,10 +438,10 @@ changes </a>
 <div id="strongRMarkdownfilestronguncommittedchanges"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown is untracked by Git. To know which version of the R
-Markdown file created these results, you’ll want to first commit it to
-the Git repo. If you’re still working on the analysis, you can ignore
-this warning. When you’re finished, you can run
+<p>The R Markdown file has unstaged changes. To know which version of
+the R Markdown file created these results, you’ll want to first commit
+it to the Git repo. If you’re still working on the analysis, you can
+ignore this warning. When you’re finished, you can run
 <code>wflow_publish</code> to commit the R Markdown file and build the
 HTML.</p>
 </div>
@@ -362,15 +450,99 @@ HTML.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16IntegratePPItree77eaace0d7500e13e8b1d097fa4c7cd0fd3a2f80targetblank77eaacea">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the
+global environment can affect the analysis in your R Markdown file in
+unknown ways. For reproduciblity it’s best to always run the code in an
+empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20240430code">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Seed:</strong>
+<code>set.seed(20240430)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20240430code"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20240430)</code> was run prior to running
+the code in the R Markdown file. Setting a seed ensures that any results
+that rely on randomness, e.g. subsampling or permutations, are
+reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Session information:</strong>
+recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package
+versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be
+confident that you successfully produced the results during this
+run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr
+project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16IntegratePPItree6d32b56d415d8b03684486e139daa179a36c7193targetblank6d32b56a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/IntegratePPI/tree/77eaace0d7500e13e8b1d097fa4c7cd0fd3a2f80" target="_blank">77eaace</a>
+<a href="https://github.com/han16/IntegratePPI/tree/6d32b56d415d8b03684486e139daa179a36c7193" target="_blank">6d32b56</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16IntegratePPItree77eaace0d7500e13e8b1d097fa4c7cd0fd3a2f80targetblank77eaacea"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16IntegratePPItree6d32b56d415d8b03684486e139daa179a36c7193targetblank6d32b56a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -380,7 +552,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/IntegratePPI/tree/77eaace0d7500e13e8b1d097fa4c7cd0fd3a2f80" target="_blank">77eaace</a>.
+<a href="https://github.com/han16/IntegratePPI/tree/6d32b56d415d8b03684486e139daa179a36c7193" target="_blank">6d32b56</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -398,11 +570,8 @@ Ignored files:
     Ignored:    analysis/.Rhistory
     Ignored:    analysis/string_cache/
 
-Untracked files:
-    Untracked:  analysis/part1_genes_creening.Rmd
-
 Unstaged changes:
-    Modified:   analysis/index.Rmd
+    Modified:   analysis/part1_genes_creening.Rmd
 
 </code></pre>
 <p>
@@ -417,13 +586,193 @@ have uncommitted changes.
 <hr>
 </div>
 <div id="versions" class="tab-pane fade">
+
 <p>
-There are no past versions. Publish this analysis with
-<code>wflow_publish()</code> to start tracking its development.
+These are the previous versions of the repository in which changes were
+made to the R Markdown (<code>analysis/part1_genes_creening.Rmd</code>)
+and HTML (<code>docs/part1_genes_creening.html</code>) files. If you’ve
+configured a remote Git repository (see <code>?wflow_git_remote</code>),
+click on the hyperlinks in the table below to view the files as they
+were in that past version.
 </p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/IntegratePPI/blob/6d32b56d415d8b03684486e139daa179a36c7193/analysis/part1_genes_creening.Rmd" target="_blank">6d32b56</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-09-30
+</td>
+<td>
+9/30/2024
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/IntegratePPI/6d32b56d415d8b03684486e139daa179a36c7193/docs/part1_genes_creening.html" target="_blank">6d32b56</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-09-30
+</td>
+<td>
+9/30/2024
+</td>
+</tr>
+</tbody>
+</table>
+</div>
 <hr>
 </div>
 </div>
+</div>
+<pre class="r"><code>rm(list=ls())
+set.seed(123)
+
+# install package qvalue
+#if (!require(&quot;BiocManager&quot;, quietly = TRUE))
+#    install.packages(&quot;BiocManager&quot;)
+#
+#BiocManager::install(&quot;qvalue&quot;)
+
+library(qvalue)
+# screen https://github.com/linnykos/covarianceSelection/blob/master/main/step1_screening.R
+p_thres_screening &lt;- 0.01 
+p_primary &lt;- 0.1
+num_genes &lt;- 3500
+
+###
+load(&quot;C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\data_preparation.RData&quot;)
+
+Jack_fu_data=read.csv(&quot;C:\\han\\Dataset\\20231221_PMID_35982160\\Fu 2022 Suppl-41588_2022_1104_MOESM3_ESM.csv&quot;)
+qvalue=qvalue(Jack_fu_data$p_TADA_ASD)$qvalue
+
+tada_2022=data.frame(Gene=Jack_fu_data$gene, qvalue=qvalue, pval.TADA=Jack_fu_data$p_TADA_ASD)
+## update tada as the folowing format from Jack_fu_data
+#&gt; head(tada)
+#     Gene dn.LoF   qvalue pval.TADA
+#1   SCN2A      4 9.81e-09  2.67e-07
+#2 SYNGAP1      6 6.63e-08  2.67e-07
+#3    CHD8      3 1.08e-05  2.67e-07
+#4  ARID1B      4 3.22e-05  2.67e-07
+#5    ANK2      3 6.32e-05  2.67e-07
+#6   KMT5B      3 8.51e-05  2.67e-07</code></pre>
+<pre class="r"><code>selected_idx &lt;- grep(&quot;PFC\\.[3-5]&quot;, names(dat_list))
+dat_pfc35 &lt;- do.call(rbind, dat_list[selected_idx]) 
+
+#match the order in both datasets
+idx &lt;- which(colnames(dat_pfc35) %in% tada_2022$Gene)
+dat_pfc35 &lt;- dat_pfc35[,idx] # 1294 x 13964
+dim(dat_pfc35)</code></pre>
+<pre><code>[1]   107 12524</code></pre>
+<pre class="r"><code>idx &lt;- which(tada_2022$Gene %in% colnames(dat_pfc35))
+tada_2022 &lt;- tada_2022[idx,] # 13964 genes
+#idx &lt;- covarianceSelection::matching(tada$Gene, colnames(genexp))
+source(&quot;C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\misc.R&quot;)
+idx &lt;- matching(tada_2022$Gene, colnames(dat_pfc35))  # matching is in misc.R
+dat_pfc35 &lt;- dat_pfc35[,idx]</code></pre>
+<pre class="r"><code>source(&quot;C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\screen.r&quot;)
+#screening_res &lt;- covarianceSelection::screen(dat_pfc35, pv = tada$pval.TADA, p_thres = p_thres_screening, 
+#                                             num_genes = num_genes)
+screening_res &lt;- screen(dat_pfc35, pv = tada_2022$pval.TADA, p_thres = p_thres_screening, 
+                                             num_genes = num_genes)
+
+
+# reorder which genes are primary and which are secondary
+all_idx &lt;- sort(unique(c(screening_res$primary, screening_res$secondary)))
+screening_res$primary &lt;- all_idx[which(tada_2022$pval.TADA[all_idx] &lt; p_thres_screening)]
+screening_res$secondary &lt;- setdiff(all_idx, screening_res$primary)
+
+# apply the new gene list
+for(i in 1:length(dat_list)){
+  dat_list[[i]] &lt;- dat_list[[i]][,c(screening_res$primary, screening_res$secondary)]
+}
+tada_2022 &lt;- tada_2022[c(screening_res$primary, screening_res$secondary),]
+dim(tada_2022)</code></pre>
+<pre><code>[1] 3500    3</code></pre>
+<pre class="r"><code>length(screening_res$primary)  </code></pre>
+<pre><code>[1] 472</code></pre>
+<pre class="r"><code>length(screening_res$secondary) </code></pre>
+<pre><code>[1] 3028</code></pre>
+<pre class="r"><code>#save(tada_2022, screening_res, dat_list,  file =&quot;C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\screen_res_for_tada2022.RData&quot;) # this dat_list is not the same in data_preparation.RData</code></pre>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 4.4.0 (2024-04-24 ucrt)
+Platform: x86_64-w64-mingw32/x64
+Running under: Windows 10 x64 (build 19045)
+
+Matrix products: default
+
+
+locale:
+[1] LC_COLLATE=English_United States.utf8 
+[2] LC_CTYPE=English_United States.utf8   
+[3] LC_MONETARY=English_United States.utf8
+[4] LC_NUMERIC=C                          
+[5] LC_TIME=English_United States.utf8    
+
+time zone: America/Chicago
+tzcode source: internal
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] qvalue_2.36.0
+
+loaded via a namespace (and not attached):
+ [1] gtable_0.3.5      jsonlite_1.8.8    dplyr_1.1.4       compiler_4.4.0   
+ [5] promises_1.3.0    tidyselect_1.2.1  Rcpp_1.0.12       stringr_1.5.1    
+ [9] git2r_0.33.0      later_1.3.2       jquerylib_0.1.4   splines_4.4.0    
+[13] scales_1.3.0      yaml_2.3.8        fastmap_1.1.1     plyr_1.8.9       
+[17] ggplot2_3.5.1     R6_2.5.1          generics_0.1.3    workflowr_1.7.1  
+[21] knitr_1.46        tibble_3.2.1      munsell_0.5.1     rprojroot_2.0.4  
+[25] bslib_0.7.0       pillar_1.9.0      rlang_1.1.3       utf8_1.2.4       
+[29] cachem_1.0.8      stringi_1.8.4     httpuv_1.6.15     xfun_0.43        
+[33] fs_1.6.4          sass_0.4.9        cli_3.6.2         magrittr_2.0.3   
+[37] digest_0.6.35     grid_4.4.0        rstudioapi_0.16.0 lifecycle_1.0.4  
+[41] vctrs_0.6.5       evaluate_0.23     glue_1.7.0        whisker_0.4.1    
+[45] colorspace_2.1-0  fansi_1.0.6       reshape2_1.4.4    rmarkdown_2.26   
+[49] tools_4.4.0       pkgconfig_2.0.3   htmltools_0.5.8.1</code></pre>
 </div>
 
 
@@ -442,6 +791,8 @@ footer is added to webpages before the MathJax javascript. -->
 
 
 
+</div>
+</div>
 
 </div>
 
@@ -473,7 +824,41 @@ $(document).ready(function () {
 </script>
 
 <!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
 
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
