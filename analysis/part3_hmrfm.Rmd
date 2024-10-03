@@ -13,8 +13,11 @@ date: "2024-10-02"
 
 
 ```{r, message=F, warning=F, eval=T}
+rm(list=ls())
+set.seed(123)
+require(statnet) # load the package statnet to visualize networks in R
 # curate the adj_pfc35 by incorporating PPI information 
-load("C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\adj_pfc35.RData")  # load incidence matrix 
+load("C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\adj_pfc35_for_tada2022.RData")  # load incidence matrix 
 load("C:\\han\\Projects\\IntegratePPI\\string.keep_gene_level.RData")  # load pairwise protein interaction information  
 
 ### build incidence matrix, (i,j)=1 if there is a link between genes, i & j, and 0 otherwise
@@ -61,20 +64,23 @@ plot(net, vertex.cex=0.15, rescale=F) # vextex.cex control the vertex size
 ```{r, message=F, warning=F, eval=T}
 # run the HMRF
 fdr_cutoff <- 0.01
+pthres <- 0.05
 source("C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\hmrf.r")
 source("C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\misc.r")
-load("C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\adj_pfc35.RData")
+load("C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\adj_pfc35_for_tada2022.RData")
+load("C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\screen_res_for_tada2022.RData")
 seedindex <- rep(0, ncol(adj_pfc35))
-seedindex[which(tada$dn.LoF >= 3)] <- 1
+#seedindex[which(tada$dn.LoF >= 3)] <- 1
+seedindex[which(tada_2022$qvalue<1e-03)] <- 1
 
 #hmrf_pfc35 <- covarianceSelection::hmrf(tada$pval.TADA, adj_pfc35, seedindex, pthres = pthres)
-#hmrf_pfc35 <- hmrf(tada$pval.TADA, adj_pfc35, seedindex, pthres = pthres)
-hmrf_pfc35_string <- hmrf(tada$pval.TADA, string_incidence, seedindex, pthres = pthres)
+hmrf_pfc35 <- hmrf(tada_2022$pval.TADA, adj_pfc35, seedindex, pthres = pthres)
+#hmrf_pfc35_string <- hmrf(tada_2022$pval.TADA, adj_pfc35, seedindex, pthres = pthres)
 #report_pfc35 <- covarianceSelection::report_results(tada$Gene, 1-hmrf_pfc35$post, tada$pval.TADA, hmrf_pfc35$Iupdate)
-report_pfc35_string <- report_results(tada$Gene, 1-hmrf_pfc35_string$post, tada$pval.TADA, hmrf_pfc35_string$Iupdate)
-genes_pfc35_string <- sort(as.character(report_pfc35_string$Gene[which(report_pfc35_string$FDR <= fdr_cutoff)]))
+report_pfc35 <- report_results(tada_2022$Gene, 1-hmrf_pfc35$post, tada_2022$pval.TADA, hmrf_pfc35$Iupdate)
+genes_pfc35 <- sort(as.character(report_pfc35$Gene[which(report_pfc35$FDR <= fdr_cutoff)]))
 
-genes_pfc35_string
+genes_pfc35
 
 ########################
 
