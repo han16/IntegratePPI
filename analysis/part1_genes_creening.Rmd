@@ -56,7 +56,7 @@ tada_2022=data.frame(Gene=Jack_fu_data$gene, qvalue=qvalue, pval.TADA=Jack_fu_da
 #4  ARID1B      4 3.22e-05  2.67e-07
 #5    ANK2      3 6.32e-05  2.67e-07
 #6   KMT5B      3 8.51e-05  2.67e-07
-
+Jack_fu_data$gene[which(Jack_fu_data$FDR_TADA_ASD<0.05)]  # 185 genes are selected at FDR<0.05 https://www.nature.com/articles/s41588-022-01104-0
 
 ```
 

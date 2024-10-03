@@ -400,7 +400,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2024-10-02
+<strong>Last updated:</strong> 2024-10-03
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -534,15 +534,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16IntegratePPItree6d32b56d415d8b03684486e139daa179a36c7193targetblank6d32b56a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16IntegratePPItree7be357c3b4e3eee7ef7af25bf16b5f6da7f5df1ctargetblank7be357ca">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/IntegratePPI/tree/6d32b56d415d8b03684486e139daa179a36c7193" target="_blank">6d32b56</a>
+<a href="https://github.com/han16/IntegratePPI/tree/7be357c3b4e3eee7ef7af25bf16b5f6da7f5df1c" target="_blank">7be357c</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16IntegratePPItree6d32b56d415d8b03684486e139daa179a36c7193targetblank6d32b56a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16IntegratePPItree7be357c3b4e3eee7ef7af25bf16b5f6da7f5df1ctargetblank7be357ca"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -552,7 +552,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/IntegratePPI/tree/6d32b56d415d8b03684486e139daa179a36c7193" target="_blank">6d32b56</a>.
+<a href="https://github.com/han16/IntegratePPI/tree/7be357c3b4e3eee7ef7af25bf16b5f6da7f5df1c" target="_blank">7be357c</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -617,6 +617,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/IntegratePPI/blob/5bc09574e20be7a63c8624c47d20f6cac5f521a4/analysis/part1_genes_creening.Rmd" target="_blank">5bc0957</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-10-02
+</td>
+<td>
+10/2/2024
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/IntegratePPI/5bc09574e20be7a63c8624c47d20f6cac5f521a4/docs/part1_genes_creening.html" target="_blank">5bc0957</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-10-02
+</td>
+<td>
+10/2/2024
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -688,7 +722,39 @@ tada_2022=data.frame(Gene=Jack_fu_data$gene, qvalue=qvalue, pval.TADA=Jack_fu_da
 #3    CHD8      3 1.08e-05  2.67e-07
 #4  ARID1B      4 3.22e-05  2.67e-07
 #5    ANK2      3 6.32e-05  2.67e-07
-#6   KMT5B      3 8.51e-05  2.67e-07</code></pre>
+#6   KMT5B      3 8.51e-05  2.67e-07
+Jack_fu_data$gene[which(Jack_fu_data$FDR_TADA_ASD&lt;0.05)]  # 185 genes are selected at FDR&lt;0.05 https://www.nature.com/articles/s41588-022-01104-0</code></pre>
+<pre><code>  [1] &quot;MED13&quot;     &quot;NIPBL&quot;     &quot;NCKAP1&quot;    &quot;XPO1&quot;      &quot;PRR12&quot;     &quot;SYNGAP1&quot;  
+  [7] &quot;HDAC4&quot;     &quot;TRIP12&quot;    &quot;KDM3B&quot;     &quot;GRIN2B&quot;    &quot;ATP1A3&quot;    &quot;ASH1L&quot;    
+ [13] &quot;MED13L&quot;    &quot;KMT2A&quot;     &quot;CREBBP&quot;    &quot;SIN3A&quot;     &quot;CHD2&quot;      &quot;SCN1A&quot;    
+ [19] &quot;SPEN&quot;      &quot;EHMT1&quot;     &quot;TLE3&quot;      &quot;UBR5&quot;      &quot;AHDC1&quot;     &quot;SUV420H1&quot; 
+ [25] &quot;PHF21A&quot;    &quot;DYNC1H1&quot;   &quot;TAF4&quot;      &quot;CHD8&quot;      &quot;WAC&quot;       &quot;ZNF462&quot;   
+ [31] &quot;STXBP1&quot;    &quot;MYT1L&quot;     &quot;SATB2&quot;     &quot;CYFIP2&quot;    &quot;EFTUD2&quot;    &quot;TCF20&quot;    
+ [37] &quot;DLL1&quot;      &quot;FBXO11&quot;    &quot;ARID1B&quot;    &quot;RFX3&quot;      &quot;ANK2&quot;      &quot;RALGAPB&quot;  
+ [43] &quot;TBL1XR1&quot;   &quot;ANKRD11&quot;   &quot;NAA25&quot;     &quot;RORB&quot;      &quot;NRXN3&quot;     &quot;TLK2&quot;     
+ [49] &quot;RAI1&quot;      &quot;PIK3CA&quot;    &quot;SMARCC2&quot;   &quot;TSC1&quot;      &quot;POGZ&quot;      &quot;ZMYND11&quot;  
+ [55] &quot;KMT2C&quot;     &quot;TRAF2&quot;     &quot;ADNP&quot;      &quot;SHANK3&quot;    &quot;CACNA1E&quot;   &quot;KCNB1&quot;    
+ [61] &quot;HECTD4&quot;    &quot;SCN2A&quot;     &quot;CTNNB1&quot;    &quot;ZMYND8&quot;    &quot;PHF12&quot;     &quot;MBD5&quot;     
+ [67] &quot;KDM6B&quot;     &quot;ZNF292&quot;    &quot;CSNK1E&quot;    &quot;CHD3&quot;      &quot;CTCF&quot;      &quot;ATP2B2&quot;   
+ [73] &quot;DIP2C&quot;     &quot;TLE4&quot;      &quot;SLC6A1&quot;    &quot;EBF3&quot;      &quot;MAPK8IP3&quot;  &quot;MARK2&quot;    
+ [79] &quot;PSMD11&quot;    &quot;PSMD12&quot;    &quot;FAM120A&quot;   &quot;CASKIN1&quot;   &quot;PAX5&quot;      &quot;GABBR2&quot;   
+ [85] &quot;PPP1R9B&quot;   &quot;NACC1&quot;     &quot;ACVR2A&quot;    &quot;KIF1B&quot;     &quot;CELF1&quot;     &quot;CELF2&quot;    
+ [91] &quot;FOXP1&quot;     &quot;PHF2&quot;      &quot;MEIS2&quot;     &quot;PACS1&quot;     &quot;NAV3&quot;      &quot;SYK&quot;      
+ [97] &quot;PTPRF&quot;     &quot;PRDM16&quot;    &quot;DSCAM&quot;     &quot;SKI&quot;       &quot;TBR1&quot;      &quot;ASXL3&quot;    
+[103] &quot;SMARCA2&quot;   &quot;CYLD&quot;      &quot;SYNCRIP&quot;   &quot;CACNA1D&quot;   &quot;DYRK1A&quot;    &quot;TCF4&quot;     
+[109] &quot;AGO4&quot;      &quot;ITSN1&quot;     &quot;SPAST&quot;     &quot;HNRNPUL2&quot;  &quot;SETD5&quot;     &quot;HNRNPD&quot;   
+[115] &quot;CUL3&quot;      &quot;INO80D&quot;    &quot;DLG4&quot;      &quot;VEZF1&quot;     &quot;KPNA1&quot;     &quot;GRIA2&quot;    
+[121] &quot;CAMK2A&quot;    &quot;INTS3&quot;     &quot;AUTS2&quot;     &quot;ADCY5&quot;     &quot;NRXN1&quot;     &quot;PBX1&quot;     
+[127] &quot;CAMTA2&quot;    &quot;PLXNA1&quot;    &quot;TCF7L2&quot;    &quot;DPYSL2&quot;    &quot;TAOK1&quot;     &quot;KCNMA1&quot;   
+[133] &quot;NAA15&quot;     &quot;RAB11FIP4&quot; &quot;MYO18A&quot;    &quot;C16orf72&quot;  &quot;YWHAG&quot;     &quot;NF1&quot;      
+[139] &quot;MLXIP&quot;     &quot;CSNK2A1&quot;   &quot;SLC9A3&quot;    &quot;CAPRIN1&quot;   &quot;ZBTB20&quot;    &quot;CORO1A&quot;   
+[145] &quot;APBB1&quot;     &quot;CDK13&quot;     &quot;ATG13&quot;     &quot;DEDD&quot;      &quot;BRSK2&quot;     &quot;ZMYM2&quot;    
+[151] &quot;GABRB3&quot;    &quot;USP49&quot;     &quot;UBR1&quot;      &quot;DIP2A&quot;     &quot;KCNQ3&quot;     &quot;GABRA1&quot;   
+[157] &quot;KCNH7&quot;     &quot;ACLY&quot;      &quot;CTNNA2&quot;    &quot;BTG3&quot;      &quot;SRPR&quot;      &quot;IRF2BPL&quot;  
+[163] &quot;SYT1&quot;      &quot;SHANK2&quot;    &quot;SLC6A2&quot;    &quot;GIGYF1&quot;    &quot;ANKH&quot;      &quot;MED23&quot;    
+[169] &quot;AP2S1&quot;     &quot;PTEN&quot;      &quot;TNPO3&quot;     &quot;ITPR3&quot;     &quot;KDM5B&quot;     &quot;MEF2C&quot;    
+[175] &quot;DEAF1&quot;     &quot;ATP4A&quot;     &quot;OBSCN&quot;     &quot;ATG9B&quot;     &quot;MRFAP1&quot;    &quot;H3F3A&quot;    
+[181] &quot;PRH1&quot;      &quot;ROPN1&quot;     &quot;DNMT3A&quot;    &quot;PTGDR2&quot;    &quot;CGREF1&quot;   </code></pre>
 <pre class="r"><code>selected_idx &lt;- grep(&quot;PFC\\.[3-5]&quot;, names(dat_list))
 dat_pfc35 &lt;- do.call(rbind, dat_list[selected_idx]) 
 
