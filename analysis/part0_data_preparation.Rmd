@@ -1,0 +1,136 @@
+---
+title: "data preparation"
+output:
+  workflowr::wflow_html:
+    code_folding: hide
+    toc: true
+date: "2024-10-04"
+---
+
+```{r, message=F, warning=F, eval=T}
+# step0_loading.R
+#if(verbose) print("Start of step 0: Loading")
+rm(list=ls())
+set.seed(123)
+#format the brainspan dataset
+load("C:/han/Dataset/20231006_PMID_33731968/NIHMS1598069-supplement-Supp_1/newGenexp.RData")
+rownames(genexp) <- genexp[,1]
+genexp <- genexp[,-1]
+genexp <- t(genexp)
+genexp <- as.data.frame(genexp) # 1340 x 16947
+dim(genexp)
+```
+
+
+
+
+```{r, message=F, warning=F, eval=F}
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+############### DON NOT use this step as it may filter out important genes ######################
+#determine brain-expressed genes
+#brain_expression <- covarianceSelection::brain_expression
+load("C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\brain_expression.rda")
+brain_genes <- brain_expression$Gene[brain_expression$Brain_expressed != 'No']
+idx <- which(colnames(genexp) %in% brain_genes)
+genexp <- genexp[,idx] # 1340 x 14370
+dim(genexp)
+```
+
+
+
+```{r, message=F, warning=F, eval=F}
+
+#translate into synonyms
+#vec <- covarianceSelection::symbol_synonyms(colnames(genexp), verbose = T)
+source("C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\cleaning.R") # function symbol_synonyms is in cleaning.R
+vec <- symbol_synonyms(colnames(genexp), verbose = T)
+unknown_genes_idx <- which(is.na(vec))
+vec <- vec[-unknown_genes_idx]
+genexp <- genexp[-unknown_genes_idx] # 1340 x 14290
+dim(genexp)
+colnames(genexp) <- vec
+```
+
+
+
+```{r, message=F, warning=F, eval=F}
+#average non-unique genes
+#genexp <- covarianceSelection:::average_same_columns(genexp) # 1340 x 14246
+genexp <- average_same_columns(genexp) # 1340 x 14237  # average_same_columns is in cleaning.R 
+dim(genexp)
+
+#remove samples from subregions that we don't have a region for
+#region_subregion <- covarianceSelection::region_subregion
+load("C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\region_subregion.rda")
+vec <- rownames(genexp)
+subregion <- unlist(strsplit(vec,"\\."))[seq(2, length(vec)*4, 4)]
+idx <- which(subregion %in% region_subregion$subregion)
+genexp <- genexp[idx,] # 1294 x 14237
+dim(genexp)
+```
+
+
+
+```{r, message=F, warning=F, eval=F}
+####
+
+#load tada dataset
+Jack_fu_data=read.csv("C:\\han\\Dataset\\20231221_PMID_35982160\\Fu 2022 Suppl-41588_2022_1104_MOESM3_ESM.csv")
+qvalue=qvalue(Jack_fu_data$p_TADA_ASD)$qvalue
+dim(Jack_fu_data)
+
+tada_2022=data.frame(Gene=Jack_fu_data$gene, qvalue=qvalue, pval.TADA=Jack_fu_data$p_TADA_ASD)
+## update tada as the folowing format from Jack_fu_data
+#> head(tada)
+#     Gene dn.LoF   qvalue pval.TADA
+#1   SCN2A      4 9.81e-09  2.67e-07
+#2 SYNGAP1      6 6.63e-08  2.67e-07
+#3    CHD8      3 1.08e-05  2.67e-07
+#4  ARID1B      4 3.22e-05  2.67e-07
+#5    ANK2      3 6.32e-05  2.67e-07
+#6   KMT5B      3 8.51e-05  2.67e-07
+asd_185_genes=Jack_fu_data$gene[which(Jack_fu_data$FDR_TADA_ASD<0.05)]  # 185 genes are selected at FDR<0.05 https://www.nature.com/articles/s41588-022-01104-0
+dim(tada_2022)
+sum(asd_185_genes %in% colnames(genexp))  # only 172 of asd_185_genes appear in genexp
+```
+
+
+
+
+
+```{r, message=F, warning=F, eval=F}
+#match the order in both datasets
+idx <- which(colnames(genexp) %in% tada_2022$Gene)
+genexp <- genexp[,idx] # 1294 x 13964
+dim(genexp)
+idx <- which(tada_2022$Gene %in% colnames(genexp))
+tada_2022 <- tada_2022[idx,] # 13964 genes
+#idx <- covarianceSelection::matching(tada$Gene, colnames(genexp))
+source("C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\misc.R")
+idx <- matching(tada_2022$Gene, colnames(genexp))  # matching is in misc.R
+genexp <- genexp[,idx]
+sum(asd_185_genes %in% colnames(genexp))
+```
+
+
+
+```{r, message=F, warning=F, eval=F}
+#dat_list <- covarianceSelection::extractor(genexp) # 212 partitions
+dat_list <- extractor(genexp) # 212 partitions  # extractor is in cleaning.R 
+dat_list <- lapply(dat_list, as.matrix, drop = F)
+
+# remove partitions too small
+idx <- which(sapply(dat_list, function(x){ifelse(nrow(x) >= 5, T, F)}))
+dat_list <- dat_list[idx] # 125 partitions
+dat_list <- lapply(dat_list, scale, scale = F)
+
+nrow(tada_2022)==ncol((dat_list[[1]]))
+sum(asd_185_genes %in% tada_2022$Gene)
+missed_genes=asd_185_genes[(asd_185_genes %in% colnames(dat_list[[1]])==F)] # genes missed in dat_list 
+
+#cleanup
+#rm(list = c("brain_expression", "brain_genes", "idx", "vec", "region_subregion",
+#            "subregion", "genexp", "unknown_genes_idx"))
+
+#save(tada_2022, dat_list, file ="C:\\han\\Projects\\Multi_Omics\\JackFu_2022\\data_preparation.RData")
+```

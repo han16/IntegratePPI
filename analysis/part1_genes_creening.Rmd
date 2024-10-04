@@ -24,6 +24,8 @@ multiplesheets <- function(fname) {
 
 ```
 
+
+
 ```{r, message=F, warning=F}
 rm(list=ls())
 set.seed(123)
@@ -41,23 +43,10 @@ p_primary <- 0.1
 num_genes <- 3500
 
 ###
-load("C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\data_preparation.RData")
+load("C:\\han\\Projects\\Multi_Omics\\JackFu_2022\\data_preparation.RData")
 
 Jack_fu_data=read.csv("C:\\han\\Dataset\\20231221_PMID_35982160\\Fu 2022 Suppl-41588_2022_1104_MOESM3_ESM.csv")
-qvalue=qvalue(Jack_fu_data$p_TADA_ASD)$qvalue
-
-tada_2022=data.frame(Gene=Jack_fu_data$gene, qvalue=qvalue, pval.TADA=Jack_fu_data$p_TADA_ASD)
-## update tada as the folowing format from Jack_fu_data
-#> head(tada)
-#     Gene dn.LoF   qvalue pval.TADA
-#1   SCN2A      4 9.81e-09  2.67e-07
-#2 SYNGAP1      6 6.63e-08  2.67e-07
-#3    CHD8      3 1.08e-05  2.67e-07
-#4  ARID1B      4 3.22e-05  2.67e-07
-#5    ANK2      3 6.32e-05  2.67e-07
-#6   KMT5B      3 8.51e-05  2.67e-07
-Jack_fu_data$gene[which(Jack_fu_data$FDR_TADA_ASD<0.05)]  # 185 genes are selected at FDR<0.05 https://www.nature.com/articles/s41588-022-01104-0
-
+asd_185_genes=Jack_fu_data$gene[which(Jack_fu_data$FDR_TADA_ASD<0.05)]  # 185 genes are selected at FDR<0.05 https://www.nature.com/articles/s41588-022-01104-0
 ```
 
 
@@ -78,7 +67,7 @@ source("C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\misc.R")
 idx <- matching(tada_2022$Gene, colnames(dat_pfc35))  # matching is in misc.R
 dat_pfc35 <- dat_pfc35[,idx]
 
-
+length(tada_2022$Gene)==ncol(dat_pfc35) 
 ```
 
 
@@ -107,6 +96,9 @@ tada_2022 <- tada_2022[c(screening_res$primary, screening_res$secondary),]
 dim(tada_2022)
 length(screening_res$primary)  
 length(screening_res$secondary) 
+sum(asd_185_genes %in% tada_2022$Gene)
+sum(asd_185_genes %in% colnames(dat_list[[1]]))
+
                 
-#save(tada_2022, screening_res, dat_list,  file ="C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\screen_res_for_tada2022.RData") # this dat_list is not the same in data_preparation.RData
+#save(tada_2022, screening_res, dat_list,  file ="C:\\han\\Projects\\Multi_Omics\\JackFu_2022\\screen_res_for_tada2022.RData") # this dat_list is not the same in data_preparation.RData
 ```
