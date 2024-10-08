@@ -29,4 +29,4 @@ editor_options:
 1. [gene screening](part1_genes_creening.html)
 2. [partial neighborhood selection-PNS](part2_pns.html)
 3. [hidden markov random field model](part3_hmrfm.html)
-
+4. [enrichment analysis](part4.enrichment.html)

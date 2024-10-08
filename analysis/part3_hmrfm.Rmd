@@ -17,7 +17,7 @@ rm(list=ls())
 set.seed(123)
 require(statnet) # load the package statnet to visualize networks in R
 # curate the adj_pfc35 by incorporating PPI information 
-load("C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\adj_pfc35_for_tada2022.RData")  # load incidence matrix 
+load("C:\\han\\Projects\\Multi_Omics\\JackFu_2022\\adj_pfc35_for_tada2022.RData")  # load incidence matrix 
 load("C:\\han\\Projects\\IntegratePPI\\string.keep_gene_level.RData")  # load pairwise protein interaction information  
 
 ### build incidence matrix, (i,j)=1 if there is a link between genes, i & j, and 0 otherwise
@@ -61,14 +61,14 @@ plot(net, vertex.cex=0.15, rescale=F) # vextex.cex control the vertex size
 ## run HMRF to get risk genes 
 
 
-```{r, message=F, warning=F, eval=T}
+```{r, message=F, warning=F, eval=F}
 # run the HMRF
-fdr_cutoff <- 0.01
+fdr_cutoff <- 0.05
 pthres <- 0.05
 source("C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\hmrf.r")
 source("C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\misc.r")
-load("C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\adj_pfc35_for_tada2022.RData")
-load("C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\screen_res_for_tada2022.RData")
+load("C:\\han\\Projects\\Multi_Omics\\JackFu_2022\\adj_pfc35_for_tada2022.RData")
+load("C:\\han\\Projects\\Multi_Omics\\JackFu_2022\\screen_res_for_tada2022.RData")
 seedindex <- rep(0, ncol(adj_pfc35))
 #seedindex[which(tada$dn.LoF >= 3)] <- 1
 seedindex[which(tada_2022$qvalue<1e-03)] <- 1
@@ -80,9 +80,72 @@ hmrf_pfc35 <- hmrf(tada_2022$pval.TADA, adj_pfc35, seedindex, pthres = pthres)
 report_pfc35 <- report_results(tada_2022$Gene, 1-hmrf_pfc35$post, tada_2022$pval.TADA, hmrf_pfc35$Iupdate)
 genes_pfc35 <- sort(as.character(report_pfc35$Gene[which(report_pfc35$FDR <= fdr_cutoff)]))
 
-genes_pfc35
+#save(genes_pfc35, adj_pfc35, file="C:\\han\\Projects\\Multi_Omics\\JackFu_2022\\result_FDR0.05_adj_pfc35.RData")
 
-########################
+```
 
-# plot(exp(seq(log(0.01), log(0.35), length.out = length(scale_vec_pfc35))), scale_vec_pfc35)
+
+```{r, message=F, warning=F, eval=F}
+# run the HMRF
+fdr_cutoff <- 0.05
+pthres <- 0.05
+source("C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\hmrf.r")
+source("C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\misc.r")
+load("C:\\han\\Projects\\Multi_Omics\\JackFu_2022\\adj_pfc35_for_tada2022.RData")
+load("C:\\han\\Projects\\Multi_Omics\\JackFu_2022\\screen_res_for_tada2022.RData")
+seedindex <- rep(0, ncol(adj_pfc35))
+#seedindex[which(tada$dn.LoF >= 3)] <- 1
+seedindex[which(tada_2022$qvalue<1e-03)] <- 1
+
+#hmrf_pfc35 <- covarianceSelection::hmrf(tada$pval.TADA, adj_pfc35, seedindex, pthres = pthres)
+hmrf_pfc35_string <- hmrf(tada_2022$pval.TADA, string_incidence, seedindex, pthres = pthres)
+#report_pfc35 <- covarianceSelection::report_results(tada$Gene, 1-hmrf_pfc35$post, tada$pval.TADA, hmrf_pfc35$Iupdate)
+report_pfc35_string <- report_results(tada_2022$Gene, 1-hmrf_pfc35_string$post, tada_2022$pval.TADA, hmrf_pfc35_string$Iupdate)
+genes_pfc35_string <- sort(as.character(report_pfc35_string$Gene[which(report_pfc35_string$FDR <= fdr_cutoff)]))
+
+
+#save(genes_pfc35_string, string_incidence, file="C:\\han\\Projects\\Multi_Omics\\JackFu_2022\\result_FDR0.05_string_incidence.RData")
+```
+
+
+
+```{r, message=F, warning=F, eval=F}
+# run the HMRF
+fdr_cutoff <- 0.05
+pthres <- 0.05
+source("C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\hmrf.r")
+source("C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\misc.r")
+load("C:\\han\\Projects\\Multi_Omics\\JackFu_2022\\adj_pfc35_for_tada2022.RData")
+load("C:\\han\\Projects\\Multi_Omics\\JackFu_2022\\screen_res_for_tada2022.RData")
+seedindex <- rep(0, ncol(adj_pfc35))
+#seedindex[which(tada$dn.LoF >= 3)] <- 1
+seedindex[which(tada_2022$qvalue<1e-03)] <- 1
+
+#hmrf_pfc35 <- covarianceSelection::hmrf(tada$pval.TADA, adj_pfc35, seedindex, pthres = pthres)
+hmrf_pfc35_string_combine_adj <- hmrf(tada_2022$pval.TADA, adj_string_combine_incidence, seedindex, pthres = pthres)
+#report_pfc35 <- covarianceSelection::report_results(tada$Gene, 1-hmrf_pfc35$post, tada$pval.TADA, hmrf_pfc35$Iupdate)
+report_pfc35_string_combine_adj <- report_results(tada_2022$Gene, 1-hmrf_pfc35_string_combine_adj$post, tada_2022$pval.TADA, hmrf_pfc35_string_combine_adj$Iupdate)
+genes_pfc35_string_combine_adj <- sort(as.character(report_pfc35_string_combine_adj$Gene[which(report_pfc35_string_combine_adj$FDR <= fdr_cutoff)]))
+
+
+#save(genes_pfc35_string_combine_adj, adj_string_combine_incidence, file="C:\\han\\Projects\\Multi_Omics\\JackFu_2022\\result_FDR0.05_adj_string_combine_incidence.RData")
+```
+
+
+
+```{r, message=F, warning=F}
+#load tada dataset
+Jack_fu_data=read.csv("C:\\han\\Dataset\\20231221_PMID_35982160\\Fu 2022 Suppl-41588_2022_1104_MOESM3_ESM.csv")
+asd_185_genes=Jack_fu_data$gene[which(Jack_fu_data$FDR_TADA_ASD<0.05)]  # 185 genes are selected at FDR<0.05 https://www.nature.com/articles/s41588-022-01104-0
+```
+
+```{r, message=F, warning=F}
+load("C:\\han\\Projects\\Multi_Omics\\JackFu_2022\\result_FDR0.05_adj_pfc35.RData")
+load("C:\\han\\Projects\\Multi_Omics\\JackFu_2022\\result_FDR0.05_string_incidence.RData")
+load("C:\\han\\Projects\\Multi_Omics\\JackFu_2022\\result_FDR0.05_adj_string_combine_incidence.RData")
+
+length(intersect(asd_185_genes, genes_pfc35))
+length(intersect(asd_185_genes, genes_pfc35_string))
+length(intersect(asd_185_genes, genes_pfc35_string_combine_adj))
+length(intersect(genes_pfc35, genes_pfc35_string))
 ```
