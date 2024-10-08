@@ -17,7 +17,7 @@ pthres <- 0.05
 library(statnet)  # use network function 
 library(ggpubr)  # combine two graphs 
 #####
-load("C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\screen_res_for_tada2022.RData")  # dat_list needs to be in screen_res.RData not in data_preparation.RData
+load("C:\\han\\Projects\\Multi_Omics\\JackFu_2022\\screen_res_for_tada2022.RData")  # dat_list needs to be in screen_res.RData not in data_preparation.RData
 source("C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\graphicalModel.r")
 source("C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\graph_functions.r")
 selected_idx <- grep("PFC\\.[3-5]", names(dat_list))
@@ -42,6 +42,6 @@ dim(dat_pfc35)
 
  adj_pfc35 <- as.matrix(res[[idx]]$adj_mat)
  stopifnot(all(dim(adj_pfc35) == nrow(tada_2022)))
- #save(adj_pfc35, file ="C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\adj_pfc35_for_tada2022.RData")
+ #save(adj_pfc35, file ="C:\\han\\Projects\\Multi_Omics\\JackFu_2022\\adj_pfc35_for_tada2022.RData")
  
 ```

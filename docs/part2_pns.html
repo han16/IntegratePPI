@@ -400,7 +400,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2024-10-02
+<strong>Last updated:</strong> 2024-10-08
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -438,10 +438,10 @@ changes </a>
 <div id="strongRMarkdownfilestronguncommittedchanges"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown is untracked by Git. To know which version of the R
-Markdown file created these results, you’ll want to first commit it to
-the Git repo. If you’re still working on the analysis, you can ignore
-this warning. When you’re finished, you can run
+<p>The R Markdown file has unstaged changes. To know which version of
+the R Markdown file created these results, you’ll want to first commit
+it to the Git repo. If you’re still working on the analysis, you can
+ignore this warning. When you’re finished, you can run
 <code>wflow_publish</code> to commit the R Markdown file and build the
 HTML.</p>
 </div>
@@ -534,15 +534,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16IntegratePPItree5bc09574e20be7a63c8624c47d20f6cac5f521a4targetblank5bc0957a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16IntegratePPItree3361aa2b54b1db9f3b432730c32a549c22009d71targetblank3361aa2a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/IntegratePPI/tree/5bc09574e20be7a63c8624c47d20f6cac5f521a4" target="_blank">5bc0957</a>
+<a href="https://github.com/han16/IntegratePPI/tree/3361aa2b54b1db9f3b432730c32a549c22009d71" target="_blank">3361aa2</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16IntegratePPItree5bc09574e20be7a63c8624c47d20f6cac5f521a4targetblank5bc0957a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16IntegratePPItree3361aa2b54b1db9f3b432730c32a549c22009d71targetblank3361aa2a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -552,7 +552,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/IntegratePPI/tree/5bc09574e20be7a63c8624c47d20f6cac5f521a4" target="_blank">5bc0957</a>.
+<a href="https://github.com/han16/IntegratePPI/tree/3361aa2b54b1db9f3b432730c32a549c22009d71" target="_blank">3361aa2</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -570,11 +570,8 @@ Ignored files:
     Ignored:    analysis/.Rhistory
     Ignored:    analysis/string_cache/
 
-Untracked files:
-    Untracked:  analysis/part2_pns.Rmd
-
 Unstaged changes:
-    Modified:   analysis/index.Rmd
+    Modified:   analysis/part2_pns.Rmd
 
 </code></pre>
 <p>
@@ -589,10 +586,74 @@ have uncommitted changes.
 <hr>
 </div>
 <div id="versions" class="tab-pane fade">
+
 <p>
-There are no past versions. Publish this analysis with
-<code>wflow_publish()</code> to start tracking its development.
+These are the previous versions of the repository in which changes were
+made to the R Markdown (<code>analysis/part2_pns.Rmd</code>) and HTML
+(<code>docs/part2_pns.html</code>) files. If you’ve configured a remote
+Git repository (see <code>?wflow_git_remote</code>), click on the
+hyperlinks in the table below to view the files as they were in that
+past version.
 </p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/IntegratePPI/blob/7cda7586a841e357aa410d8f2d639718c8e8a038/analysis/part2_pns.Rmd" target="_blank">7cda758</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-10-02
+</td>
+<td>
+10/2/2024
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/IntegratePPI/7cda7586a841e357aa410d8f2d639718c8e8a038/docs/part2_pns.html" target="_blank">7cda758</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-10-02
+</td>
+<td>
+10/2/2024
+</td>
+</tr>
+</tbody>
+</table>
+</div>
 <hr>
 </div>
 </div>
@@ -605,7 +666,7 @@ pthres &lt;- 0.05
 library(statnet)  # use network function 
 library(ggpubr)  # combine two graphs 
 #####
-load(&quot;C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\screen_res_for_tada2022.RData&quot;)  # dat_list needs to be in screen_res.RData not in data_preparation.RData
+load(&quot;C:\\han\\Projects\\Multi_Omics\\JackFu_2022\\screen_res_for_tada2022.RData&quot;)  # dat_list needs to be in screen_res.RData not in data_preparation.RData
 source(&quot;C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\graphicalModel.r&quot;)
 source(&quot;C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\graph_functions.r&quot;)
 selected_idx &lt;- grep(&quot;PFC\\.[3-5]&quot;, names(dat_list))
@@ -627,7 +688,7 @@ dim(dat_pfc35)</code></pre>
 
  adj_pfc35 &lt;- as.matrix(res[[idx]]$adj_mat)
  stopifnot(all(dim(adj_pfc35) == nrow(tada_2022)))
- #save(adj_pfc35, file =&quot;C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\adj_pfc35_for_tada2022.RData&quot;)</code></pre>
+ #save(adj_pfc35, file =&quot;C:\\han\\Projects\\Multi_Omics\\JackFu_2022\\adj_pfc35_for_tada2022.RData&quot;)</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -675,19 +736,20 @@ loaded via a namespace (and not attached):
 [25] httpuv_1.6.15            htmltools_0.5.8.1        sass_0.4.9              
 [28] yaml_2.3.8               car_3.1-2                tidyr_1.3.1             
 [31] later_1.3.2              pillar_1.9.0             jquerylib_0.1.4         
-[34] MASS_7.3-60.2            cachem_1.0.8             abind_1.4-5             
-[37] trust_0.1-8              nlme_3.1-164             robustbase_0.99-2       
-[40] tidyselect_1.2.1         digest_0.6.35            stringi_1.8.4           
-[43] dplyr_1.1.4              purrr_1.0.2              rprojroot_2.0.4         
-[46] fastmap_1.1.1            grid_4.4.0               colorspace_2.1-0        
-[49] cli_3.6.2                magrittr_2.0.3           utf8_1.2.4              
-[52] broom_1.0.5              withr_3.0.0              backports_1.4.1         
-[55] scales_1.3.0             promises_1.3.0           rmarkdown_2.26          
-[58] ggsignif_0.6.4           workflowr_1.7.1          coda_0.19-4.1           
-[61] memoise_2.0.1            lpSolveAPI_5.5.2.0-17.11 evaluate_0.23           
-[64] knitr_1.46               rbibutils_2.2.16         rlang_1.1.3             
-[67] Rcpp_1.0.12              glue_1.7.0               rstudioapi_0.16.0       
-[70] jsonlite_1.8.8           R6_2.5.1                 fs_1.6.4                </code></pre>
+[34] whisker_0.4.1            MASS_7.3-60.2            cachem_1.0.8            
+[37] abind_1.4-5              trust_0.1-8              nlme_3.1-164            
+[40] robustbase_0.99-2        tidyselect_1.2.1         digest_0.6.35           
+[43] stringi_1.8.4            dplyr_1.1.4              purrr_1.0.2             
+[46] rprojroot_2.0.4          fastmap_1.1.1            grid_4.4.0              
+[49] colorspace_2.1-0         cli_3.6.2                magrittr_2.0.3          
+[52] utf8_1.2.4               broom_1.0.5              withr_3.0.0             
+[55] backports_1.4.1          scales_1.3.0             promises_1.3.0          
+[58] rmarkdown_2.26           ggsignif_0.6.4           workflowr_1.7.1         
+[61] coda_0.19-4.1            memoise_2.0.1            lpSolveAPI_5.5.2.0-17.11
+[64] evaluate_0.23            knitr_1.46               rbibutils_2.2.16        
+[67] rlang_1.1.3              Rcpp_1.0.12              glue_1.7.0              
+[70] rstudioapi_0.16.0        jsonlite_1.8.8           R6_2.5.1                
+[73] fs_1.6.4                </code></pre>
 </div>
 
 
