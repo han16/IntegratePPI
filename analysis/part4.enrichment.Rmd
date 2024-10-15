@@ -8,10 +8,65 @@ date: "2024-10-08"
 ---
 
 
+```{r, message=F, warning=F}
+#load tada dataset
+Jack_fu_data=read.csv("C:\\han\\Dataset\\20231221_PMID_35982160\\Fu 2022 Suppl-41588_2022_1104_MOESM3_ESM.csv")
+asd_185_genes=Jack_fu_data$gene[which(Jack_fu_data$FDR_TADA_ASD<0.05)]  # 185 genes are selected at FDR<0.05 https://www.nature.com/articles/s41588-022-01104-0
 
-## enrichment with 186 autism genes 
+load("C:\\han\\Projects\\Multi_Omics\\JackFu_2022\\result_FDR0.05_adj_pfc35.RData")
+load("C:\\han\\Projects\\Multi_Omics\\JackFu_2022\\result_FDR0.05_string_incidence.RData")
+load("C:\\han\\Projects\\Multi_Omics\\JackFu_2022\\result_FDR0.05_adj_string_combine_incidence.RData")
+
+```
+
+
+
+## enrichment with 185 autism genes 
+
+```{r, message=F, warning=F}
+x=list(
+  Autism_185_genes=asd_185_genes,
+  genes_pfc35=genes_pfc35,
+  genes_pfc35_string=genes_pfc35_string,
+  genes_pfc35_string_combine_adj=genes_pfc35_string_combine_adj
+
+)
+library(VennDiagram)
+
+display_venn <- function(x, ...){
+  library(VennDiagram)
+  grid.newpage()
+  venn_object <- venn.diagram(x, filename = NULL, ...)
+  grid.draw(venn_object)
+}
+
+#png("C:\\Users\\hans\\OneDrive - Marquette University\\SCZ-DAWN\\Figures\\Fig_overlapping_genes.png")
+
+display_venn(
+        x,
+    #    category.names = c("MIRAGE FDR genes" , "Autism genes" , "DD/ID genes", "SCZ GWAS genes"),
+    category.names = c("Autism genes" , "DAWN genes" , "STRING genes", "DAWN combined STRING genes"),
+        # Circles
+        lwd = 2,
+        lty = 'blank',
+     #   fill = c("#999999", "#E69F00", "#56B4E9", "#009E73"),
+    fill = c("red", "blue", "green", "yellow"),
+        # Numbers
+        cex = 1.5,
+        fontface = "italic",
+        # Set names
+        cat.cex = 1.2,
+        cat.fontface = "bold",
+        cat.default.pos = "outer",
+       # cat.dist = c(0.055, 0.055, 0.1, 0.1, 0.3 )
+         cat.dist = c(0.055, 0.055, 0.1, 0.1 )
+)
+```
 
 ## Venn diagrams of different gene sets 
+
+
+
 
 ## evidence of new autism risk genes 
 
