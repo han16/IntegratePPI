@@ -8,6 +8,15 @@ date: "2024-10-08"
 ---
 
 
+```{r, echo=F, message=F, warning=F}
+rm(list = ls())
+set.seed(123)
+library(VennDiagram)
+library(ggplot2)
+```
+
+
+
 ```{r, message=F, warning=F}
 #load tada dataset
 Jack_fu_data=read.csv("C:\\han\\Dataset\\20231221_PMID_35982160\\Fu 2022 Suppl-41588_2022_1104_MOESM3_ESM.csv")
@@ -18,6 +27,27 @@ load("C:\\han\\Projects\\Multi_Omics\\JackFu_2022\\result_FDR0.05_string_inciden
 load("C:\\han\\Projects\\Multi_Omics\\JackFu_2022\\result_FDR0.05_adj_string_combine_incidence.RData")
 
 ```
+
+
+## estimated risk genes 
+
+```{r, message=F, warning=F}
+ggplot(data.frame(gene_set=c("Autism genes","DAWN genes" , "STRING genes", "DAWN combined STRING genes"), num_genes=c(length(asd_185_genes), length(genes_pfc35), length(genes_pfc35_string), length(genes_pfc35_string_combine_adj))), aes(x=gene_set, y=num_genes, fill=gene_set))+
+  geom_bar(position = "dodge",stat="identity")+
+   xlab("")+ylab("No. genes")+
+ #  ylim(c(0,1))+
+   theme(axis.text.x = element_text(angle =10, vjust = 0.5, size=10))+
+   ggtitle("")+
+   geom_text(aes(label=num_genes), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars 
+  #geom_signif(annotations ="p=0.074", y_position = 0.52  ,xmin=1, xmax=2, size=1, vjust=-0.5, textsize=3.5, color="black")+ # textsize is for text over the bar; size is for width of lines 
+  # geom_signif(annotations ="p<0.001", y_position = 0.59  ,xmin=1, xmax=3, size=1, vjust=-0.5, textsize=3.5, color="red")+
+  #geom_signif(annotations ="p<0.001", y_position = 0.86  ,xmin=1, xmax=4, size=1, vjust=-0.5, textsize=3.5, color="red")+
+   theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
+  theme(legend.title=element_blank())+
+  theme(legend.position = "none")
+```
+
+
 
 
 
@@ -31,7 +61,6 @@ x=list(
   genes_pfc35_string_combine_adj=genes_pfc35_string_combine_adj
 
 )
-library(VennDiagram)
 
 display_venn <- function(x, ...){
   library(VennDiagram)
