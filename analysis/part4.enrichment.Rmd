@@ -13,6 +13,7 @@ rm(list = ls())
 set.seed(123)
 library(VennDiagram)
 library(ggplot2)
+library(tidyverse)
 ```
 
 
@@ -26,13 +27,17 @@ load("C:\\han\\Projects\\Multi_Omics\\JackFu_2022\\result_FDR0.05_adj_pfc35.RDat
 load("C:\\han\\Projects\\Multi_Omics\\JackFu_2022\\result_FDR0.05_string_incidence.RData")
 load("C:\\han\\Projects\\Multi_Omics\\JackFu_2022\\result_FDR0.05_adj_string_combine_incidence.RData")
 
+## SFARI gene set 
+SFARI_data=read.csv("C:\\han\\Dataset\\SFARI_base\\SFARI-Gene_genes_08-19-2024release_09-16-2024export.csv", header=T)
+
+sfari_gene=SFARI_data %>% filter(gene.score==1 | gene.score==2) %>% select(gene.symbol) %>% pull() # extract sfari genes in category 1 and 2 
 ```
 
 
 ## estimated risk genes 
 
 ```{r, message=F, warning=F}
-ggplot(data.frame(gene_set=c("Autism genes","DAWN genes" , "STRING genes", "DAWN combined STRING genes"), num_genes=c(length(asd_185_genes), length(genes_pfc35), length(genes_pfc35_string), length(genes_pfc35_string_combine_adj))), aes(x=gene_set, y=num_genes, fill=gene_set))+
+ggplot(data.frame(gene_set=c("Autism genes","DAWN genes" , "STRING genes", "DAWN combined STRING genes", "SFARI genes"), num_genes=c(length(asd_185_genes), length(genes_pfc35), length(genes_pfc35_string), length(genes_pfc35_string_combine_adj), length(sfari_gene))), aes(x=gene_set, y=num_genes, fill=gene_set))+
   geom_bar(position = "dodge",stat="identity")+
    xlab("")+ylab("No. genes")+
  #  ylim(c(0,1))+
@@ -91,6 +96,49 @@ display_venn(
          cat.dist = c(0.055, 0.055, 0.1, 0.1 )
 )
 ```
+
+
+
+
+```{r, message=F, warning=F}
+x=list(
+  sfari_genes=sfari_gene,
+  genes_pfc35=genes_pfc35,
+  genes_pfc35_string=genes_pfc35_string,
+  genes_pfc35_string_combine_adj=genes_pfc35_string_combine_adj
+
+)
+
+display_venn <- function(x, ...){
+  library(VennDiagram)
+  grid.newpage()
+  venn_object <- venn.diagram(x, filename = NULL, ...)
+  grid.draw(venn_object)
+}
+
+#png("C:\\Users\\hans\\OneDrive - Marquette University\\SCZ-DAWN\\Figures\\Fig_overlapping_genes.png")
+
+display_venn(
+        x,
+    #    category.names = c("MIRAGE FDR genes" , "Autism genes" , "DD/ID genes", "SCZ GWAS genes"),
+    category.names = c("SFARI genes" , "DAWN genes" , "STRING genes", "DAWN combined STRING genes"),
+        # Circles
+        lwd = 2,
+        lty = 'blank',
+     #   fill = c("#999999", "#E69F00", "#56B4E9", "#009E73"),
+    fill = c("red", "blue", "green", "yellow"),
+        # Numbers
+        cex = 1.5,
+        fontface = "italic",
+        # Set names
+        cat.cex = 1.2,
+        cat.fontface = "bold",
+        cat.default.pos = "outer",
+       # cat.dist = c(0.055, 0.055, 0.1, 0.1, 0.3 )
+         cat.dist = c(0.055, 0.055, 0.1, 0.1 )
+)
+```
+
 
 ## Venn diagrams of different gene sets 
 
