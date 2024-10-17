@@ -134,6 +134,9 @@ genes_pfc35_string_combine_adj <- sort(as.character(report_pfc35_string_combine_
 
 
 ```{r, message=F, warning=F}
+fdr_cutoff <- 0.05
+load("C:\\han\\Projects\\Multi_Omics\\JackFu_2022\\adj_pfc35_for_tada2022.RData")
+load("C:\\han\\Projects\\Multi_Omics\\JackFu_2022\\screen_res_for_tada2022.RData")
 #load tada dataset
 Jack_fu_data=read.csv("C:\\han\\Dataset\\20231221_PMID_35982160\\Fu 2022 Suppl-41588_2022_1104_MOESM3_ESM.csv")
 asd_185_genes=Jack_fu_data$gene[which(Jack_fu_data$FDR_TADA_ASD<0.05)]  # 185 genes are selected at FDR<0.05 https://www.nature.com/articles/s41588-022-01104-0
@@ -148,4 +151,5 @@ length(intersect(asd_185_genes, genes_pfc35))
 length(intersect(asd_185_genes, genes_pfc35_string))
 length(intersect(asd_185_genes, genes_pfc35_string_combine_adj))
 length(intersect(genes_pfc35, genes_pfc35_string))
+length(intersect(tada_2022[tada_2022$qvalue<=fdr_cutoff,]$Gene, asd_185_genes))
 ```
