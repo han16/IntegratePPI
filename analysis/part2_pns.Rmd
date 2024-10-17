@@ -41,6 +41,7 @@ length(tada_2022[tada_2022$qvalue<0.05,]$Gene)
  edges_vec_pfc35 <- sapply(res, function(x){sum(as.matrix(x$adj_mat))/2})
  idx <- which.max(scale_vec_pfc35)
  
+ # plot lambda vs scale to select the tuning parameter of lambda 
 ggplot(data.frame(scale=scale_vec_pfc35, lambda=seq(0.01,0.35, length=30)), aes(x=lambda, y=scale, group=1))+
   geom_point()
 
