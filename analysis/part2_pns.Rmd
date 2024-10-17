@@ -25,6 +25,7 @@ dat_pfc35 <- do.call(rbind, dat_list[selected_idx])
 dim(dat_pfc35)
 dat_pfc35 <- scale(dat_pfc35, scale = F)
 dim(dat_pfc35)
+length(tada_2022[tada_2022$qvalue<0.05,]$Gene)
 ```
 
 
@@ -39,6 +40,9 @@ dim(dat_pfc35)
  scale_vec_pfc35 <- sapply(res, function(x){compute_scale_free(as.matrix(x$adj_mat))}) # compute_scale_free is in graph_functions.r 
  edges_vec_pfc35 <- sapply(res, function(x){sum(as.matrix(x$adj_mat))/2})
  idx <- which.max(scale_vec_pfc35)
+ 
+ggplot(data.frame(scale=scale_vec_pfc35, lambda=seq(0.01,0.35, length=30)), aes(x=lambda, y=scale, group=1))+
+  geom_point()
 
  adj_pfc35 <- as.matrix(res[[idx]]$adj_mat)
  stopifnot(all(dim(adj_pfc35) == nrow(tada_2022)))
