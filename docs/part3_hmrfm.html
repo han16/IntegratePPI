@@ -400,7 +400,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2024-10-17
+<strong>Last updated:</strong> 2024-10-18
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -534,15 +534,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16IntegratePPItreea08f5aff4ac3b30908fd8f6c4844434f4f3bafeftargetblanka08f5afa">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16IntegratePPItree7e09ac5831372ceeb4e51ddb0d587c07566b29dctargetblank7e09ac5a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/IntegratePPI/tree/a08f5aff4ac3b30908fd8f6c4844434f4f3bafef" target="_blank">a08f5af</a>
+<a href="https://github.com/han16/IntegratePPI/tree/7e09ac5831372ceeb4e51ddb0d587c07566b29dc" target="_blank">7e09ac5</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16IntegratePPItreea08f5aff4ac3b30908fd8f6c4844434f4f3bafeftargetblanka08f5afa"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16IntegratePPItree7e09ac5831372ceeb4e51ddb0d587c07566b29dctargetblank7e09ac5a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -552,7 +552,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/IntegratePPI/tree/a08f5aff4ac3b30908fd8f6c4844434f4f3bafef" target="_blank">a08f5af</a>.
+<a href="https://github.com/han16/IntegratePPI/tree/7e09ac5831372ceeb4e51ddb0d587c07566b29dc" target="_blank">7e09ac5</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -568,7 +568,6 @@ were generated:
 <pre><code>
 Ignored files:
     Ignored:    analysis/.Rhistory
-    Ignored:    analysis/figure/
     Ignored:    analysis/string_cache/
 
 Unstaged changes:
@@ -618,6 +617,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/IntegratePPI/blob/4ea36d056a66e07d75cdf0b4b591d21c1c3e2ab9/analysis/part3_hmrfm.Rmd" target="_blank">4ea36d0</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-10-17
+</td>
+<td>
+10/17/2024
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/IntegratePPI/4ea36d056a66e07d75cdf0b4b591d21c1c3e2ab9/docs/part3_hmrfm.html" target="_blank">4ea36d0</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-10-17
+</td>
+<td>
+10/17/2024
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -732,6 +765,7 @@ han
 <pre class="r"><code>rm(list=ls())
 set.seed(123)
 require(statnet) # load the package statnet to visualize networks in R
+library(ggplot2)
 # curate the adj_pfc35 by incorporating PPI information 
 load(&quot;C:\\han\\Projects\\Multi_Omics\\JackFu_2022\\adj_pfc35_for_tada2022.RData&quot;)  # load incidence matrix 
 load(&quot;C:\\han\\Projects\\IntegratePPI\\string.keep_gene_level.RData&quot;)  # load pairwise protein interaction information  
@@ -836,8 +870,14 @@ hmrf_pfc35 &lt;- hmrf(tada_2022$pval.TADA, adj_pfc35, seedindex, pthres = pthres
 #report_pfc35 &lt;- covarianceSelection::report_results(tada$Gene, 1-hmrf_pfc35$post, tada$pval.TADA, hmrf_pfc35$Iupdate)
 report_pfc35 &lt;- report_results(tada_2022$Gene, 1-hmrf_pfc35$post, tada_2022$pval.TADA, hmrf_pfc35$Iupdate)
 genes_pfc35 &lt;- sort(as.character(report_pfc35$Gene[which(report_pfc35$FDR &lt;= fdr_cutoff)]))
-
+length(genes_pfc35)
 #save(genes_pfc35, adj_pfc35, file=&quot;C:\\han\\Projects\\Multi_Omics\\JackFu_2022\\result_FDR0.05_adj_pfc35.RData&quot;)</code></pre>
+<pre class="r"><code># seedindex significantly influences the estimated risk genes by setting the threshold lambda seedindex[which(tada_2022$qvalue&lt;lambda)] &lt;- 1, so be cautions when setting the seeds!!!!!!! 
+
+ggplot(data.frame(lambda=c(1e-3, 1e-4,1e-05, 1e-6), num_risk_genes=c(562, 459, 343, 226)), aes(x=lambda, y=num_risk_genes, group=1))+
+geom_point()+
+  geom_line(color=&quot;red&quot;)</code></pre>
+<p><img src="figure/part3_hmrfm.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code># run the HMRF
 fdr_cutoff &lt;- 0.05
 pthres &lt;- 0.05
@@ -926,32 +966,35 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
-[1] statnet_2019.6        tsna_0.3.5            sna_2.7-2            
-[4] statnet.common_4.9.0  ergm.count_4.1.1      tergm_4.2.0          
-[7] networkDynamic_0.11.4 ergm_4.6.0            network_1.18.2       
+ [1] ggplot2_3.5.1         statnet_2019.6        tsna_0.3.5           
+ [4] sna_2.7-2             statnet.common_4.9.0  ergm.count_4.1.1     
+ [7] tergm_4.2.0           networkDynamic_0.11.4 ergm_4.6.0           
+[10] network_1.18.2       
 
 loaded via a namespace (and not attached):
- [1] generics_0.1.3           sass_0.4.9               utf8_1.2.4              
- [4] robustbase_0.99-2        stringi_1.8.4            lattice_0.22-6          
- [7] digest_0.6.35            magrittr_2.0.3           networkLite_1.0.5       
-[10] evaluate_0.23            lpSolveAPI_5.5.2.0-17.11 grid_4.4.0              
-[13] fastmap_1.1.1            rprojroot_2.0.4          workflowr_1.7.1         
-[16] jsonlite_1.8.8           Matrix_1.7-0             whisker_0.4.1           
-[19] rle_0.9.2                promises_1.3.0           purrr_1.0.2             
-[22] fansi_1.0.6              jquerylib_0.1.4          Rdpack_2.6              
-[25] cli_3.6.2                rlang_1.1.3              rbibutils_2.2.16        
-[28] cachem_1.0.8             yaml_2.3.8               tools_4.4.0             
-[31] parallel_4.4.0           memoise_2.0.1            coda_0.19-4.1           
-[34] dplyr_1.1.4              httpuv_1.6.15            vctrs_0.6.5             
-[37] R6_2.5.1                 lifecycle_1.0.4          git2r_0.33.0            
-[40] stringr_1.5.1            fs_1.6.4                 trust_0.1-8             
-[43] MASS_7.3-60.2            pkgconfig_2.0.3          pillar_1.9.0            
-[46] bslib_0.7.0              later_1.3.2              ergm.multi_0.2.1        
-[49] glue_1.7.0               Rcpp_1.0.12              highr_0.10              
-[52] tidyselect_1.2.1         DEoptimR_1.1-3           xfun_0.43               
-[55] tibble_3.2.1             rstudioapi_0.16.0        knitr_1.46              
-[58] nlme_3.1-164             htmltools_0.5.8.1        rmarkdown_2.26          
-[61] compiler_4.4.0          </code></pre>
+ [1] gtable_0.3.5             networkLite_1.0.5        xfun_0.43               
+ [4] bslib_0.7.0              ergm.multi_0.2.1         rle_0.9.2               
+ [7] lattice_0.22-6           vctrs_0.6.5              tools_4.4.0             
+[10] Rdpack_2.6               generics_0.1.3           parallel_4.4.0          
+[13] tibble_3.2.1             fansi_1.0.6              highr_0.10              
+[16] DEoptimR_1.1-3           pkgconfig_2.0.3          Matrix_1.7-0            
+[19] lifecycle_1.0.4          farver_2.1.2             compiler_4.4.0          
+[22] stringr_1.5.1            git2r_0.33.0             munsell_0.5.1           
+[25] httpuv_1.6.15            htmltools_0.5.8.1        sass_0.4.9              
+[28] yaml_2.3.8               later_1.3.2              pillar_1.9.0            
+[31] jquerylib_0.1.4          whisker_0.4.1            MASS_7.3-60.2           
+[34] cachem_1.0.8             trust_0.1-8              nlme_3.1-164            
+[37] robustbase_0.99-2        tidyselect_1.2.1         digest_0.6.35           
+[40] stringi_1.8.4            dplyr_1.1.4              purrr_1.0.2             
+[43] labeling_0.4.3           rprojroot_2.0.4          fastmap_1.1.1           
+[46] grid_4.4.0               colorspace_2.1-0         cli_3.6.2               
+[49] magrittr_2.0.3           utf8_1.2.4               withr_3.0.0             
+[52] scales_1.3.0             promises_1.3.0           rmarkdown_2.26          
+[55] workflowr_1.7.1          coda_0.19-4.1            memoise_2.0.1           
+[58] lpSolveAPI_5.5.2.0-17.11 evaluate_0.23            knitr_1.46              
+[61] rbibutils_2.2.16         rlang_1.1.3              Rcpp_1.0.12             
+[64] glue_1.7.0               rstudioapi_0.16.0        jsonlite_1.8.8          
+[67] R6_2.5.1                 fs_1.6.4                </code></pre>
 </div>
 </div>
 

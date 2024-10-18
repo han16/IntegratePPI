@@ -16,6 +16,7 @@ date: "2024-10-02"
 rm(list=ls())
 set.seed(123)
 require(statnet) # load the package statnet to visualize networks in R
+library(ggplot2)
 # curate the adj_pfc35 by incorporating PPI information 
 load("C:\\han\\Projects\\Multi_Omics\\JackFu_2022\\adj_pfc35_for_tada2022.RData")  # load incidence matrix 
 load("C:\\han\\Projects\\IntegratePPI\\string.keep_gene_level.RData")  # load pairwise protein interaction information  
@@ -71,7 +72,7 @@ load("C:\\han\\Projects\\Multi_Omics\\JackFu_2022\\adj_pfc35_for_tada2022.RData"
 load("C:\\han\\Projects\\Multi_Omics\\JackFu_2022\\screen_res_for_tada2022.RData")
 seedindex <- rep(0, ncol(adj_pfc35))
 #seedindex[which(tada$dn.LoF >= 3)] <- 1
-seedindex[which(tada_2022$qvalue<1e-03)] <- 1
+seedindex[which(tada_2022$qvalue<1e-05)] <- 1
 
 #hmrf_pfc35 <- covarianceSelection::hmrf(tada$pval.TADA, adj_pfc35, seedindex, pthres = pthres)
 hmrf_pfc35 <- hmrf(tada_2022$pval.TADA, adj_pfc35, seedindex, pthres = pthres)
@@ -79,8 +80,19 @@ hmrf_pfc35 <- hmrf(tada_2022$pval.TADA, adj_pfc35, seedindex, pthres = pthres)
 #report_pfc35 <- covarianceSelection::report_results(tada$Gene, 1-hmrf_pfc35$post, tada$pval.TADA, hmrf_pfc35$Iupdate)
 report_pfc35 <- report_results(tada_2022$Gene, 1-hmrf_pfc35$post, tada_2022$pval.TADA, hmrf_pfc35$Iupdate)
 genes_pfc35 <- sort(as.character(report_pfc35$Gene[which(report_pfc35$FDR <= fdr_cutoff)]))
-
+length(genes_pfc35)
 #save(genes_pfc35, adj_pfc35, file="C:\\han\\Projects\\Multi_Omics\\JackFu_2022\\result_FDR0.05_adj_pfc35.RData")
+
+```
+
+
+```{r, message=F, warning=F}
+# seedindex significantly influences the estimated risk genes by setting the threshold lambda seedindex[which(tada_2022$qvalue<lambda)] <- 1, so be cautions when setting the seeds!!!!!!! 
+
+ggplot(data.frame(lambda=c(1e-3, 1e-4,1e-05, 1e-6), num_risk_genes=c(562, 459, 343, 226)), aes(x=lambda, y=num_risk_genes, group=1))+
+geom_point()+
+  geom_line(color="red")
+
 
 ```
 
@@ -95,7 +107,7 @@ load("C:\\han\\Projects\\Multi_Omics\\JackFu_2022\\adj_pfc35_for_tada2022.RData"
 load("C:\\han\\Projects\\Multi_Omics\\JackFu_2022\\screen_res_for_tada2022.RData")
 seedindex <- rep(0, ncol(adj_pfc35))
 #seedindex[which(tada$dn.LoF >= 3)] <- 1
-seedindex[which(tada_2022$qvalue<1e-03)] <- 1
+seedindex[which(tada_2022$qvalue<1e-05)] <- 1
 
 #hmrf_pfc35 <- covarianceSelection::hmrf(tada$pval.TADA, adj_pfc35, seedindex, pthres = pthres)
 hmrf_pfc35_string <- hmrf(tada_2022$pval.TADA, string_incidence, seedindex, pthres = pthres)
@@ -103,7 +115,7 @@ hmrf_pfc35_string <- hmrf(tada_2022$pval.TADA, string_incidence, seedindex, pthr
 report_pfc35_string <- report_results(tada_2022$Gene, 1-hmrf_pfc35_string$post, tada_2022$pval.TADA, hmrf_pfc35_string$Iupdate)
 genes_pfc35_string <- sort(as.character(report_pfc35_string$Gene[which(report_pfc35_string$FDR <= fdr_cutoff)]))
 
-
+length(genes_pfc35_string)
 #save(genes_pfc35_string, string_incidence, file="C:\\han\\Projects\\Multi_Omics\\JackFu_2022\\result_FDR0.05_string_incidence.RData")
 ```
 
@@ -119,7 +131,7 @@ load("C:\\han\\Projects\\Multi_Omics\\JackFu_2022\\adj_pfc35_for_tada2022.RData"
 load("C:\\han\\Projects\\Multi_Omics\\JackFu_2022\\screen_res_for_tada2022.RData")
 seedindex <- rep(0, ncol(adj_pfc35))
 #seedindex[which(tada$dn.LoF >= 3)] <- 1
-seedindex[which(tada_2022$qvalue<1e-03)] <- 1
+seedindex[which(tada_2022$qvalue<1e-05)] <- 1
 
 #hmrf_pfc35 <- covarianceSelection::hmrf(tada$pval.TADA, adj_pfc35, seedindex, pthres = pthres)
 hmrf_pfc35_string_combine_adj <- hmrf(tada_2022$pval.TADA, adj_string_combine_incidence, seedindex, pthres = pthres)
@@ -127,7 +139,7 @@ hmrf_pfc35_string_combine_adj <- hmrf(tada_2022$pval.TADA, adj_string_combine_in
 report_pfc35_string_combine_adj <- report_results(tada_2022$Gene, 1-hmrf_pfc35_string_combine_adj$post, tada_2022$pval.TADA, hmrf_pfc35_string_combine_adj$Iupdate)
 genes_pfc35_string_combine_adj <- sort(as.character(report_pfc35_string_combine_adj$Gene[which(report_pfc35_string_combine_adj$FDR <= fdr_cutoff)]))
 
-
+length(genes_pfc35_string_combine_adj)
 #save(genes_pfc35_string_combine_adj, adj_string_combine_incidence, file="C:\\han\\Projects\\Multi_Omics\\JackFu_2022\\result_FDR0.05_adj_string_combine_incidence.RData")
 ```
 
