@@ -22,6 +22,7 @@ source("C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\graphicalModel.r")
 source("C:\\han\\Projects\\Multi_Omics\\data_in_MOBS\\graph_functions.r")
 selected_idx <- grep("PFC\\.[3-5]", names(dat_list))
 dat_pfc35 <- do.call(rbind, dat_list[selected_idx]) 
+
 dim(dat_pfc35)
 dat_pfc35 <- scale(dat_pfc35, scale = F)
 dim(dat_pfc35)
@@ -47,6 +48,6 @@ ggplot(data.frame(scale=scale_vec_pfc35, lambda=seq(0.01,0.35, length=30)), aes(
 
  adj_pfc35 <- as.matrix(res[[idx]]$adj_mat)
  stopifnot(all(dim(adj_pfc35) == nrow(tada_2022)))
- #save(adj_pfc35, file ="C:\\han\\Projects\\Multi_Omics\\JackFu_2022\\adj_pfc35_for_tada2022.RData")
+# save(adj_pfc35, dat_pfc35, file ="C:\\han\\Projects\\Multi_Omics\\JackFu_2022\\adj_pfc35_for_tada2022.RData")
  
 ```
