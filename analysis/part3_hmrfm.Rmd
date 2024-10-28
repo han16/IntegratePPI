@@ -24,17 +24,17 @@ load("C:\\han\\Projects\\IntegratePPI\\string.keep_gene_level.RData")  # load pa
 
 ### build incidence matrix, (i,j)=1 if there is a link between genes, i & j, and 0 otherwise
 
-string.keep_gene_level_new=string.keep_gene_level_new %>% filter(combined_score>=800) # apply score threshold 
+#string.keep_gene_level_new=string.keep_gene_level_new %>% filter(combined_score>=800) # apply score threshold 
 
-string_incidence=matrix(0, nrow=nrow(adj_pfc35), ncol=nrow(adj_pfc35))
-for (i in 1:(nrow(adj_pfc35)-1))
-  for (j in (i+1):nrow(adj_pfc35))
-    if (string.keep_gene_level_new %>% filter(protein1_gene==colnames(dat_pfc35)[i], protein2_gene==colnames(dat_pfc35)[j]) %>% nrow()>0)
-      { 
-      cat(i, "th gene is running", "\n")
-      string_incidence[i,j]=1
-      string_incidence[j,i]=1
-     }
+#string_incidence=matrix(0, nrow=nrow(adj_pfc35), ncol=nrow(adj_pfc35))
+#for (i in 1:(nrow(adj_pfc35)-1))
+#  for (j in (i+1):nrow(adj_pfc35))
+#    if (string.keep_gene_level_new %>% filter(protein1_gene==colnames(dat_pfc35)[i], protein2_gene==colnames(dat_pfc35)[j]) %>% nrow()>0)
+#      { 
+#      cat(i, "th gene is running", "\n")
+#      string_incidence[i,j]=1
+#      string_incidence[j,i]=1
+#     }
   
 #save(string_incidence, file ="C:\\han\\Projects\\IntegratePPI\\string_incidence_with_scorecutoff800.RData")  
 load("C:\\han\\Projects\\IntegratePPI\\string_incidence_with_scorecutoff800.RData")
@@ -60,6 +60,13 @@ plot(net, vertex.cex=0.15, rescale=F) # vextex.cex control the vertex size
 
 
 ```
+
+
+* adj_pfc35 has 1136 links 
+
+* with score cutoff of 800 to STRING protein interactions, string database has 672 links and combined adj_pfc35 and string has 1804 links 
+
+
 
 
 
