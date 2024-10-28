@@ -56,7 +56,7 @@ ggplot(data.frame(gene_set=c("Autism genes","DAWN genes" , "STRING genes", "DAWN
 
 
 
-## enrichment with 185 autism genes 
+##  Venn diagrams of different gene sets 
 
 ```{r, message=F, warning=F}
 x=list(
@@ -140,8 +140,36 @@ display_venn(
 ```
 
 
-## Venn diagrams of different gene sets 
+## enrichment with 185 autism genes
 
+
+* among 185 autism genes reported in Jack 2022 paper, 169 appear in Brainspan data 
+
+* among 169 autism genes, 164 overlap with 225 DAWN genes , 52 overlap with 144 STRING genes,  80 overlap with 243 DAWN combined STRING genes    
+
+* p values 
+
+```{r, message=F, warning=F}
+fisher.test(matrix(c(3500, 169, 144, 52), nrow=2))  # p value of autism genes overlapping with STRING 
+fisher.test(matrix(c(3500, 169, 225, 164), nrow=2))  # p value of autism genes overlapping with DAWN
+fisher.test(matrix(c(3500, 169, 243, 80), nrow=2))  # p value of autism genes overlapping with DAWN combined STRING
+```
+
+```{r, message=F, warning=F}
+ggplot(data.frame(gene_set=c("DAWN genes" , "STRING genes", "DAWN combined STRING genes"), OR=c(15.07, 7.47, 6.81)), aes(x=gene_set, y=OR, fill=gene_set))+
+  geom_bar(position = "dodge",stat="identity")+
+   xlab("")+ylab("Odds ratio")+
+ #  ylim(c(0,1))+
+   theme(axis.text.x = element_text(angle =0, vjust = 0.5, size=12))+
+   ggtitle("")+
+   geom_text(aes(label=OR), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars 
+  #geom_signif(annotations ="p=0.074", y_position = 0.52  ,xmin=1, xmax=2, size=1, vjust=-0.5, textsize=3.5, color="black")+ # textsize is for text over the bar; size is for width of lines 
+  # geom_signif(annotations ="p<0.001", y_position = 0.59  ,xmin=1, xmax=3, size=1, vjust=-0.5, textsize=3.5, color="red")+
+  #geom_signif(annotations ="p<0.001", y_position = 0.86  ,xmin=1, xmax=4, size=1, vjust=-0.5, textsize=3.5, color="red")+
+   theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
+  theme(legend.title=element_blank())+
+  theme(legend.position = "none")
+```
 
 
 

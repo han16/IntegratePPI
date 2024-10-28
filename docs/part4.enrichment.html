@@ -379,7 +379,7 @@ div.tocify {
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
 <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-workflowr <span class="glyphicon glyphicon-ok text-success"
+workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
 aria-hidden="true"></span>
 </button>
 </p>
@@ -390,8 +390,8 @@ aria-hidden="true"></span>
 </li>
 <li>
 <a data-toggle="tab" href="#checks"> Checks <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
-</a>
+class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -404,9 +404,9 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 0
+aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>IntegratePPI/</code> <span
@@ -429,18 +429,21 @@ versions</em> tab lists the development history.
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
-</a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
+changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate"
+<div id="strongRMarkdownfilestronguncommittedchanges"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git
-repository, you know the exact version of the code that produced these
-results.</p>
+<p>The R Markdown file has unstaged changes. To know which version of
+the R Markdown file created these results, you’ll want to first commit
+it to the Git repo. If you’re still working on the analysis, you can
+ignore this warning. When you’re finished, you can run
+<code>wflow_publish</code> to commit the R Markdown file and build the
+HTML.</p>
 </div>
 </div>
 </div>
@@ -531,15 +534,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16IntegratePPItree769f300a93a05532a31ba073b5a1804e28cf5dcbtargetblank769f300a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16IntegratePPItree2ae8f911a5e472b06a8443203c097e5f97cfaeabtargetblank2ae8f91a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/IntegratePPI/tree/769f300a93a05532a31ba073b5a1804e28cf5dcb" target="_blank">769f300</a>
+<a href="https://github.com/han16/IntegratePPI/tree/2ae8f911a5e472b06a8443203c097e5f97cfaeab" target="_blank">2ae8f91</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16IntegratePPItree769f300a93a05532a31ba073b5a1804e28cf5dcbtargetblank769f300a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16IntegratePPItree2ae8f911a5e472b06a8443203c097e5f97cfaeabtargetblank2ae8f91a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -549,7 +552,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/IntegratePPI/tree/769f300a93a05532a31ba073b5a1804e28cf5dcb" target="_blank">769f300</a>.
+<a href="https://github.com/han16/IntegratePPI/tree/2ae8f911a5e472b06a8443203c097e5f97cfaeab" target="_blank">2ae8f91</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -568,11 +571,15 @@ Ignored files:
     Ignored:    analysis/string_cache/
 
 Untracked files:
-    Untracked:  analysis/VennDiagram.2024-10-28_10-21-08.094165.log
-    Untracked:  analysis/VennDiagram.2024-10-28_10-21-52.601538.log
+    Untracked:  VennDiagram.2024-10-28_10-27-25.348861.log
+    Untracked:  VennDiagram.2024-10-28_10-27-25.555521.log
+    Untracked:  VennDiagram.2024-10-28_10-34-46.33655.log
+    Untracked:  VennDiagram.2024-10-28_10-34-46.529869.log
+    Untracked:  VennDiagram.2024-10-28_10-55-35.394294.log
+    Untracked:  VennDiagram.2024-10-28_10-55-35.597614.log
 
 Unstaged changes:
-    Modified:   analysis/part3_hmrfm.Rmd
+    Modified:   analysis/part4.enrichment.Rmd
 
 </code></pre>
 <p>
@@ -618,6 +625,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/IntegratePPI/2ae8f911a5e472b06a8443203c097e5f97cfaeab/docs/part4.enrichment.html" target="_blank">2ae8f91</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-10-28
+</td>
+<td>
+10/28/2024
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -847,6 +871,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/han16/IntegratePPI/blob/2ae8f911a5e472b06a8443203c097e5f97cfaeab/docs/figure/part4.enrichment.Rmd/unnamed-chunk-3-1.png" target="_blank">2ae8f91</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-10-28
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/han16/IntegratePPI/blob/a08f5aff4ac3b30908fd8f6c4844434f4f3bafef/docs/figure/part4.enrichment.Rmd/unnamed-chunk-3-1.png" target="_blank">a08f5af</a>
 </td>
 <td>
@@ -872,8 +907,8 @@ han
 </div>
 </div>
 </div>
-<div id="enrichment-with-185-autism-genes" class="section level2">
-<h2>enrichment with 185 autism genes</h2>
+<div id="venn-diagrams-of-different-gene-sets" class="section level2">
+<h2>Venn diagrams of different gene sets</h2>
 <pre class="r"><code>x=list(
   Autism_185_genes=asd_185_genes,
   genes_pfc35=genes_pfc35,
@@ -933,6 +968,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/IntegratePPI/blob/2ae8f911a5e472b06a8443203c097e5f97cfaeab/docs/figure/part4.enrichment.Rmd/unnamed-chunk-4-1.png" target="_blank">2ae8f91</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-10-28
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/han16/IntegratePPI/blob/72226051c7ac8efba997226700683f33c9e9e71d/docs/figure/part4.enrichment.Rmd/unnamed-chunk-4-1.png" target="_blank">7222605</a>
@@ -1009,6 +1055,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/han16/IntegratePPI/blob/2ae8f911a5e472b06a8443203c097e5f97cfaeab/docs/figure/part4.enrichment.Rmd/unnamed-chunk-5-1.png" target="_blank">2ae8f91</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-10-28
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/han16/IntegratePPI/blob/a08f5aff4ac3b30908fd8f6c4844434f4f3bafef/docs/figure/part4.enrichment.Rmd/unnamed-chunk-5-1.png" target="_blank">a08f5af</a>
 </td>
 <td>
@@ -1023,8 +1080,66 @@ han
 </div>
 </div>
 </div>
-<div id="venn-diagrams-of-different-gene-sets" class="section level2">
-<h2>Venn diagrams of different gene sets</h2>
+<div id="enrichment-with-185-autism-genes" class="section level2">
+<h2>enrichment with 185 autism genes</h2>
+<ul>
+<li><p>among 185 autism genes reported in Jack 2022 paper, 169 appear in
+Brainspan data</p></li>
+<li><p>among 169 autism genes, 164 overlap with 225 DAWN genes , 52
+overlap with 144 STRING genes, 80 overlap with 243 DAWN combined STRING
+genes</p></li>
+<li><p>p values</p></li>
+</ul>
+<pre class="r"><code>fisher.test(matrix(c(3500, 169, 144, 52), nrow=2))  # p value of autism genes overlapping with STRING </code></pre>
+<pre><code>
+    Fisher&#39;s Exact Test for Count Data
+
+data:  matrix(c(3500, 169, 144, 52), nrow = 2)
+p-value &lt; 2.2e-16
+alternative hypothesis: true odds ratio is not equal to 1
+95 percent confidence interval:
+  5.140608 10.745168
+sample estimates:
+odds ratio 
+  7.471265 </code></pre>
+<pre class="r"><code>fisher.test(matrix(c(3500, 169, 225, 164), nrow=2))  # p value of autism genes overlapping with DAWN</code></pre>
+<pre><code>
+    Fisher&#39;s Exact Test for Count Data
+
+data:  matrix(c(3500, 169, 225, 164), nrow = 2)
+p-value &lt; 2.2e-16
+alternative hypothesis: true odds ratio is not equal to 1
+95 percent confidence interval:
+ 11.60784 19.59178
+sample estimates:
+odds ratio 
+  15.06744 </code></pre>
+<pre class="r"><code>fisher.test(matrix(c(3500, 169, 243, 80), nrow=2))  # p value of autism genes overlapping with DAWN combined STRING</code></pre>
+<pre><code>
+    Fisher&#39;s Exact Test for Count Data
+
+data:  matrix(c(3500, 169, 243, 80), nrow = 2)
+p-value &lt; 2.2e-16
+alternative hypothesis: true odds ratio is not equal to 1
+95 percent confidence interval:
+ 4.996869 9.239076
+sample estimates:
+odds ratio 
+  6.811937 </code></pre>
+<pre class="r"><code>ggplot(data.frame(gene_set=c(&quot;DAWN genes&quot; , &quot;STRING genes&quot;, &quot;DAWN combined STRING genes&quot;), OR=c(15.07, 7.47, 6.81)), aes(x=gene_set, y=OR, fill=gene_set))+
+  geom_bar(position = &quot;dodge&quot;,stat=&quot;identity&quot;)+
+   xlab(&quot;&quot;)+ylab(&quot;Odds ratio&quot;)+
+ #  ylim(c(0,1))+
+   theme(axis.text.x = element_text(angle =0, vjust = 0.5, size=12))+
+   ggtitle(&quot;&quot;)+
+   geom_text(aes(label=OR), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars 
+  #geom_signif(annotations =&quot;p=0.074&quot;, y_position = 0.52  ,xmin=1, xmax=2, size=1, vjust=-0.5, textsize=3.5, color=&quot;black&quot;)+ # textsize is for text over the bar; size is for width of lines 
+  # geom_signif(annotations =&quot;p&lt;0.001&quot;, y_position = 0.59  ,xmin=1, xmax=3, size=1, vjust=-0.5, textsize=3.5, color=&quot;red&quot;)+
+  #geom_signif(annotations =&quot;p&lt;0.001&quot;, y_position = 0.86  ,xmin=1, xmax=4, size=1, vjust=-0.5, textsize=3.5, color=&quot;red&quot;)+
+   theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
+  theme(legend.title=element_blank())+
+  theme(legend.position = &quot;none&quot;)</code></pre>
+<p><img src="figure/part4.enrichment.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="evidence-of-new-autism-risk-genes" class="section level2">
 <h2>evidence of new autism risk genes</h2>
