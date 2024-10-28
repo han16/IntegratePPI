@@ -400,7 +400,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2024-10-18
+<strong>Last updated:</strong> 2024-10-28
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -534,15 +534,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16IntegratePPItree7e09ac5831372ceeb4e51ddb0d587c07566b29dctargetblank7e09ac5a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16IntegratePPItree769f300a93a05532a31ba073b5a1804e28cf5dcbtargetblank769f300a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/IntegratePPI/tree/7e09ac5831372ceeb4e51ddb0d587c07566b29dc" target="_blank">7e09ac5</a>
+<a href="https://github.com/han16/IntegratePPI/tree/769f300a93a05532a31ba073b5a1804e28cf5dcb" target="_blank">769f300</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16IntegratePPItree7e09ac5831372ceeb4e51ddb0d587c07566b29dctargetblank7e09ac5a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16IntegratePPItree769f300a93a05532a31ba073b5a1804e28cf5dcbtargetblank769f300a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -552,7 +552,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/IntegratePPI/tree/7e09ac5831372ceeb4e51ddb0d587c07566b29dc" target="_blank">7e09ac5</a>.
+<a href="https://github.com/han16/IntegratePPI/tree/769f300a93a05532a31ba073b5a1804e28cf5dcb" target="_blank">769f300</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -617,6 +617,74 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/IntegratePPI/blob/769f300a93a05532a31ba073b5a1804e28cf5dcb/analysis/part3_hmrfm.Rmd" target="_blank">769f300</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-10-28
+</td>
+<td>
+10/28/2024
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/IntegratePPI/blob/8718977d7e31ee70e62d848eae6ae65ea5eee1e6/analysis/part3_hmrfm.Rmd" target="_blank">8718977</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-10-23
+</td>
+<td>
+10/23/2024
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/IntegratePPI/blob/68c7aed004e378de478d4a1e33fed6684da08c75/analysis/part3_hmrfm.Rmd" target="_blank">68c7aed</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-10-18
+</td>
+<td>
+10/18/2024
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/IntegratePPI/68c7aed004e378de478d4a1e33fed6684da08c75/docs/part3_hmrfm.html" target="_blank">68c7aed</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-10-18
+</td>
+<td>
+10/18/2024
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -770,7 +838,11 @@ library(ggplot2)
 load(&quot;C:\\han\\Projects\\Multi_Omics\\JackFu_2022\\adj_pfc35_for_tada2022.RData&quot;)  # load incidence matrix 
 load(&quot;C:\\han\\Projects\\IntegratePPI\\string.keep_gene_level.RData&quot;)  # load pairwise protein interaction information  
 
+
 ### build incidence matrix, (i,j)=1 if there is a link between genes, i &amp; j, and 0 otherwise
+
+#string.keep_gene_level_new=string.keep_gene_level_new %&gt;% filter(combined_score&gt;=800) # apply score threshold 
+
 #string_incidence=matrix(0, nrow=nrow(adj_pfc35), ncol=nrow(adj_pfc35))
 #for (i in 1:(nrow(adj_pfc35)-1))
 #  for (j in (i+1):nrow(adj_pfc35))
@@ -781,8 +853,8 @@ load(&quot;C:\\han\\Projects\\IntegratePPI\\string.keep_gene_level.RData&quot;) 
 #      string_incidence[j,i]=1
 #     }
   
-#save(string_incidence, file =&quot;C:\\han\\Projects\\IntegratePPI\\string_incidence.RData&quot;)  
-load(&quot;C:\\han\\Projects\\IntegratePPI\\string_incidence.RData&quot;)
+#save(string_incidence, file =&quot;C:\\han\\Projects\\IntegratePPI\\string_incidence_with_scorecutoff800.RData&quot;)  
+load(&quot;C:\\han\\Projects\\IntegratePPI\\string_incidence_with_scorecutoff800.RData&quot;)
         
 ###### combine estimated incidence matrix and string PPI information, a link between two genes exists if it appears in estimated incidence matrix or string PPI  
 adj_string_combine_incidence=adj_pfc35+string_incidence
@@ -850,9 +922,21 @@ han
 </div>
 </div>
 <pre class="r"><code>#dev.off()</code></pre>
+<ul>
+<li><p>adj_pfc35 has 1136 links</p></li>
+<li><p>with score cutoff of 800 to STRING protein interactions, string
+database has 672 links and combined adj_pfc35 and string has 1804
+links</p></li>
+</ul>
 </div>
 <div id="run-hmrf-to-get-risk-genes" class="section level2">
 <h2>run HMRF to get risk genes</h2>
+<pre class="r"><code>fdr_cutoff &lt;- 0.05
+load(&quot;C:\\han\\Projects\\Multi_Omics\\JackFu_2022\\adj_pfc35_for_tada2022.RData&quot;)
+load(&quot;C:\\han\\Projects\\Multi_Omics\\JackFu_2022\\screen_res_for_tada2022.RData&quot;)
+#load tada dataset
+Jack_fu_data=read.csv(&quot;C:\\han\\Dataset\\20231221_PMID_35982160\\Fu 2022 Suppl-41588_2022_1104_MOESM3_ESM.csv&quot;)
+asd_185_genes=Jack_fu_data$gene[which(Jack_fu_data$FDR_TADA_ASD&lt;0.05)]  # 185 genes are selected at FDR&lt;0.05 https://www.nature.com/articles/s41588-022-01104-0</code></pre>
 <pre class="r"><code># run the HMRF
 fdr_cutoff &lt;- 0.05
 pthres &lt;- 0.05
@@ -862,7 +946,7 @@ load(&quot;C:\\han\\Projects\\Multi_Omics\\JackFu_2022\\adj_pfc35_for_tada2022.R
 load(&quot;C:\\han\\Projects\\Multi_Omics\\JackFu_2022\\screen_res_for_tada2022.RData&quot;)
 seedindex &lt;- rep(0, ncol(adj_pfc35))
 #seedindex[which(tada$dn.LoF &gt;= 3)] &lt;- 1
-seedindex[which(tada_2022$qvalue&lt;1e-03)] &lt;- 1
+seedindex[which(tada_2022$qvalue&lt;1e-06)] &lt;- 1
 
 #hmrf_pfc35 &lt;- covarianceSelection::hmrf(tada$pval.TADA, adj_pfc35, seedindex, pthres = pthres)
 hmrf_pfc35 &lt;- hmrf(tada_2022$pval.TADA, adj_pfc35, seedindex, pthres = pthres)
@@ -871,13 +955,18 @@ hmrf_pfc35 &lt;- hmrf(tada_2022$pval.TADA, adj_pfc35, seedindex, pthres = pthres
 report_pfc35 &lt;- report_results(tada_2022$Gene, 1-hmrf_pfc35$post, tada_2022$pval.TADA, hmrf_pfc35$Iupdate)
 genes_pfc35 &lt;- sort(as.character(report_pfc35$Gene[which(report_pfc35$FDR &lt;= fdr_cutoff)]))
 length(genes_pfc35)
-#save(genes_pfc35, adj_pfc35, file=&quot;C:\\han\\Projects\\Multi_Omics\\JackFu_2022\\result_FDR0.05_adj_pfc35.RData&quot;)</code></pre>
+#save(genes_pfc35, adj_pfc35, file=&quot;C:\\han\\Projects\\Multi_Omics\\JackFu_2022\\result_FDR0.05_adj_pfc35.RData&quot;)
+length(intersect(asd_185_genes, genes_pfc35))</code></pre>
 <pre class="r"><code># seedindex significantly influences the estimated risk genes by setting the threshold lambda seedindex[which(tada_2022$qvalue&lt;lambda)] &lt;- 1, so be cautions when setting the seeds!!!!!!! 
 
 ggplot(data.frame(lambda=c(1e-3, 1e-4,1e-05, 1e-6), num_risk_genes=c(562, 459, 343, 226)), aes(x=lambda, y=num_risk_genes, group=1))+
 geom_point()+
   geom_line(color=&quot;red&quot;)</code></pre>
-<p><img src="figure/part3_hmrfm.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/part3_hmrfm.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<ul>
+<li>initial seed threshold <span class="math inline">\(\lambda\)</span>
+signficantly influences the number of risk genes estimated</li>
+</ul>
 <pre class="r"><code># run the HMRF
 fdr_cutoff &lt;- 0.05
 pthres &lt;- 0.05
@@ -887,7 +976,7 @@ load(&quot;C:\\han\\Projects\\Multi_Omics\\JackFu_2022\\adj_pfc35_for_tada2022.R
 load(&quot;C:\\han\\Projects\\Multi_Omics\\JackFu_2022\\screen_res_for_tada2022.RData&quot;)
 seedindex &lt;- rep(0, ncol(adj_pfc35))
 #seedindex[which(tada$dn.LoF &gt;= 3)] &lt;- 1
-seedindex[which(tada_2022$qvalue&lt;1e-03)] &lt;- 1
+seedindex[which(tada_2022$qvalue&lt;1e-06)] &lt;- 1
 
 #hmrf_pfc35 &lt;- covarianceSelection::hmrf(tada$pval.TADA, adj_pfc35, seedindex, pthres = pthres)
 hmrf_pfc35_string &lt;- hmrf(tada_2022$pval.TADA, string_incidence, seedindex, pthres = pthres)
@@ -895,7 +984,8 @@ hmrf_pfc35_string &lt;- hmrf(tada_2022$pval.TADA, string_incidence, seedindex, p
 report_pfc35_string &lt;- report_results(tada_2022$Gene, 1-hmrf_pfc35_string$post, tada_2022$pval.TADA, hmrf_pfc35_string$Iupdate)
 genes_pfc35_string &lt;- sort(as.character(report_pfc35_string$Gene[which(report_pfc35_string$FDR &lt;= fdr_cutoff)]))
 
-
+length(genes_pfc35_string)
+length(intersect(asd_185_genes, genes_pfc35_string))
 #save(genes_pfc35_string, string_incidence, file=&quot;C:\\han\\Projects\\Multi_Omics\\JackFu_2022\\result_FDR0.05_string_incidence.RData&quot;)</code></pre>
 <pre class="r"><code># run the HMRF
 fdr_cutoff &lt;- 0.05
@@ -906,7 +996,7 @@ load(&quot;C:\\han\\Projects\\Multi_Omics\\JackFu_2022\\adj_pfc35_for_tada2022.R
 load(&quot;C:\\han\\Projects\\Multi_Omics\\JackFu_2022\\screen_res_for_tada2022.RData&quot;)
 seedindex &lt;- rep(0, ncol(adj_pfc35))
 #seedindex[which(tada$dn.LoF &gt;= 3)] &lt;- 1
-seedindex[which(tada_2022$qvalue&lt;1e-03)] &lt;- 1
+seedindex[which(tada_2022$qvalue&lt;1e-06)] &lt;- 1
 
 #hmrf_pfc35 &lt;- covarianceSelection::hmrf(tada$pval.TADA, adj_pfc35, seedindex, pthres = pthres)
 hmrf_pfc35_string_combine_adj &lt;- hmrf(tada_2022$pval.TADA, adj_string_combine_incidence, seedindex, pthres = pthres)
@@ -914,14 +1004,9 @@ hmrf_pfc35_string_combine_adj &lt;- hmrf(tada_2022$pval.TADA, adj_string_combine
 report_pfc35_string_combine_adj &lt;- report_results(tada_2022$Gene, 1-hmrf_pfc35_string_combine_adj$post, tada_2022$pval.TADA, hmrf_pfc35_string_combine_adj$Iupdate)
 genes_pfc35_string_combine_adj &lt;- sort(as.character(report_pfc35_string_combine_adj$Gene[which(report_pfc35_string_combine_adj$FDR &lt;= fdr_cutoff)]))
 
-
+length(genes_pfc35_string_combine_adj)
+length(intersect(asd_185_genes, genes_pfc35_string))
 #save(genes_pfc35_string_combine_adj, adj_string_combine_incidence, file=&quot;C:\\han\\Projects\\Multi_Omics\\JackFu_2022\\result_FDR0.05_adj_string_combine_incidence.RData&quot;)</code></pre>
-<pre class="r"><code>fdr_cutoff &lt;- 0.05
-load(&quot;C:\\han\\Projects\\Multi_Omics\\JackFu_2022\\adj_pfc35_for_tada2022.RData&quot;)
-load(&quot;C:\\han\\Projects\\Multi_Omics\\JackFu_2022\\screen_res_for_tada2022.RData&quot;)
-#load tada dataset
-Jack_fu_data=read.csv(&quot;C:\\han\\Dataset\\20231221_PMID_35982160\\Fu 2022 Suppl-41588_2022_1104_MOESM3_ESM.csv&quot;)
-asd_185_genes=Jack_fu_data$gene[which(Jack_fu_data$FDR_TADA_ASD&lt;0.05)]  # 185 genes are selected at FDR&lt;0.05 https://www.nature.com/articles/s41588-022-01104-0</code></pre>
 <pre class="r"><code>load(&quot;C:\\han\\Projects\\Multi_Omics\\JackFu_2022\\result_FDR0.05_adj_pfc35.RData&quot;)
 load(&quot;C:\\han\\Projects\\Multi_Omics\\JackFu_2022\\result_FDR0.05_string_incidence.RData&quot;)
 load(&quot;C:\\han\\Projects\\Multi_Omics\\JackFu_2022\\result_FDR0.05_adj_string_combine_incidence.RData&quot;)
@@ -929,11 +1014,11 @@ load(&quot;C:\\han\\Projects\\Multi_Omics\\JackFu_2022\\result_FDR0.05_adj_strin
 length(intersect(asd_185_genes, genes_pfc35))</code></pre>
 <pre><code>[1] 164</code></pre>
 <pre class="r"><code>length(intersect(asd_185_genes, genes_pfc35_string))</code></pre>
-<pre><code>[1] 164</code></pre>
+<pre><code>[1] 52</code></pre>
 <pre class="r"><code>length(intersect(asd_185_genes, genes_pfc35_string_combine_adj))</code></pre>
-<pre><code>[1] 164</code></pre>
+<pre><code>[1] 80</code></pre>
 <pre class="r"><code>length(intersect(genes_pfc35, genes_pfc35_string))</code></pre>
-<pre><code>[1] 346</code></pre>
+<pre><code>[1] 59</code></pre>
 <pre class="r"><code>length(intersect(tada_2022[tada_2022$qvalue&lt;=fdr_cutoff,]$Gene, asd_185_genes))</code></pre>
 <pre><code>[1] 169</code></pre>
 <br>

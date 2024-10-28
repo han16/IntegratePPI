@@ -119,6 +119,9 @@ geom_point()+
 
 ```
 
+* initial seed threshold $\lambda$ signficantly influences the number of risk genes estimated 
+
+
 
 ```{r, message=F, warning=F, eval=F}
 # run the HMRF
