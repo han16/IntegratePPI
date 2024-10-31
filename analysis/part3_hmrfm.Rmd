@@ -17,6 +17,7 @@ rm(list=ls())
 set.seed(123)
 require(statnet) # load the package statnet to visualize networks in R
 library(ggplot2)
+library(dplyr)
 # curate the adj_pfc35 by incorporating PPI information 
 load("C:\\han\\Projects\\Multi_Omics\\JackFu_2022\\adj_pfc35_for_tada2022.RData")  # load incidence matrix 
 load("C:\\han\\Projects\\IntegratePPI\\string.keep_gene_level.RData")  # load pairwise protein interaction information  
@@ -82,6 +83,7 @@ load("C:\\han\\Projects\\Multi_Omics\\JackFu_2022\\screen_res_for_tada2022.RData
 #load tada dataset
 Jack_fu_data=read.csv("C:\\han\\Dataset\\20231221_PMID_35982160\\Fu 2022 Suppl-41588_2022_1104_MOESM3_ESM.csv")
 asd_185_genes=Jack_fu_data$gene[which(Jack_fu_data$FDR_TADA_ASD<0.05)]  # 185 genes are selected at FDR<0.05 https://www.nature.com/articles/s41588-022-01104-0
+sum(asd_185_genes %in% tada_2022$Gene)    # among 185 asd genes, 172 appear in brainspan 
 ```
 
 
@@ -180,8 +182,14 @@ load("C:\\han\\Projects\\Multi_Omics\\JackFu_2022\\result_FDR0.05_string_inciden
 load("C:\\han\\Projects\\Multi_Omics\\JackFu_2022\\result_FDR0.05_adj_string_combine_incidence.RData")
 
 length(intersect(asd_185_genes, genes_pfc35))
+length(setdiff(intersect(asd_185_genes, tada_2022$Gene),genes_pfc35 ))  # 8 genes are missed 
+missed_genes=setdiff(intersect(asd_185_genes, tada_2022$Gene),genes_pfc35 )
+tada_2022 %>% filter(Gene %in% missed_genes)
+
 length(intersect(asd_185_genes, genes_pfc35_string))
-length(intersect(asd_185_genes, genes_pfc35_string_combine_adj))
-length(intersect(genes_pfc35, genes_pfc35_string))
-length(intersect(tada_2022[tada_2022$qvalue<=fdr_cutoff,]$Gene, asd_185_genes))
+length(setdiff(intersect(asd_185_genes, tada_2022$Gene),genes_pfc35_string))  # number of genes are missed 
+
+length(intersect(genes_pfc35, genes_pfc35_string_combine_adj))
+length(setdiff(intersect(asd_185_genes, tada_2022$Gene),genes_pfc35_string_combine_adj))  # number of genes are missed 
+
 ```

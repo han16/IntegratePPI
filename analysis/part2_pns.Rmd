@@ -26,7 +26,6 @@ dat_pfc35 <- do.call(rbind, dat_list[selected_idx])
 dim(dat_pfc35)
 dat_pfc35 <- scale(dat_pfc35, scale = F)
 dim(dat_pfc35)
-length(tada_2022[tada_2022$qvalue<0.05,]$Gene)
 ```
 
 

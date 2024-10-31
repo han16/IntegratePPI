@@ -97,8 +97,14 @@ dim(tada_2022)
 length(screening_res$primary)  
 length(screening_res$secondary) 
 sum(asd_185_genes %in% tada_2022$Gene)
+sum(asd_185_genes %in% tada_2022[tada_2022$qvalue<=0.05,]$Gene)
 sum(asd_185_genes %in% colnames(dat_list[[1]]))
 
                 
 #save(tada_2022, screening_res, dat_list,  file ="C:\\han\\Projects\\Multi_Omics\\JackFu_2022\\screen_res_for_tada2022.RData") # this dat_list is not the same in data_preparation.RData
+```
+
+
+```{r, message=F, warning=F}
+setdiff(asd_185_genes,tada_2022$Gene) # among 185 ASD genes, there are 13 genes missed in brainspan 
 ```
