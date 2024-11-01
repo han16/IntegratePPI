@@ -99,7 +99,7 @@ seedindex <- rep(0, ncol(adj_pfc35))
 #seedindex[which(tada$dn.LoF >= 3)] <- 1
 seedindex[which(tada_2022$qvalue<1e-06)] <- 1
 
-tada_2022$pval.TADA[tada_2022$pval.TADA==0]=1e-10
+#tada_2022$pval.TADA[tada_2022$pval.TADA==0]=1e-10
 #hmrf_pfc35 <- covarianceSelection::hmrf(tada$pval.TADA, adj_pfc35, seedindex, pthres = pthres)
 hmrf_pfc35 <- hmrf(tada_2022$pval.TADA, adj_pfc35, seedindex, pthres = pthres)
 #hmrf_pfc35_string <- hmrf(tada_2022$pval.TADA, adj_pfc35, seedindex, pthres = pthres)
@@ -109,13 +109,15 @@ genes_pfc35 <- sort(as.character(report_pfc35$Gene[which(report_pfc35$FDR <= fdr
 length(genes_pfc35)
 #save(genes_pfc35, adj_pfc35, file="C:\\han\\Projects\\Multi_Omics\\JackFu_2022\\result_FDR0.05_adj_pfc35.RData")
 length(intersect(asd_185_genes, genes_pfc35))
+missed_gene=setdiff(intersect(asd_185_genes,tada_2022$Gene), intersect(asd_185_genes, genes_pfc35))
+tada_2022 %>% filter(Gene%in%missed_gene)
 ```
 
 
 ```{r, message=F, warning=F}
 # seedindex significantly influences the estimated risk genes by setting the threshold lambda seedindex[which(tada_2022$qvalue<lambda)] <- 1, so be cautions when setting the seeds!!!!!!! 
 
-ggplot(data.frame(lambda=c(1e-3, 1e-4,1e-05, 1e-6), num_risk_genes=c(562, 459, 343, 226)), aes(x=lambda, y=num_risk_genes, group=1))+
+ggplot(data.frame(lambda=c(1e-3, 1e-4,1e-05, 1e-6), num_risk_genes=c(572, 471, 354, 237)), aes(x=lambda, y=num_risk_genes, group=1))+
 geom_point()+
   geom_line(color="red")
 
@@ -183,14 +185,14 @@ load("C:\\han\\Projects\\Multi_Omics\\JackFu_2022\\result_FDR0.05_string_inciden
 load("C:\\han\\Projects\\Multi_Omics\\JackFu_2022\\result_FDR0.05_adj_string_combine_incidence.RData")
 
 length(intersect(asd_185_genes, genes_pfc35))
-length(setdiff(intersect(asd_185_genes, tada_2022$Gene),genes_pfc35 ))  # 8 genes are missed 
+length(setdiff(intersect(asd_185_genes, tada_2022$Gene),genes_pfc35 ))   
 missed_genes=setdiff(intersect(asd_185_genes, tada_2022$Gene),genes_pfc35 )
 tada_2022 %>% filter(Gene %in% missed_genes)
 
 length(intersect(asd_185_genes, genes_pfc35_string))
-length(setdiff(intersect(asd_185_genes, tada_2022$Gene),genes_pfc35_string))  # number of genes are missed 
+length(setdiff(intersect(asd_185_genes, tada_2022$Gene),genes_pfc35_string))  
 
 length(intersect(genes_pfc35, genes_pfc35_string_combine_adj))
-length(setdiff(intersect(asd_185_genes, tada_2022$Gene),genes_pfc35_string_combine_adj))  # number of genes are missed 
+length(setdiff(intersect(asd_185_genes, tada_2022$Gene),genes_pfc35_string_combine_adj)) 
 
 ```

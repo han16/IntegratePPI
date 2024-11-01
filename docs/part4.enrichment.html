@@ -400,7 +400,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2024-10-28
+<strong>Last updated:</strong> 2024-11-01
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -534,15 +534,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16IntegratePPItree2ae8f911a5e472b06a8443203c097e5f97cfaeabtargetblank2ae8f91a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16IntegratePPItree9696417aeb95abdbe8125d99f4ac221a8f421e40targetblank9696417a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/IntegratePPI/tree/2ae8f911a5e472b06a8443203c097e5f97cfaeab" target="_blank">2ae8f91</a>
+<a href="https://github.com/han16/IntegratePPI/tree/9696417aeb95abdbe8125d99f4ac221a8f421e40" target="_blank">9696417</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16IntegratePPItree2ae8f911a5e472b06a8443203c097e5f97cfaeabtargetblank2ae8f91a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16IntegratePPItree9696417aeb95abdbe8125d99f4ac221a8f421e40targetblank9696417a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -552,7 +552,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/IntegratePPI/tree/2ae8f911a5e472b06a8443203c097e5f97cfaeab" target="_blank">2ae8f91</a>.
+<a href="https://github.com/han16/IntegratePPI/tree/9696417aeb95abdbe8125d99f4ac221a8f421e40" target="_blank">9696417</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -571,14 +571,11 @@ Ignored files:
     Ignored:    analysis/string_cache/
 
 Untracked files:
-    Untracked:  VennDiagram.2024-10-28_10-27-25.348861.log
-    Untracked:  VennDiagram.2024-10-28_10-27-25.555521.log
-    Untracked:  VennDiagram.2024-10-28_10-34-46.33655.log
-    Untracked:  VennDiagram.2024-10-28_10-34-46.529869.log
-    Untracked:  VennDiagram.2024-10-28_10-55-35.394294.log
-    Untracked:  VennDiagram.2024-10-28_10-55-35.597614.log
+    Untracked:  analysis/VennDiagram.2024-11-01_11-19-57.83825.log
+    Untracked:  analysis/VennDiagram.2024-11-01_11-20-41.423243.log
 
 Unstaged changes:
+    Modified:   analysis/part3_hmrfm.Rmd
     Modified:   analysis/part4.enrichment.Rmd
 
 </code></pre>
@@ -625,6 +622,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/IntegratePPI/blob/c9e173c99bb0bd09e7d46d1d2d961faf98c64838/analysis/part4.enrichment.Rmd" target="_blank">c9e173c</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-10-28
+</td>
+<td>
+10/28/2024
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/IntegratePPI/c9e173c99bb0bd09e7d46d1d2d961faf98c64838/docs/part4.enrichment.html" target="_blank">c9e173c</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-10-28
+</td>
+<td>
+10/28/2024
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -1090,43 +1121,43 @@ overlap with 144 STRING genes, 80 overlap with 243 DAWN combined STRING
 genes</p></li>
 <li><p>p values</p></li>
 </ul>
-<pre class="r"><code>fisher.test(matrix(c(3500, 169, 144, 52), nrow=2))  # p value of autism genes overlapping with STRING </code></pre>
+<pre class="r"><code>fisher.test(matrix(c(3500, 172, 150, 60), nrow=2))  # p value of autism genes overlapping with STRING </code></pre>
 <pre><code>
     Fisher&#39;s Exact Test for Count Data
 
-data:  matrix(c(3500, 169, 144, 52), nrow = 2)
+data:  matrix(c(3500, 172, 150, 60), nrow = 2)
 p-value &lt; 2.2e-16
 alternative hypothesis: true odds ratio is not equal to 1
 95 percent confidence interval:
-  5.140608 10.745168
+  5.703423 11.500421
 sample estimates:
 odds ratio 
-  7.471265 </code></pre>
-<pre class="r"><code>fisher.test(matrix(c(3500, 169, 225, 164), nrow=2))  # p value of autism genes overlapping with DAWN</code></pre>
+  8.130669 </code></pre>
+<pre class="r"><code>fisher.test(matrix(c(3500, 172, 237, 172), nrow=2))  # p value of autism genes overlapping with DAWN</code></pre>
 <pre><code>
     Fisher&#39;s Exact Test for Count Data
 
-data:  matrix(c(3500, 169, 225, 164), nrow = 2)
+data:  matrix(c(3500, 172, 237, 172), nrow = 2)
 p-value &lt; 2.2e-16
 alternative hypothesis: true odds ratio is not equal to 1
 95 percent confidence interval:
- 11.60784 19.59178
+ 11.41367 19.08284
 sample estimates:
 odds ratio 
-  15.06744 </code></pre>
-<pre class="r"><code>fisher.test(matrix(c(3500, 169, 243, 80), nrow=2))  # p value of autism genes overlapping with DAWN combined STRING</code></pre>
+  14.74608 </code></pre>
+<pre class="r"><code>fisher.test(matrix(c(3500, 172, 250, 87), nrow=2))  # p value of autism genes overlapping with DAWN combined STRING</code></pre>
 <pre><code>
     Fisher&#39;s Exact Test for Count Data
 
-data:  matrix(c(3500, 169, 243, 80), nrow = 2)
+data:  matrix(c(3500, 172, 250, 87), nrow = 2)
 p-value &lt; 2.2e-16
 alternative hypothesis: true odds ratio is not equal to 1
 95 percent confidence interval:
- 4.996869 9.239076
+ 5.237878 9.517504
 sample estimates:
 odds ratio 
-  6.811937 </code></pre>
-<pre class="r"><code>ggplot(data.frame(gene_set=c(&quot;DAWN genes&quot; , &quot;STRING genes&quot;, &quot;DAWN combined STRING genes&quot;), OR=c(15.07, 7.47, 6.81)), aes(x=gene_set, y=OR, fill=gene_set))+
+  7.074874 </code></pre>
+<pre class="r"><code>ggplot(data.frame(gene_set=c(&quot;DAWN genes&quot; , &quot;STRING genes&quot;, &quot;DAWN combined STRING genes&quot;), OR=c(14.75, 8.13, 7.07)), aes(x=gene_set, y=OR, fill=gene_set))+
   geom_bar(position = &quot;dodge&quot;,stat=&quot;identity&quot;)+
    xlab(&quot;&quot;)+ylab(&quot;Odds ratio&quot;)+
  #  ylim(c(0,1))+
@@ -1140,6 +1171,43 @@ odds ratio
   theme(legend.title=element_blank())+
   theme(legend.position = &quot;none&quot;)</code></pre>
 <p><img src="figure/part4.enrichment.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-1">
+Past versions of unnamed-chunk-7-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-7-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/han16/IntegratePPI/blob/c9e173c99bb0bd09e7d46d1d2d961faf98c64838/docs/figure/part4.enrichment.Rmd/unnamed-chunk-7-1.png" target="_blank">c9e173c</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-10-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="evidence-of-new-autism-risk-genes" class="section level2">
 <h2>evidence of new autism risk genes</h2>

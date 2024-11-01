@@ -150,13 +150,13 @@ display_venn(
 * p values 
 
 ```{r, message=F, warning=F}
-fisher.test(matrix(c(3500, 169, 144, 52), nrow=2))  # p value of autism genes overlapping with STRING 
-fisher.test(matrix(c(3500, 169, 225, 164), nrow=2))  # p value of autism genes overlapping with DAWN
-fisher.test(matrix(c(3500, 169, 243, 80), nrow=2))  # p value of autism genes overlapping with DAWN combined STRING
+fisher.test(matrix(c(3500, 172, 150, 60), nrow=2))  # p value of autism genes overlapping with STRING 
+fisher.test(matrix(c(3500, 172, 237, 172), nrow=2))  # p value of autism genes overlapping with DAWN
+fisher.test(matrix(c(3500, 172, 250, 87), nrow=2))  # p value of autism genes overlapping with DAWN combined STRING
 ```
 
 ```{r, message=F, warning=F}
-ggplot(data.frame(gene_set=c("DAWN genes" , "STRING genes", "DAWN combined STRING genes"), OR=c(15.07, 7.47, 6.81)), aes(x=gene_set, y=OR, fill=gene_set))+
+ggplot(data.frame(gene_set=c("DAWN genes" , "STRING genes", "DAWN combined STRING genes"), OR=c(14.75, 8.13, 7.07)), aes(x=gene_set, y=OR, fill=gene_set))+
   geom_bar(position = "dodge",stat="identity")+
    xlab("")+ylab("Odds ratio")+
  #  ylim(c(0,1))+
