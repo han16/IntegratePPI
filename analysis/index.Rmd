@@ -35,3 +35,4 @@ editor_options:
 ## forecASD to autism data in 2022
 
 1. [data preparation](part1_forecASD.html)
+2. [traing the model](part2_forecASD.html)
