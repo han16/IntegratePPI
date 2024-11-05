@@ -36,3 +36,4 @@ editor_options:
 
 1. [data preparation](part1_forecASD.html)
 2. [traing the model](part2_forecASD.html)
+3. [ensemble model](part3_forecASD.html)
