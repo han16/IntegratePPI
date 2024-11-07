@@ -27,13 +27,14 @@ load(paste(path, " 02_network_rf.Rdata", sep=""))
 
 
 
-```{r, message=F, warning=F, eval=F}
+```{r, message=F, warning=F, eval=T}
 
 # # # # # # # # # # # # 
 #### Load in data #####
 # # # # # # # # # # # # 
 
-meta = read.csv("./ext_data/composite_table.csv", stringsAsFactors = F, row.names = 1)
+#meta = read.csv("./ext_data/composite_table.csv", stringsAsFactors = F, row.names = 1)
+meta = read.csv("C:\\han\\Dataset\\20240610_PMID_33244169\\composite_table.csv",stringsAsFactors = F, row.names = 1)
 
 string.prd = string.prd[rownames(meta), ]
 bs.prd = bs.prd[rownames(meta), ]
@@ -46,6 +47,12 @@ meta = cbind(
   ),
   meta[rownames(meta), ]
 )
+
+```
+
+
+
+```{r, message=F, warning=F}
 
 # # # # # # # # # # # # 
 #### train forest #####
@@ -84,9 +91,9 @@ final.data <- cbind(
   meta
 )
 
-write.csv(final.data, 
-          file = "forecASD_table.csv",
-          quote = F, 
-          row.names = F)
+#write.csv(final.data, 
+#          file = "forecASD_table.csv",
+#          quote = F, 
+#          row.names = F)
 
 ```
