@@ -13,6 +13,7 @@ date: "2024-11-05"
 # # # # # # # # # # # # 
 #### Load Packages ####
 # # # # # # # # # # # #
+rm(list=ls())
 require(randomForest)
 
 ```
