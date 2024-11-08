@@ -27,6 +27,9 @@ load(paste(path, " 02_network_rf.Rdata", sep=""))
 
 
 
+
+
+
 ```{r, message=F, warning=F, eval=T}
 
 # # # # # # # # # # # # 
@@ -49,6 +52,8 @@ meta = cbind(
 )
 
 ```
+
+
 
 
 
@@ -92,7 +97,7 @@ final.data <- cbind(
 )
 
 #write.csv(final.data, 
-#          file = "forecASD_table.csv",
+#          file = paste(path, "forecASD_table.csv", sep=""),
 #          quote = F, 
 #          row.names = F)
 
