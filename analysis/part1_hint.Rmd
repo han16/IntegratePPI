@@ -1,0 +1,39 @@
+---
+title: "explore hint datasets"
+output:
+  workflowr::wflow_html:
+    code_folding: hide
+    toc: true
+date: "2024-11-18"
+---
+
+
+```{r, echo=F, message=F, warning=F}
+rm(list=ls())
+set.seed(123)
+library(dplyr)
+library(ggplot2)
+```
+
+
+```{r, message=F, warning=F}
+path="C:\\han\\Dataset\\20241114_HINT_ProteinDatabase\\"
+binary=as_tibble(read.table(paste(path, "HomoSapiens_binary_hq.txt", sep=""), fill = TRUE, header=T))
+co_complex=as_tibble(read.table(paste(path, "HomoSapiens_cocomp_hq.txt", sep=""), fill = TRUE, header=T))
+lit_curated_binary=as_tibble(read.table(paste(path, "HomoSapiens_lcb_hq.txt", sep=""), fill = TRUE, header=T))
+lit_curated_co_complex=as_tibble(read.table(paste(path, "HomoSapiens_lcc_hq.txt", sep=""), fill = TRUE, header=T))
+
+ggplot(data.frame(dataset=c("binary", "co complex", "literature curated binary", "literarure curated co complex"), num_interactions=c(nrow(binary), nrow(co_complex), nrow(lit_curated_binary), nrow(lit_curated_co_complex))), aes(x=dataset, y=num_interactions, fill=dataset))+ 
+geom_bar(position = "dodge",stat="identity")+
+   xlab("")+ylab("No. interactions")+
+ #  ylim(c(0,1))+
+   theme(axis.text.x = element_text(angle =10, vjust = 0.5, size=10))+
+   ggtitle("")+
+   geom_text(aes(label=num_interactions), position=position_dodge(width=0.9), vjust=-0.25)+  # add numbers over bars 
+  #geom_signif(annotations ="p=0.074", y_position = 0.52  ,xmin=1, xmax=2, size=1, vjust=-0.5, textsize=3.5, color="black")+ # textsize is for text over the bar; size is for width of lines 
+  # geom_signif(annotations ="p<0.001", y_position = 0.59  ,xmin=1, xmax=3, size=1, vjust=-0.5, textsize=3.5, color="red")+
+  #geom_signif(annotations ="p<0.001", y_position = 0.86  ,xmin=1, xmax=4, size=1, vjust=-0.5, textsize=3.5, color="red")+
+   theme(plot.title = element_text(hjust = 0.5, size=15))+  #center the title
+  theme(legend.title=element_blank())+
+  theme(legend.position = "none")
+```

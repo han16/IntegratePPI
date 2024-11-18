@@ -32,8 +32,12 @@ editor_options:
 4. [enrichment analysis](part4.enrichment.html)
 
 
-## forecASD to autism data in 2022
+## forecASD to autism data in 2022 using STRING
 
 1. [data preparation](part1_forecASD.html)
 2. [traing the model](part2_forecASD.html)
 3. [ensemble model](part3_forecASD.html)
+
+## forecASD to autism data in 2022 using HINT
+
+1. [hint](part1_hint.html)
