@@ -9,6 +9,8 @@ date: "2024-11-04"
 
 
 ```{r, message=F, warning=F}
+rm(list = ls())
+set.seed(123)
 ########## code from https://github.com/han16/forecASD/blob/master/01_load_data.R 
 
 #### load packages ####
@@ -44,9 +46,8 @@ string.dat[,2] = gsub("9606.", "", string.dat[,2], fixed=T)
 ## keep interactions with scores over 400
 string.keep = string.dat[string.dat[,3]>400,]
 string.graph = ftM2graphNEL(as.matrix(string.keep[,1:2]))
-string.path = johnson.all.pairs.sp(string.graph)
+string.path = johnson.all.pairs.sp(string.graph)  # the step numbers of shortest path between gene pairs 
 
-#save(string.graph, string.path, file="tmp01_STRING_graph.Rdata")
 #save(string.keep, string.graph, string.path, file="C:\\han\\Projects\\IntegratePPI\\tmp01_STRING_graph.Rdata")
 ```
 

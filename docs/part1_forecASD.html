@@ -400,7 +400,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2024-11-04
+<strong>Last updated:</strong> 2024-11-19
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -438,10 +438,10 @@ changes </a>
 <div id="strongRMarkdownfilestronguncommittedchanges"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown is untracked by Git. To know which version of the R
-Markdown file created these results, you’ll want to first commit it to
-the Git repo. If you’re still working on the analysis, you can ignore
-this warning. When you’re finished, you can run
+<p>The R Markdown file has unstaged changes. To know which version of
+the R Markdown file created these results, you’ll want to first commit
+it to the Git repo. If you’re still working on the analysis, you can
+ignore this warning. When you’re finished, you can run
 <code>wflow_publish</code> to commit the R Markdown file and build the
 HTML.</p>
 </div>
@@ -534,15 +534,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16IntegratePPItree4bc2cb7a91bd01bf98cb1c96e63c30251a0145e2targetblank4bc2cb7a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16IntegratePPItree002e3046cbabac95a31d601416c2fcab69422d89targetblank002e304a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/IntegratePPI/tree/4bc2cb7a91bd01bf98cb1c96e63c30251a0145e2" target="_blank">4bc2cb7</a>
+<a href="https://github.com/han16/IntegratePPI/tree/002e3046cbabac95a31d601416c2fcab69422d89" target="_blank">002e304</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16IntegratePPItree4bc2cb7a91bd01bf98cb1c96e63c30251a0145e2targetblank4bc2cb7a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16IntegratePPItree002e3046cbabac95a31d601416c2fcab69422d89targetblank002e304a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -552,7 +552,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/IntegratePPI/tree/4bc2cb7a91bd01bf98cb1c96e63c30251a0145e2" target="_blank">4bc2cb7</a>.
+<a href="https://github.com/han16/IntegratePPI/tree/002e3046cbabac95a31d601416c2fcab69422d89" target="_blank">002e304</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -570,13 +570,8 @@ Ignored files:
     Ignored:    analysis/.Rhistory
     Ignored:    analysis/string_cache/
 
-Untracked files:
-    Untracked:  VennDiagram.2024-11-04_09-53-22.956149.log
-    Untracked:  VennDiagram.2024-11-04_09-53-23.159731.log
-    Untracked:  analysis/part1_forecASD.Rmd
-
 Unstaged changes:
-    Modified:   analysis/index.Rmd
+    Modified:   analysis/part1_forecASD.Rmd
 
 </code></pre>
 <p>
@@ -591,15 +586,81 @@ have uncommitted changes.
 <hr>
 </div>
 <div id="versions" class="tab-pane fade">
+
 <p>
-There are no past versions. Publish this analysis with
-<code>wflow_publish()</code> to start tracking its development.
+These are the previous versions of the repository in which changes were
+made to the R Markdown (<code>analysis/part1_forecASD.Rmd</code>) and
+HTML (<code>docs/part1_forecASD.html</code>) files. If you’ve configured
+a remote Git repository (see <code>?wflow_git_remote</code>), click on
+the hyperlinks in the table below to view the files as they were in that
+past version.
 </p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/IntegratePPI/blob/361e0ec5f2e586981d5ce4822bb676e1b7395ef0/analysis/part1_forecASD.Rmd" target="_blank">361e0ec</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-11-04
+</td>
+<td>
+11/4/2024
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/IntegratePPI/361e0ec5f2e586981d5ce4822bb676e1b7395ef0/docs/part1_forecASD.html" target="_blank">361e0ec</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-11-04
+</td>
+<td>
+11/4/2024
+</td>
+</tr>
+</tbody>
+</table>
+</div>
 <hr>
 </div>
 </div>
 </div>
-<pre class="r"><code>########## code from https://github.com/han16/forecASD/blob/master/01_load_data.R 
+<pre class="r"><code>rm(list = ls())
+set.seed(123)
+########## code from https://github.com/han16/forecASD/blob/master/01_load_data.R 
 
 #### load packages ####
 require(Matrix)
@@ -628,9 +689,8 @@ string.dat[,2] = gsub(&quot;9606.&quot;, &quot;&quot;, string.dat[,2], fixed=T)
 ## keep interactions with scores over 400
 string.keep = string.dat[string.dat[,3]&gt;400,]
 string.graph = ftM2graphNEL(as.matrix(string.keep[,1:2]))
-string.path = johnson.all.pairs.sp(string.graph)
+string.path = johnson.all.pairs.sp(string.graph)  # the step numbers of shortest path between gene pairs 
 
-#save(string.graph, string.path, file=&quot;tmp01_STRING_graph.Rdata&quot;)
 #save(string.keep, string.graph, string.path, file=&quot;C:\\han\\Projects\\IntegratePPI\\tmp01_STRING_graph.Rdata&quot;)</code></pre>
 <pre class="r"><code>### BRAINSPAN ####
 ## &quot;genes_matrix_csv.zip&quot; already in repo
@@ -853,8 +913,8 @@ loaded via a namespace (and not attached):
 [25] xfun_0.43         fs_1.6.4          sass_0.4.9        cli_3.6.2        
 [29] magrittr_2.0.3    digest_0.6.35     grid_4.4.0        rstudioapi_0.16.0
 [33] lifecycle_1.0.4   vctrs_0.6.5       evaluate_0.23     glue_1.7.0       
-[37] stats4_4.4.0      fansi_1.0.6       rmarkdown_2.26    tools_4.4.0      
-[41] pkgconfig_2.0.3   htmltools_0.5.8.1</code></pre>
+[37] whisker_0.4.1     stats4_4.4.0      fansi_1.0.6       rmarkdown_2.26   
+[41] tools_4.4.0       pkgconfig_2.0.3   htmltools_0.5.8.1</code></pre>
 </div>
 
 
