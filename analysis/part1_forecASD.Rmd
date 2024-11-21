@@ -33,9 +33,13 @@ require(randomForest)
 #                        stringsAsFactors=F,
 #                        header=T)
 
-string.dat = read.table("C:\\han\\Dataset\\20240610_PMID_33244169\\9606.protein.links.v10.txt.gz", 
+#string.dat = read.table("C:\\han\\Dataset\\20240610_PMID_33244169\\9606.protein.links.v10.txt.gz", 
+#                        stringsAsFactors=F,
+#                        header=T)
+
+string.dat = read.table("C:\\han\\Dataset\\20240430_STRING\\9606.protein.links.v12.0.txt.gz", 
                         stringsAsFactors=F,
-                        header=T)
+                        header=T)  # use latest version 12.0
 
 
 
