@@ -219,7 +219,7 @@ colnames(bs) = 1:800
 
 ## replace NAs with median
 bs = na.roughfix(bs)
-#save(bs, file="01_BrainSpan_matrix.Rdata")
+
 #save(bs,  file="C:\\han\\Projects\\IntegratePPI\\01_BrainSpan_matrix.Rdata")
 
 ```
@@ -232,9 +232,9 @@ bs = na.roughfix(bs)
 #sfari = read.table("./ext_data/SFARI-Gene_genes_export01-11-2017.csv",sep=",",header=T,stringsAsFactors=F)
 #sfari.id = read.table("./ext_data/sfari_gene_ids.txt",sep="\t",stringsAsFactors=F,header=T)
 
-sfari_2017 = read.table("C:\\han\\Dataset\\20240610_PMID_33244169\\SFARI-Gene_genes_export01-11-2017.csv",sep=",",header=T,stringsAsFactors=F)
+#sfari_2017= read.table("C:\\han\\Dataset\\20240610_PMID_33244169\\SFARI-Gene_genes_export01-11-2017.csv",sep=",",header=T,stringsAsFactors=F)
 
-sfari = read.table("C:\\han\\Dataset\\SFARI_base\\SFARI-Gene_genes_08-19-2024release_09-16-2024export.csv",sep=",",header=T,stringsAsFactors=F)
+sfari = read.table("C:\\han\\Dataset\\SFARI_base\\SFARI-Gene_genes_08-19-2024release_09-16-2024export.csv",sep=",",header=T,stringsAsFactors=F)  # use new SFARI data
 
 sfari.id = read.table("C:\\han\\Dataset\\20240610_PMID_33244169\\sfari_gene_ids.txt",sep="\t",stringsAsFactors=F,header=T)
 
@@ -242,12 +242,12 @@ sfari.id = read.table("C:\\han\\Dataset\\20240610_PMID_33244169\\sfari_gene_ids.
 ## top are SFARI 1 and 2 genes
 top = sfari$gene.symbol[sfari$gene.score %in% c("1","2")]
 top = sfari.id$Protein.stable.ID[sfari.id$Gene.name %in% top]
-top = unique( top[ top %in% rownames(hint.path) ] )
-## pos are top genes also in HINT
-pos = rownames(hint.path)[ rownames(hint.path) %in% top ]
+top = unique( top[ top %in% rownames(string.path) ] )
+## pos are top genes also in STRIN
+pos = rownames(string.path)[ rownames(string.path) %in% top ]
 pos = unique(pos)
 pos = pos[ !is.na(pos) ]
-rn = rownames(hint.path)[ rownames(hint.path) %in% rownames(bs) ]
+rn = rownames(string.path)[ rownames(string.path) %in% rownames(bs) ]
 
 ## negative genes are random background genes
 set.seed(3716359)
