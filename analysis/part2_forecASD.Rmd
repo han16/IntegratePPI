@@ -14,6 +14,7 @@ date: "2024-11-05"
 #### Load Packages ####
 # # # # # # # # # # # #
 rm(list=ls())
+set.seed(123)
 require(randomForest)
 
 ```
@@ -38,7 +39,8 @@ bs.rf = randomForest(y=bs.y,
                      ntree=1000,
                      importance=T,
                      strata=bs.y,
-                     sampsize=c(76,76),
+                    # sampsize=c(76,76),
+                     sampsize=c(min(table(bs.y)),min(table(bs.y))),   # although there are 674 positive examples, i.e. risk genes, the samplesize must not exceed minimum of each class min(table(bs.y))
                      do.trace=10,
                      proximity=T)
 
@@ -58,6 +60,7 @@ bs.prd = rbind(bs.rf$vote, bs.prd)
 # # # # # # # # # # # # 
 #### the STRING RF ####
 # # # # # # # # # # # # 
+################################## DO NOT RUN-- too long time ###########
 load(paste(path, "tmp01_STRING_graph.Rdata", sep=""))
 
 string.x = string.path[rownames(string.path) %in% c(pos,neg), ]
@@ -69,7 +72,8 @@ string.rf = randomForest(
   x = string.x,
   importance = T,
   strata = string.y,
-  sampsize = c(77,77),
+  #sampsize = c(77,77),
+  sampsize = c(min(table(string.y)),min(table(string.y))),  # the samplesize must not exceed minimum of each class min(table(bs.y)) 
   ntree=500, 
   do.trace=10,
   proximity=T)
@@ -136,7 +140,7 @@ network.rf =
     x = x.train[,c("string", "brainspan")],
     importance = T,
     strata = y.train,
-    sampsize = c(76,76),
+    sampsize = c(min(table(y.train)),min(table(y.train))),
     do.trace = 50,
     ntree = 1000)
 

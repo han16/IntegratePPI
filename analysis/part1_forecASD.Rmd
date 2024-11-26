@@ -52,6 +52,9 @@ string.keep = string.dat[string.dat[,3]>400,]
 string.graph = ftM2graphNEL(as.matrix(string.keep[,1:2]))
 string.path = johnson.all.pairs.sp(string.graph)  # the step numbers of shortest path between gene pairs 
 
+# Replace INF values with a large number (e.g., 1e6)
+string.path[string.path == Inf] <- 1e6
+
 #save(string.keep, string.graph, string.path, file="C:\\han\\Projects\\IntegratePPI\\tmp01_STRING_graph.Rdata")
 ```
 
@@ -243,7 +246,7 @@ sfari.id = read.table("C:\\han\\Dataset\\20240610_PMID_33244169\\sfari_gene_ids.
 top = sfari$gene.symbol[sfari$gene.score %in% c("1","2")]
 top = sfari.id$Protein.stable.ID[sfari.id$Gene.name %in% top]
 top = unique( top[ top %in% rownames(string.path) ] )
-## pos are top genes also in STRIN
+## pos are top genes also in STRING
 pos = rownames(string.path)[ rownames(string.path) %in% top ]
 pos = unique(pos)
 pos = pos[ !is.na(pos) ]
