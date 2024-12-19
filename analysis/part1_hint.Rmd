@@ -16,6 +16,8 @@ library(ggplot2)
 ```
 
 
+
+
 ```{r, message=F, warning=F}
 path="C:\\han\\Dataset\\20241114_HINT_ProteinDatabase\\"
 binary=as_tibble(read.table(paste(path, "HomoSapiens_binary_hq.txt", sep=""), fill = TRUE, header=T))

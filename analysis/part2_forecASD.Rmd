@@ -57,6 +57,41 @@ bs.prd = rbind(bs.rf$vote, bs.prd)
 
 
 ```{r, message=F, warning=F, eval=F}
+################################# code to replicate the results in the paper ################
+path="C:\\han\\Projects\\IntegratePPI\\"
+# # # # # # # # # # # #
+#### BrainSpan RF #####
+# # # # # # # # # # # #
+load(paste(path, "01_BrainSpan_matrix.Rdata", sep=""))
+load(paste(path, "01_training_labels_Brueggeman2020.Rdata", sep=""))
+
+bs.x = bs_Brueggeman2020[ rownames(bs_Brueggeman2020) %in% c(pos_Brueggeman2020,neg_Brueggeman2020) , ]
+bs.y = as.factor(rownames(bs.x) %in% pos_Brueggeman2020)
+
+## train random forest
+set.seed(5136)
+bs.rf_Brueggeman2020 = randomForest(y=bs.y,
+                     x=bs.x,
+                     ntree=1000,
+                     importance=T,
+                     strata=bs.y,
+                     sampsize=c(76,76),
+                     do.trace=10,
+                     proximity=T)
+
+## get predictions on all remaining genes
+bs.z =  na.roughfix(bs[ !rownames(bs) %in% rownames(bs.x) , ])
+
+bs.prd = predict(bs.rf_Brueggeman2020, bs.z, type="prob")
+bs.prd_Brueggeman2020 = rbind(bs.rf_Brueggeman2020$vote, bs.prd)
+
+#save(bs.rf_Brueggeman2020, bs.prd_Brueggeman2020, file="C:\\han\\Projects\\IntegratePPI\\02_brainspan_RF_Brueggeman2020.Rdata")
+
+```
+
+
+
+```{r, message=F, warning=F, eval=F}
 # # # # # # # # # # # # 
 #### the STRING RF ####
 # # # # # # # # # # # # 
@@ -107,6 +142,60 @@ string.prd = string.prd[ order(string.prd[,2], decreasing=T), ]
 #save(string.rf,string.prd,file=paste(path, "02_STRING_rf.Rdata", sep=""))
 
 ```
+
+
+```{r, message=F, warning=F, eval=F}
+############################## code to replicate the results in the paper ############################
+# # # # # # # # # # # # 
+#### the STRING RF ####
+# # # # # # # # # # # # 
+load(paste(path, "tmp01_STRING_graph_Brueggeman2020.Rdata", sep=""))
+
+string.x = string.path_Brueggeman2020[rownames(string.path_Brueggeman2020) %in% c(pos_Brueggeman2020,neg_Brueggeman2020), ]
+string.y = as.factor( rownames(string.x) %in% pos_Brueggeman2020 )
+
+set.seed(2176)
+string.rf_Brueggeman2020 = randomForest(
+  y = string.y,
+  x = string.x,
+  importance = T,
+  strata = string.y,
+  sampsize = c(77,77),
+  ntree=500, 
+  do.trace=10,
+  proximity=T)
+
+## stratify by predicted class lables
+strata = string.rf_Brueggeman2020$y:string.rf_Brueggeman2020$pred
+## sample size is smallest class in strata
+sampsize = rep(min(table(strata)),4)
+
+## fit a model while omitting variables which are not used in any tree
+set.seed(679)
+while( sum( varUsed(string.rf_Brueggeman2020) < 1 ) > 0 ){
+ string.rf_Brueggeman2020 = randomForest(
+   y = string.y,
+   x = string.x[, rownames(string.rf_Brueggeman2020$importance)[varUsed(string.rf_Brueggeman2020) > 0] ],
+   importance = T,
+   strata = strata,
+   sampsize = sampsize,
+   ntree = 500,
+   do.trace = 100,
+   proximity = T)
+ 
+ print(paste(sum(varUsed(string.rf_Brueggeman2020) == 0), "out of", nrow(string.rf_Brueggeman2020$importance), "variables unused"))
+}
+
+
+string.prd = predict(string.rf_Brueggeman2020, string.path[!rownames(string.path_Brueggeman2020) %in% rownames(string.x), ], type="prob")
+string.prd = rbind(string.prd, string.rf_Brueggeman2020$vote)
+string.prd_Brueggeman2020 = string.prd[ order(string.prd[,2], decreasing=T), ]
+
+#save(string.rf,string.prd,file=paste(path, "02_STRING_rf.Rdata", sep=""))
+
+```
+
+
 
 
 
