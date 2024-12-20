@@ -50,7 +50,7 @@ string.path = johnson.all.pairs.sp(string.graph)  # the step numbers of shortest
 
 
 ```{r, message=F, warning=F, eval=F}
-##################### code for original paper ##########################
+##################### codes to replicate results in the paper ##########################
 #### STRING NETWORK (shortest paths matrix) ####
 ## "9606.protein.links.v10.txt.gz" is already in repo
 # download.file(url = "http://version10.string-db.org/download/protein.links.v10/9606.protein.links.v10.txt.gz", 
@@ -102,12 +102,12 @@ any(string.path_Brueggeman2020==Inf)
 
 ## Import brainspan data
 m = read.table("C:\\han\\Dataset\\20240610_PMID_33244169\\genes_matrix_csv\\expression_matrix.csv",
-               sep=",",header=F,stringsAsFactors=F)
+               sep=",",header=F,stringsAsFactors=F)   # 22327 x 579 
 ann = read.table("C:\\han\\Dataset\\20240610_PMID_33244169\\genes_matrix_csv\\rows_metadata.csv",
-                 sep=",",header=T,stringsAsFactors=F)
+                 sep=",",header=T,stringsAsFactors=F) # 22327 x 5 
 fac = read.table("C:\\han\\Dataset\\20240610_PMID_33244169\\genes_matrix_csv\\columns_metadata.csv",
-                 sep=",",header=T,stringsAsFactors=F)
-M = as.matrix(m[,-1])
+                 sep=",",header=T,stringsAsFactors=F)  # 578 x 8 
+M = as.matrix(m[,-1])   # 22327 x 578, gene x column with annotations in fac M should be the raw data without normalization 
 ```
 
 
@@ -115,14 +115,17 @@ M = as.matrix(m[,-1])
 ```{r, message=F, warning=F}
 
 ## try to map missing entrez gene IDs via gene symbols
+
+
 #eg.map = read.table("./ext_data/entrezgene2symbol.csv",
 #                    sep=",", header = T, stringsAsFactors = F)
 #eg.map = structure(eg.map$symbol, names = eg.map$entrez)
 #ann[is.na(ann$entrez_id),"entrez_id"] = names(eg.map)[match(ann[is.na(ann$entrez_id),]$gene_symbol,eg.map)]
 
 eg.map = read.table("C:\\han\\Dataset\\20240610_PMID_33244169\\entrezgene2symbol.csv",
-                    sep=",", header = T, stringsAsFactors = F)
-eg.map = structure(eg.map$symbol, names = eg.map$entrez)  ####?????? what is this? 
+                    sep=",", header = T, stringsAsFactors = F)  # 43630 x 2
+eg.map = structure(eg.map$symbol, names = eg.map$entrez)  #### restructure eg.map from data.frame to character 
+
 ann[is.na(ann$entrez_id),"entrez_id"] = names(eg.map)[match(ann[is.na(ann$entrez_id),]$gene_symbol,eg.map)]
 
 
@@ -134,8 +137,8 @@ age = fac$age
 age.tmp = strsplit(age,split=" ")
 age.wk = sapply(age.tmp,function(x) {
   if(x[2]=="pcw") out=as.numeric(x[1])*1
-  if(x[2]=="mos") out=as.numeric(x[1])*4.33 + 38
-  if(x[2]=="yrs") out=as.numeric(x[1])*52 + 38
+  if(x[2]=="mos") out=as.numeric(x[1])*4.33 + 38  # 30/7=4.28   # why +38????
+  if(x[2]=="yrs") out=as.numeric(x[1])*52 + 38    # 365/7=52.14
   return(out)
 }
 )
