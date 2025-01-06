@@ -205,6 +205,8 @@ string.prd_Brueggeman2020 = string.prd[ order(string.prd[,2], decreasing=T), ]
 # # # # # # # # # # # # # #
 ## the STRING RF score, the BrainSpan RF score, and the TADA score
 
+
+load(paste(path, "02_STRING_rf.Rdata", sep=""))
 load(paste(path, "01_id_conversion.Rdata", sep=""))
 
 nn = rownames(string.prd)[rownames(string.prd)%in%rownames(bs.prd)]

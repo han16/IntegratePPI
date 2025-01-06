@@ -23,12 +23,13 @@ require(randomForest)
 
 
 
+
 ```{r, message=F, warning=F, eval=F}
 #### STRING NETWORK (shortest paths matrix) ####
 
 string.dat = read.table("C:\\han\\Dataset\\20240430_STRING\\9606.protein.links.v12.0.txt.gz", 
-#                        stringsAsFactors=F,
-#                        header=T)  # use latest version 12.0
+                        stringsAsFactors=F,
+                        header=T)  # use latest version 12.0
 
 
 
