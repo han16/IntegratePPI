@@ -137,7 +137,7 @@ age = fac$age
 age.tmp = strsplit(age,split=" ")
 age.wk = sapply(age.tmp,function(x) {
   if(x[2]=="pcw") out=as.numeric(x[1])*1
-  if(x[2]=="mos") out=as.numeric(x[1])*4.33 + 38  # 30/7=4.28   # why +38????
+  if(x[2]=="mos") out=as.numeric(x[1])*4.33 + 38  # 30/7=4.28   # why +38? probably because of the pregnancy duration time 
   if(x[2]=="yrs") out=as.numeric(x[1])*52 + 38    # 365/7=52.14
   return(out)
 }
@@ -150,7 +150,7 @@ age.wk = sapply(age.tmp,function(x) {
 
 ## keep only structures found in most samples
 str = fac$structure_acronym
-these.str = names(table(str)[table(str)>20])
+these.str = names(table(str)[table(str)>20])  # keep structures with at least 20 samples 
 
 ## smooth and interpolate data ##
 #### Lower number of parallel cores if fewer than 4 are available
@@ -173,7 +173,7 @@ for(i in 1:length(these.str)){
   here = these.str[i]
   X = M[,str==here]
   x_age = age.wk[str==here]
-  expr[[i]] = parApply(cl,X,1,lw.smooth,x_age)
+  expr[[i]] = parApply(cl,X,1,lw.smooth,x_age)  # apply a function to row of columns of a matrix in parallel 
   names(expr)[i] = these.str[i]
   print(i)
 }

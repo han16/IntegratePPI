@@ -379,7 +379,7 @@ div.tocify {
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
 <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-workflowr <span class="glyphicon glyphicon-ok text-success"
+workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
 aria-hidden="true"></span>
 </button>
 </p>
@@ -390,8 +390,8 @@ aria-hidden="true"></span>
 </li>
 <li>
 <a data-toggle="tab" href="#checks"> Checks <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
-</a>
+class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -400,13 +400,13 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2024-12-20
+<strong>Last updated:</strong> 2025-01-06
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 0
+aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>IntegratePPI/</code> <span
@@ -429,18 +429,21 @@ versions</em> tab lists the development history.
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
-</a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
+changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate"
+<div id="strongRMarkdownfilestronguncommittedchanges"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git
-repository, you know the exact version of the code that produced these
-results.</p>
+<p>The R Markdown file has unstaged changes. To know which version of
+the R Markdown file created these results, you’ll want to first commit
+it to the Git repo. If you’re still working on the analysis, you can
+ignore this warning. When you’re finished, you can run
+<code>wflow_publish</code> to commit the R Markdown file and build the
+HTML.</p>
 </div>
 </div>
 </div>
@@ -531,15 +534,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16IntegratePPItree4ad6e65c5319b213990938f6a61041a07bada22btargetblank4ad6e65a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomhan16IntegratePPItree975c151f6414d479f41684186071ffa76fd826catargetblank975c151a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/han16/IntegratePPI/tree/4ad6e65c5319b213990938f6a61041a07bada22b" target="_blank">4ad6e65</a>
+<a href="https://github.com/han16/IntegratePPI/tree/975c151f6414d479f41684186071ffa76fd826ca" target="_blank">975c151</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomhan16IntegratePPItree4ad6e65c5319b213990938f6a61041a07bada22btargetblank4ad6e65a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomhan16IntegratePPItree975c151f6414d479f41684186071ffa76fd826catargetblank975c151a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -549,7 +552,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/han16/IntegratePPI/tree/4ad6e65c5319b213990938f6a61041a07bada22b" target="_blank">4ad6e65</a>.
+<a href="https://github.com/han16/IntegratePPI/tree/975c151f6414d479f41684186071ffa76fd826ca" target="_blank">975c151</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -566,6 +569,9 @@ were generated:
 Ignored files:
     Ignored:    analysis/.Rhistory
     Ignored:    analysis/string_cache/
+
+Unstaged changes:
+    Modified:   analysis/part1_forecASD.Rmd
 
 </code></pre>
 <p>
@@ -611,6 +617,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/han16/IntegratePPI/blob/975c151f6414d479f41684186071ffa76fd826ca/analysis/part1_forecASD.Rmd" target="_blank">975c151</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-12-20
+</td>
+<td>
+12/20/2024
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/han16/IntegratePPI/975c151f6414d479f41684186071ffa76fd826ca/docs/part1_forecASD.html" target="_blank">975c151</a>
+</td>
+<td>
+han
+</td>
+<td>
+2024-12-20
+</td>
+<td>
+12/20/2024
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -818,7 +858,7 @@ string.path = johnson.all.pairs.sp(string.graph)  # the step numbers of shortest
 #string.path[string.path == Inf] &lt;- 1e6
 
 #save(string.keep, string.graph, string.path, file=&quot;C:\\han\\Projects\\IntegratePPI\\tmp01_STRING_graph.Rdata&quot;)</code></pre>
-<pre class="r"><code>##################### code for original paper ##########################
+<pre class="r"><code>##################### codes to replicate results in the paper ##########################
 #### STRING NETWORK (shortest paths matrix) ####
 ## &quot;9606.protein.links.v10.txt.gz&quot; is already in repo
 # download.file(url = &quot;http://version10.string-db.org/download/protein.links.v10/9606.protein.links.v10.txt.gz&quot;, 
@@ -863,21 +903,24 @@ any(string.path_Brueggeman2020==Inf)
 
 ## Import brainspan data
 m = read.table(&quot;C:\\han\\Dataset\\20240610_PMID_33244169\\genes_matrix_csv\\expression_matrix.csv&quot;,
-               sep=&quot;,&quot;,header=F,stringsAsFactors=F)
+               sep=&quot;,&quot;,header=F,stringsAsFactors=F)   # 22327 x 579 
 ann = read.table(&quot;C:\\han\\Dataset\\20240610_PMID_33244169\\genes_matrix_csv\\rows_metadata.csv&quot;,
-                 sep=&quot;,&quot;,header=T,stringsAsFactors=F)
+                 sep=&quot;,&quot;,header=T,stringsAsFactors=F) # 22327 x 5 
 fac = read.table(&quot;C:\\han\\Dataset\\20240610_PMID_33244169\\genes_matrix_csv\\columns_metadata.csv&quot;,
-                 sep=&quot;,&quot;,header=T,stringsAsFactors=F)
-M = as.matrix(m[,-1])</code></pre>
+                 sep=&quot;,&quot;,header=T,stringsAsFactors=F)  # 578 x 8 
+M = as.matrix(m[,-1])   # 22327 x 578, gene x column with annotations in fac M should be the raw data without normalization </code></pre>
 <pre class="r"><code>## try to map missing entrez gene IDs via gene symbols
+
+
 #eg.map = read.table(&quot;./ext_data/entrezgene2symbol.csv&quot;,
 #                    sep=&quot;,&quot;, header = T, stringsAsFactors = F)
 #eg.map = structure(eg.map$symbol, names = eg.map$entrez)
 #ann[is.na(ann$entrez_id),&quot;entrez_id&quot;] = names(eg.map)[match(ann[is.na(ann$entrez_id),]$gene_symbol,eg.map)]
 
 eg.map = read.table(&quot;C:\\han\\Dataset\\20240610_PMID_33244169\\entrezgene2symbol.csv&quot;,
-                    sep=&quot;,&quot;, header = T, stringsAsFactors = F)
-eg.map = structure(eg.map$symbol, names = eg.map$entrez)  ####?????? what is this? 
+                    sep=&quot;,&quot;, header = T, stringsAsFactors = F)  # 43630 x 2
+eg.map = structure(eg.map$symbol, names = eg.map$entrez)  #### restructure eg.map from data.frame to character 
+
 ann[is.na(ann$entrez_id),&quot;entrez_id&quot;] = names(eg.map)[match(ann[is.na(ann$entrez_id),]$gene_symbol,eg.map)]
 
 
@@ -889,14 +932,14 @@ age = fac$age
 age.tmp = strsplit(age,split=&quot; &quot;)
 age.wk = sapply(age.tmp,function(x) {
   if(x[2]==&quot;pcw&quot;) out=as.numeric(x[1])*1
-  if(x[2]==&quot;mos&quot;) out=as.numeric(x[1])*4.33 + 38
-  if(x[2]==&quot;yrs&quot;) out=as.numeric(x[1])*52 + 38
+  if(x[2]==&quot;mos&quot;) out=as.numeric(x[1])*4.33 + 38  # 30/7=4.28   # why +38? probably because of the pregnancy duration time 
+  if(x[2]==&quot;yrs&quot;) out=as.numeric(x[1])*52 + 38    # 365/7=52.14
   return(out)
 }
 )</code></pre>
 <pre class="r"><code>## keep only structures found in most samples
 str = fac$structure_acronym
-these.str = names(table(str)[table(str)&gt;20])
+these.str = names(table(str)[table(str)&gt;20])  # keep structures with at least 20 samples 
 
 ## smooth and interpolate data ##
 #### Lower number of parallel cores if fewer than 4 are available
@@ -919,7 +962,7 @@ for(i in 1:length(these.str)){
   here = these.str[i]
   X = M[,str==here]
   x_age = age.wk[str==here]
-  expr[[i]] = parApply(cl,X,1,lw.smooth,x_age)
+  expr[[i]] = parApply(cl,X,1,lw.smooth,x_age)  # apply a function to row of columns of a matrix in parallel 
   names(expr)[i] = these.str[i]
   print(i)
 }</code></pre>
