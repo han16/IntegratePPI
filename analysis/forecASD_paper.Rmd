@@ -171,7 +171,7 @@ expr.sc = lapply(expr,sc)
 ```
 
 
-```{r, message=F, warning=F}
+```{r, message=F, warning=F, eval=F}
 
 ## entrezID to ensembl protein ID mapping
 #e2e = read.table("./ext_data/entrez_gene_id.vs.string.v10.28042015.tsv",sep="\t",stringsAsFactors=F)
@@ -234,7 +234,7 @@ neg = sample(rn[ !(rn %in% sfari.id$Protein.stable.ID) ] , 1000)
 
 
 
-
+```{r, message=F, warning=F, eval=F}
 
 # # # # # # # # # # # # 
 #### Load Packages ####
@@ -244,8 +244,8 @@ require(randomForest)
 # # # # # # # # # # # #
 #### BrainSpan RF #####
 # # # # # # # # # # # #
-load("01_BrainSpan_matrix.Rdata")
-load("01_training_labels.Rdata")
+load("C:\\han\\Projects\\IntegratePPI\\forecASDPaper\\01_BrainSpan_matrix.Rdata")
+load("C:\\han\\Projects\\IntegratePPI\\forecASDPaper\\01_training_labels.Rdata")
 
 bs.x = bs[ rownames(bs) %in% c(pos,neg) , ]
 bs.y = as.factor(rownames(bs.x) %in% pos)
@@ -267,12 +267,17 @@ bs.z =  na.roughfix(bs[ !rownames(bs) %in% rownames(bs.x) , ])
 bs.prd = predict(bs.rf, bs.z, type="prob")
 bs.prd = rbind(bs.rf$vote, bs.prd)
 
-save(bs.rf, bs.prd, file="02_brainspan_RF.Rdata")
+#save(bs.rf, bs.prd, file="C:\\han\\Projects\\IntegratePPI\\forecASDPaper\\02_brainspan_RF.Rdata")
+```
 
+
+
+
+```{r, message=F, warning=F, eval=F}
 # # # # # # # # # # # # 
 #### the STRING RF ####
 # # # # # # # # # # # # 
-load("01_STRING_graph.Rdata")
+load("C:\\han\\Projects\\IntegratePPI\\forecASDPaper\\tmp01_STRING_graph.Rdata")
 
 string.x = string.path[rownames(string.path) %in% c(pos,neg), ]
 string.y = as.factor( rownames(string.x) %in% pos )
@@ -314,14 +319,19 @@ string.prd = predict(string.rf, string.path[!rownames(string.path) %in% rownames
 string.prd = rbind(string.prd, string.rf$vote)
 string.prd = string.prd[ order(string.prd[,2], decreasing=T), ]
 
-save(string.rf,string.prd,file="02_STRING_rf.Rdata")
+save(string.rf,string.prd,file="C:\\han\\Projects\\IntegratePPI\\forecASDPaper\\02_STRING_rf.Rdata")
+```
+
+
+
+```{r, message=F, warning=F, eval=F}
 
 # # # # # # # # # # # # # #
 #### integrate scores #####
 # # # # # # # # # # # # # #
 ## the STRING RF score, the BrainSpan RF score, and the TADA score
 
-load("01_id_conversion.Rdata")
+load("C:\\han\\Projects\\IntegratePPI\\forecASDPaper\\01_id_conversion.Rdata")
 
 nn = rownames(string.prd)[rownames(string.prd)%in%rownames(bs.prd)]
 symbol = eg.map[names(e2e)[match(nn,e2e)]]
@@ -354,7 +364,7 @@ network.prd = predict(network.rf,
                           type=  "prob")
 network.prd = rbind(network.prd, network.rf$votes)
 
-save(network.rf, network.prd, file="02_network_rf.Rdata")
-
+#save(network.rf, network.prd, file="C:\\han\\Projects\\IntegratePPI\\forecASDPaper\\02_network_rf.Rdata")
+```
 
 
