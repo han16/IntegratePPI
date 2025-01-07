@@ -41,3 +41,8 @@ editor_options:
 ## forecASD to autism data in 2022 using HINT
 
 1. [hint](part1_hint.html)
+
+
+## forecASD paper 
+
+1. [replicate the results in forecASD paper](forecASD_paper.html)
