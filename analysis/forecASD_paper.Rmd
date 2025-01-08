@@ -171,6 +171,10 @@ expr.sc = lapply(expr,sc)
 ```
 
 
+
+
+
+
 ```{r, message=F, warning=F, eval=F}
 
 ## entrezID to ensembl protein ID mapping
@@ -194,7 +198,7 @@ missing = missing[!duplicated(missing$NCBI.gene.ID),]
 missing = structure(missing$Protein.stable.ID,names=as.character(missing$NCBI.gene.ID))
 e2e = c(e2e,missing)
 rownames(bs) = e2e[rownames(bs)]
-colnames(bs) = 1:800
+colnames(bs) = 1:800  # 800 measures per gene, by 16 brain regions X 50 time points 
 
 ## replace NAs with median
 bs = na.roughfix(bs)
@@ -262,7 +266,7 @@ bs.rf = randomForest(y=bs.y,
                      proximity=T)
 
 ## get predictions on all remaining genes
-bs.z =  na.roughfix(bs[ !rownames(bs) %in% rownames(bs.x) , ])
+bs.z =  na.roughfix(bs[ !rownames(bs) %in% rownames(bs.x) , ])  # bs is the brainspan data 
 
 bs.prd = predict(bs.rf, bs.z, type="prob")
 bs.prd = rbind(bs.rf$vote, bs.prd)
@@ -366,5 +370,97 @@ network.prd = rbind(network.prd, network.rf$votes)
 
 #save(network.rf, network.prd, file="C:\\han\\Projects\\IntegratePPI\\forecASDPaper\\02_network_rf.Rdata")
 ```
+
+
+## 03_ensemble_model
+
+
+```{r, message=F, warning=F, eval=F}
+# # # # # # # # # # # # #
+#### Ensembel Model #####
+# # # # # # # # # # # # #
+
+library(randomForest)
+
+load("C:\\han\\Projects\\IntegratePPI\\forecASDPaper\\01_training_labels.Rdata")
+load("C:\\han\\Projects\\IntegratePPI\\forecASDPaper\\02_STRING_rf.Rdata")
+load("C:\\han\\Projects\\IntegratePPI\\forecASDPaper\\02_brainspan_RF.Rdata")
+load("C:\\han\\Projects\\IntegratePPI\\forecASDPaper\\02_network_rf.Rdata")
+
+```
+
+
+
+```{r, message=F, warning=F, eval=F}
+# # # # # # # # # # # # 
+#### Load in data #####
+# # # # # # # # # # # # 
+
+#meta = read.csv("./ext_data/composite_table.csv", stringsAsFactors = F, row.names = 1)
+meta = read.csv("C:\\han\\Dataset\\20240610_PMID_33244169\\composite_table.csv",stringsAsFactors = F, row.names = 1)
+
+string.prd = string.prd[rownames(meta), ]
+bs.prd = bs.prd[rownames(meta), ]
+
+## combine other predictors with network scores
+meta = cbind(
+  data.frame(
+    STRING_score = string.prd[rownames(meta) , "TRUE"],
+    BrainSpan_score = bs.prd[rownames(meta), "TRUE"]
+  ),
+  meta[rownames(meta), ]
+)
+
+# # # # # # # # # # # # 
+#### train forest #####
+# # # # # # # # # # # # 
+
+meta.train = na.roughfix(
+  meta[meta$ensembl_string %in% c(pos,neg), -(3:9)]   ## remove gene identifiers, etc.
+) 
+y = as.factor(rownames(meta.train) %in% pos)
+
+```
+
+
+
+
+```{r, message=F, warning=F, eval=F}
+
+set.seed(43775)
+rf = randomForest(
+  y = y,
+  x = meta.train, 
+  importance = T,
+  do.trace = 10,
+  strata = y,
+  sampsize = c(76,76)
+  )
+
+meta.test = na.roughfix(
+  meta[!(meta$ensembl_string %in% c(pos,neg)), -(3:9)]   ## remove gene identifiers, etc.
+) 
+
+meta.prd <- predict(rf, 
+        meta.test, 
+        type = "prob")
+
+meta.score <- rbind(rf$votes, meta.prd)
+
+final.data <- cbind(
+  data.frame(
+    forecASD = meta.score[rownames(meta),"TRUE"],
+    'STRING+BrainSpan_RF' = network.prd[rownames(meta),"TRUE"]
+  ), 
+  meta
+)
+
+#write.csv(final.data, 
+#          file = "C:\\han\\Projects\\IntegratePPI\\forecASDPaper\\forecASD_table.csv",
+#          quote = F, 
+#          row.names = F)
+
+```
+
 
 
