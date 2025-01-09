@@ -200,8 +200,8 @@ e2e = c(e2e,missing)
 rownames(bs) = e2e[rownames(bs)]
 colnames(bs) = 1:800  # 800 measures per gene, by 16 brain regions X 50 time points 
 
-## replace NAs with median
-bs = na.roughfix(bs)
+## replace NAs with column median
+bs = na.roughfix(bs)   # each row is a gene and column a region x timepoint
 #save(bs, file="C:\\han\\Projects\\IntegratePPI\\forecASDPaper\\01_BrainSpan_matrix.Rdata")
 
 ###### Training Labels ####
@@ -265,11 +265,17 @@ bs.rf = randomForest(y=bs.y,
                      do.trace=10,
                      proximity=T)
 
+# bs.rf$err.rate[seq(10:1000, by=10),] # OOB error rate and class specific error rate, same as the printed output  
+
 ## get predictions on all remaining genes
 bs.z =  na.roughfix(bs[ !rownames(bs) %in% rownames(bs.x) , ])  # bs is the brainspan data 
 
+## OOB error rate
+#bs.rf$err.rate[nrow(bs.rf$err.rate), "OOB"]
+
 bs.prd = predict(bs.rf, bs.z, type="prob")
 bs.prd = rbind(bs.rf$vote, bs.prd)
+#vote: a matrix with one row for each input data point and one column for each class, giving the fraction or number of (OOB) #‘votes’ from the random forest
 
 #save(bs.rf, bs.prd, file="C:\\han\\Projects\\IntegratePPI\\forecASDPaper\\02_brainspan_RF.Rdata")
 ```
@@ -297,7 +303,7 @@ string.rf = randomForest(
   do.trace=10,
   proximity=T)
 
-## stratify by predicted class lables
+## stratify by predicted class labels
 strata = string.rf$y:string.rf$pred
 ## sample size is smallest class in strata
 sampsize = rep(min(table(strata)),4)
