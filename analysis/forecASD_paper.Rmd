@@ -304,16 +304,16 @@ string.rf = randomForest(
   proximity=T)
 
 ## stratify by predicted class labels
-strata = string.rf$y:string.rf$pred
+strata = string.rf$y:string.rf$pred  # combine observed and predicted labels, why do this? 
 ## sample size is smallest class in strata
 sampsize = rep(min(table(strata)),4)
 
 ## fit a model while omitting variables which are not used in any tree
 set.seed(679)
-while( sum( varUsed(string.rf) < 1 ) > 0 ){
+while( sum( varUsed(string.rf) < 1 ) > 0 ){  # varused: Find out which predictor variables are actually used in the random forest, it will stop when all remaining predictors are used in at least one split.
  string.rf = randomForest(
    y = string.y,
-   x = string.x[, rownames(string.rf$importance)[varUsed(string.rf) > 0] ],
+   x = string.x[, rownames(string.rf$importance)[varUsed(string.rf) > 0] ],  # Predictors that are unused (varUsed(string.rf) == 0) are removed from consideration in subsequent iterations, that is at certain point,  it will be true that sum( varUsed(string.rf) < 1 ) > 0
    importance = T,
    strata = strata,
    sampsize = sampsize,
@@ -329,8 +329,10 @@ string.prd = predict(string.rf, string.path[!rownames(string.path) %in% rownames
 string.prd = rbind(string.prd, string.rf$vote)
 string.prd = string.prd[ order(string.prd[,2], decreasing=T), ]
 
-save(string.rf,string.prd,file="C:\\han\\Projects\\IntegratePPI\\forecASDPaper\\02_STRING_rf.Rdata")
+#save(string.rf,string.prd,file="C:\\han\\Projects\\IntegratePPI\\forecASDPaper\\02_STRING_rf.Rdata")
 ```
+
+
 
 
 
@@ -412,7 +414,7 @@ bs.prd = bs.prd[rownames(meta), ]
 meta = cbind(
   data.frame(
     STRING_score = string.prd[rownames(meta) , "TRUE"],
-    BrainSpan_score = bs.prd[rownames(meta), "TRUE"]
+    BrainSpan_score = bs.prd[rownames(meta), "TRUE"]   ########### no TADA data??????????? 
   ),
   meta[rownames(meta), ]
 )
