@@ -405,7 +405,7 @@ load("C:\\han\\Projects\\IntegratePPI\\forecASDPaper\\02_network_rf.Rdata")
 # # # # # # # # # # # # 
 
 #meta = read.csv("./ext_data/composite_table.csv", stringsAsFactors = F, row.names = 1)
-meta = read.csv("C:\\han\\Dataset\\20240610_PMID_33244169\\composite_table.csv",stringsAsFactors = F, row.names = 1)
+meta = read.csv("C:\\han\\Dataset\\20240610_PMID_33244169\\composite_table.csv",stringsAsFactors = F, row.names = 1)  # tada data is in meta 
 
 string.prd = string.prd[rownames(meta), ]
 bs.prd = bs.prd[rownames(meta), ]
@@ -414,7 +414,7 @@ bs.prd = bs.prd[rownames(meta), ]
 meta = cbind(
   data.frame(
     STRING_score = string.prd[rownames(meta) , "TRUE"],
-    BrainSpan_score = bs.prd[rownames(meta), "TRUE"]   ########### no TADA data??????????? 
+    BrainSpan_score = bs.prd[rownames(meta), "TRUE"]  
   ),
   meta[rownames(meta), ]
 )
@@ -424,7 +424,7 @@ meta = cbind(
 # # # # # # # # # # # # 
 
 meta.train = na.roughfix(
-  meta[meta$ensembl_string %in% c(pos,neg), -(3:9)]   ## remove gene identifiers, etc.
+  meta[meta$ensembl_string %in% c(pos,neg), -(3:9)]   ## remove gene identifiers, etc. # this is the place TADA was used 
 ) 
 y = as.factor(rownames(meta.train) %in% pos)
 
