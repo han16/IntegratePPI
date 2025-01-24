@@ -39,22 +39,26 @@ load(paste(path, " 02_network_rf.Rdata", sep=""))
 #meta = read.csv("./ext_data/composite_table.csv", stringsAsFactors = F, row.names = 1)
 meta = read.csv("C:\\han\\Dataset\\20240610_PMID_33244169\\composite_table.csv",stringsAsFactors = F, row.names = 1)
 
-#string.prd = string.prd[rownames(meta), ]
+############### unify row names among 3 data sets 
+common_rownames=intersect(rownames(bs.prd), intersect(rownames(string.prd), rownames(meta)))
+string.prd=string.prd[rownames(string.prd) %in% common_rownames, ]
+bs.prd=bs.prd[rownames(bs.prd) %in% common_rownames, ]
+meta=meta[rownames(meta) %in% common_rownames, ]
+
 
 if (!all(rownames(meta) %in% rownames(string.prd))) {
   stop("Mismatch in rownames between meta and string.prd")
 }
 
-string.prd <- string.prd[rownames(meta), ]
+#string.prd <- string.prd[rownames(meta), ]
 
 
-bs.prd = bs.prd[rownames(meta), ]
 
 ## combine other predictors with network scores
 meta = cbind(
   data.frame(
-    STRING_score = string.prd[rownames(meta) , "TRUE"],
-    BrainSpan_score = bs.prd[rownames(meta), "TRUE"]
+    STRING_score = string.prd[common_rownames , "TRUE"],
+    BrainSpan_score = bs.prd[common_rownames, "TRUE"]
   ),
   meta[rownames(meta), ]
 )
@@ -72,7 +76,7 @@ meta = cbind(
 # # # # # # # # # # # # 
 
 meta.train = na.roughfix(
-  meta[meta$ensembl_string %in% c(pos,neg), -(3:9)]   ## remove gene identifiers, etc.
+  meta[meta$ensembl_string %in% c(pos,neg), -(3:9)]   ## remove gene identifiers, etc. use all other information to train the model 
 ) 
 y = as.factor(rownames(meta.train) %in% pos)
 
@@ -83,7 +87,7 @@ rf = randomForest(
   importance = T,
   do.trace = 10,
   strata = y,
-  sampsize = c(76,76)
+  sampsize = c(min(table(y)),min(table(y)))
   )
 
 meta.test = na.roughfix(
